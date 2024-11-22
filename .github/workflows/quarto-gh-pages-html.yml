@@ -43,6 +43,8 @@ jobs:
           use-public-rspm: true
           r-version: '4.3.2'
 
+      - uses: r-lib/actions/setup-renv@v2
+
       - name: Install Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
