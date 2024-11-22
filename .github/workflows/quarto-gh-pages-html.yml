@@ -6,10 +6,10 @@
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches: 
-      - master
+      - main
   # to be able to trigger a manual build
   workflow_dispatch:
 
