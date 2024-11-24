@@ -196,7 +196,7 @@ ggplot()
 :::
 
 ```{r echo = TRUE}
-boston_celtics = read_csv("data/boston_celtics.csv") |> 
+boston_celtics = read_csv(here::here("data/boston_celtics.csv")) |> 
    filter(season == 2025)
 head(boston_celtics)
 ```
@@ -658,7 +658,7 @@ Choosing the Right Plot
 ## Histogram and Density
 
 ```{r fig.align='center'}
-boston_celtics = read_csv("data/boston_celtics.csv")
+boston_celtics = read_csv(here::here("data/boston_celtics.csv"))
 
 ggplot(data = boston_celtics, aes(x = team_score)) + 
   geom_histogram(aes(y = ..density..), alpha = 0.4, col = "lightgray") + 
