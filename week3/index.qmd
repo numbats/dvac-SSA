@@ -12,14 +12,14 @@ format:
     logo: images/monash-one-line-black-rgb.png
     slide-number: c
     multiplex: false
-    theme: assets/monash.scss
+    theme: ../assets/monash.scss
     show-slide-number: all
     show-notes: false
     controls: true
     width: 1280
     height: 720
-    css: [assets/custom.css, assets/lecture-01.css]
-    include-after-body: "assets/after-body.html"
+    css: [../assets/custom.css, ../assets/lecture-01.css]
+    include-after-body: "../assets/after-body.html"
     #   boardmarker-width: 5
     #   buttons: true
     embed-resources: true
