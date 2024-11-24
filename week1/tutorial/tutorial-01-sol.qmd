@@ -4,6 +4,7 @@ author: "Dr. Kate Saunders"
 format: 
   html:
     toc: true
+    css: ../../assets/tutorial.css
 editor: visual
 ---
 
