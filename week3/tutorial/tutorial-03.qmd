@@ -4,10 +4,7 @@ author: Kate Saunders
 format: 
   html:
     toc: true
-    css: tutorial.css
     embed-resources: true
-  pdf:
-    toc: true
 editor: visual
 ---
 
