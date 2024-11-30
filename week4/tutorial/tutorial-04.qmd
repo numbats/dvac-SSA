@@ -231,7 +231,7 @@ boston_celtics |>
 
 ### Finishing Up
 
-At the end of the tutorial, share your favourite plot to the discussion forum.
+By the end of this tutorial you should feel comfortable reading in a data set into R and creating a visualisation but adding layers in `ggplot2`.
 
 ##### Material developed by Dr. Kate Saunders.
 
