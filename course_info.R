@@ -2,7 +2,7 @@
 library(tidyverse)
 
 # Start of semester
-start_semester <- "2024-11-18"
+start_semester <- "2024-11-24"
 
 # Week of mid-semester break
 mid_semester_break <- "2024-09-23"
@@ -14,12 +14,12 @@ schedule <- tribble(
     2, "The Good, the Bad and the Ugly of Data Visualisation", "", "",
     3, "Visualisations in Power BI", "", "",
     4, "Visualisations in R: Part 1", "", "",
-    5, "Data Wrangling", "", "",
+    5, "Wrangling your data for Visualisation", "", "",
     6, "Visualisations in R: Part 2", "", "",
-    7, "Exploratory Data Visualisation", "", "",
-    8, "Visual Communication and Storytelling", "", "",
-    9, "Guest Lecture: James Goldie on Visual Storytelling", "", "",
-    10, "Advanced Topics: Uncertainty and Missingness(TBC)", "", "", 
+    7, "Iterating on your Visualisation", "", "",
+    8, "Communication Theory", "", "",
+    9, "TBC", "", "",
+    10, "Advanced Topics: Infographics, Uncertainty and Missingness", "", "", 
     11, "Advanced Topics: Animation and Interactivity", "", "",
     12, "Revision", "", "", 
 )
