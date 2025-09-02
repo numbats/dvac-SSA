@@ -1,12 +1,14 @@
 ---
-title: "ETX2250/ETF5922: An Introduction to Data Visualisation"
+title: "ETX2250/ETF5922: Data Visualisation and Communication"
 toc: false
 format:
   html:
     page-layout: full
 ---
 
-This unit uses data visualisation to explore and analyse data sets of all sizes, and it introduces some business analytic models for interpretation and prediction.
+## Unit Summary
+
+This unit provides a comprehensive introduction to data visualisation. Students will learn how to interpret, evaluate and create visualisations using both Power BI and R. The course begins with the foundational principles of data visualisation, including what makes a visualisation effective and the core design elements. Students will be then introduced to the tools needed to create visualisations and will learn how to choose the right visualisations for different types of data. We will explore single-variable and multivariable plots. Students will develop data wrangling skills, which are essential for cleaning and preparing datasets, and will engage in iterative processes to refine and improve their visualisations. As the course progresses, we’ll cover visual storytelling and more advanced topics such as visualising uncertainty and missing data. Interactive and animated visualizations will also be covered. This unit emphasises hands-on practice and using real-world applications of data visualisation in business. At the end of the unit students will be equipped to effectively communicate data-driven insights using visualisation in their future careers.
 
 ## Learning outcomes
 
@@ -16,13 +18,11 @@ This unit uses data visualisation to explore and analyse data sets of all sizes,
 4. Develop the skills to effectively use data visualisations to communicate in the appropriate medium, report writing, in presentations and digital storytelling.
 5. Apply advanced topics in data visualisation, such as using interactivity and animation to enhance communication.
 
-## Teachers
+## Teaching Team
 
-* **Kate Saunders** - Chief Examiner
-* **Krisanat Anukarnsakulchularp** - Instructor
+* **Kate Saunders** - Lecturer and Chief Examiner
 * **Bets Ruscoe** - Instructor
-* **Javad Vahdat Atashgah** - Instructor
-
+* **Minh Nguyen** - Instructor
 
 ```{r}
 #| label: load_packages
@@ -39,11 +39,9 @@ week <- as.integer(1 + ((Sys.Date() - as_date(start_semester))/7))
 
 ## Weekly schedule
 
-* 3 hour workshop, Monday - Wednesday - Friday, 9am-12pm each week
+* 3 hour workshop on Monday, Wednesday and Friday each week: timing TBC 
 
-## Consultation
-
-* Monday - Wednesday - Friday, 1pm-3pm each week
+* 2 hour practice session and consultation on Monday, Wednesday and Friday each week: timing TBC
 
 ```{r}
 #| label: schedule2
