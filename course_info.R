@@ -2,10 +2,10 @@
 library(tidyverse)
 
 # Start of semester
-start_semester <- "2024-11-24"
+start_semester <- "2025-11-24"
 
 # Week of mid-semester break
-mid_semester_break <- "2024-09-23"
+mid_semester_break <- NA 
 
 # Schedule
 schedule <- tribble(

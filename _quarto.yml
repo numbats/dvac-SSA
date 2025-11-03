@@ -8,8 +8,8 @@ project:
     - "*-supp.qmd"
 
 website:
-  title: "ETX2250/ETF5922: An Introduction to Data Visualisation"
-  site-url: "https://cwd.numbat.space"
+  title: "ETX2250/ETF5922: Data Visualisation and Communication"
+  site-url: "https://dvac.ss.numbat.space"
   navbar:
     background: "#006dae"
     left:
@@ -21,7 +21,7 @@ website:
         href: "https://learning.monash.edu/course/view.php?id=24787&section=59"
       - text: Moodle
         icon: mortarboard-fill
-        href: "https://learning.monash.edu/course/view.php?id=24787"
+        href: "https://learning.monash.edu/course/view.php?id=38265"
     right:
       - icon: github
         href: https://github.com/numbats/dvac-SSA
