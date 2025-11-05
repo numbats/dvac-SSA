@@ -29,7 +29,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 
 R has many standard functions, like `mean`, `sum` and `sqrt`. Other functions are stored in R packages that can be loaded as needed for specific tasks.
 
-One of the common packages is the `tidyverse` it contains lots of useful functions for data wrangling and visualisation. In fact the `tidyverse` is actually a [collection](https://tidyverse.org/packages/) of packages. 
+One of the common packages is the `tidyverse` it contains lots of useful functions for data wrangling and visualisation. In fact the `tidyverse` is actually a [collection](https://tidyverse.org/packages/) of packages.
 
 The below code checks if the package is already downloaded. If the package is not there if then it uses the `install.package` function to download it.
 
@@ -51,11 +51,11 @@ To check the package has installed correctly try calling `?ggplot`. This will br
 
 #### Your turn:
 
-1. Change the above code to install the `cowsay` package
-2. Load `cowsay` package using the `library()` function
-3. Try running `cowsay::say()`
-4. Now try running `cowsay::say(what = "I'm learning R", by = "alligator")`
-5. Call the help menu to read more about the `?say`function. Then change the function inputs to your name, your favourite animal and your favourite colour (based on the options available). 
+1.  Change the above code to install the `cowsay` package
+2.  Load `cowsay` package using the `library()` function
+3.  Try running `cowsay::say()`
+4.  Now try running `cowsay::say(what = "I'm learning R", by = "alligator")`
+5.  Call the help menu to read more about the `?say`function. Then change the function inputs to your name, your favourite animal and your favourite colour (based on the options available).
 
 ::: {.callout-note collapse="true" title="Solutions" icon="false"}
 1.  
@@ -82,7 +82,7 @@ cowsay::say()
 cowsay::say(what = "I'm learning R", by = "alligator")
 ```
 
-5. 
+5.  
 
 ```{r}
 cowsay::say(what = "Kate", by = "dragon", what_color = "purple", by_color = "red")
@@ -212,7 +212,7 @@ litres_drank*2
 log(litres_drank)
 ```
 
-Or the function might summarise something about our vector 
+Or the function might summarise something about our vector
 
 ```{r}
 table(type_of_drink)
@@ -263,7 +263,6 @@ var(y1)
 ```{r}
 cor(x1, y1)
 ```
-
 :::
 
 ##### © Copyright 2025 Monash University
