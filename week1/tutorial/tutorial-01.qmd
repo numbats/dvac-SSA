@@ -1,6 +1,6 @@
 ---
 title: "Tutorial 1: Introduction to Data Visualisation"
-author: "Dr. Kate Saunders"
+# author: "Dr. Kate Saunders"
 format: 
   html:
     toc: true
@@ -32,7 +32,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 
 R has many standard functions, like `mean()`, `sum()` and `sqrt()`. Other functions are stored in R packages that can be loaded as needed for specific tasks.
 
-One of the common packages is the `tidyverse` it contains lots of useful functions for data wrangling and visualisation. In fact the `tidyverse` is actually a [collection](https://tidyverse.org/packages/) of packages. 
+One of the common packages is the `tidyverse` it contains lots of useful functions for data wrangling and visualisation. In fact the `tidyverse` is actually a [collection](https://tidyverse.org/packages/) of packages.
 
 The below code checks if the package is already downloaded. If the package is not there if then it uses the `install.package` function to download it.
 
@@ -54,11 +54,11 @@ To check the package has installed correctly try calling `?ggplot`. This will br
 
 #### Your turn:
 
-1. Change the above code to install the `cowsay` package
-2. Load `cowsay` package using the `library()` function
-3. Try running `cowsay::say()`
-4. Now try running `cowsay::say(what = "I'm learning R", by = "alligator")`
-5. Call the help menu to read more about the `?say`function. Then change the function inputs to your name, your favourite animal and your favourite colour (based on the options available). 
+1.  Change the above code to install the `cowsay` package
+2.  Load `cowsay` package using the `library()` function
+3.  Try running `cowsay::say()`
+4.  Now try running `cowsay::say(what = "I'm learning R", by = "alligator")`
+5.  Call the help menu to read more about the `?say`function. Then change the function inputs to your name, your favourite animal and your favourite colour (based on the options available).
 
 ### Exercise 2: Assign a Variable
 
@@ -93,8 +93,7 @@ z = -3
 w = x + y + z
 ```
 
-`sqrt(16)` is a function for square root of 16, therefore the value for `y` is 4. 
-To find the value of `w`, type it in to your console. (The answer should be 6).
+`sqrt(16)` is a function for square root of 16, therefore the value for `y` is 4. To find the value of `w`, type it in to your console. (The answer should be 6).
 
 ```{r}
 w
@@ -148,12 +147,13 @@ litres_drank*2
 log(litres_drank)
 ```
 
-Or the function might summarise something about our vector 
+Or the function might summarise something about our vector
 
 ```{r}
 table(type_of_drink)
 max(litres_drank)
 ```
+
 #### Your turn:
 
 1.  Create two variables: `x1` contains "1,2,3,4,5" and `y1` contains "-1,-2,-3,-4,-5"
@@ -164,6 +164,6 @@ max(litres_drank)
 
 4.  We can find the correlation between the two vectors `x1` and `y1` using the `cor` function.
 
-5. Now try changing the middle element of `x1` to -3 and the middle element of `y1` to 0, and redo the above exercises.
+5.  Now try changing the middle element of `x1` to -3 and the middle element of `y1` to 0, and redo the above exercises.
 
 ##### © Copyright 2025 Monash University

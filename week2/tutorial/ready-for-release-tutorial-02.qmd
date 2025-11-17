@@ -15,9 +15,9 @@ editor: visual
 
 ### Learning Objectives
 
--   Consolidate your knowledge of graphical principles, and practice critiquing visualisations. 
+-   Consolidate your knowledge of graphical principles, and practice critiquing visualisations.
 
-- Do not use AI for these tasks. Discuss ideas as a group or get direction from the teaching team! 
+-   Do not use AI for these tasks. Discuss ideas as a group or get direction from the teaching team!
 
 ### Preparation
 
@@ -49,15 +49,14 @@ Review these visualisations:
 
 Some 'ugly' visualisations may have beautiful elements, and some 'beautiful' visualisations may have ugly elements. You will need to use your judgement!
 
-## Wrap Up and Share 
+## Wrap Up and Share
 
 At the end of this tutorial you'll appoint one member of your group to upload your chosen visualisations to the discussion forum. Alongside your data visualiations share your group's rating of the visualisation on a scale of 1 - 5, where 1 is bad and 5 is good, and why you gave it this rating.
 
-## In your own time 
+## In your own time
 
 Review the shared visualisations. Comment on another groups visualisation about whether you agree or disagree with the rating and why.
 
-
-##### This tutorial was adapted from a Hacky Hour coding session run by Krisanat Anukarnsakulchularp and Janith Wanniarachchi. 
+##### This tutorial was adapted from a Hacky Hour coding session run by Krisanat Anukarnsakulchularp and Janith Wanniarachchi.
 
 ##### © Copyright 2025 Monash University
