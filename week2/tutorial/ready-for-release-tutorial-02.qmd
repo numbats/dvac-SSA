@@ -13,11 +13,19 @@ editor: visual
 
 ## Plot crimes and plot masterpieces
 
+### Overview 
+
+Today you will be working in groups to critique data visualisations.
+
+We recommend not using AI for these tasks. Discuss ideas as a group or get direction from the teaching team.
+
 ### Learning Objectives
 
--   Consolidate your knowledge of graphical principles, and practice critiquing visualisations.
+-   Consolidate your knowledge of graphical principles
 
--   Do not use AI for these tasks. Discuss ideas as a group or get direction from the teaching team!
+-  Practice critically assessing data visualisation 
+
+- Practice writing and sharing your analysis  
 
 ### Preparation
 
@@ -27,7 +35,7 @@ editor: visual
 
 ## Task
 
-Today you will be working in groups. Your task is to choose two data visualisations and review those visualisations in your group.
+Your task is to choose two data visualisations and review those visualisations in your group.
 
 (i) Choose one that would be typically described as ugly from the [data-is-ugly reddit thread](https://www.reddit.com/r/dataisugly/?rdt=33540), and
 
