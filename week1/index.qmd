@@ -143,38 +143,39 @@ PhD Student at Monash University
 
 -   `r emoji("graduation")` Worked at Deloitte in the AI & Data team, before coming back for PhD
 
--   `r emoji("coder")` Lover of R and wanted to introduce R at work over Power BI
+-   `r emoji("coder")` Researches algorithmic bias
 
--   `r emoji("globe")` Just returned from a trip to Taiwan
+-   `r emoji("guitar")` Plays bass guitar in a band
 
--   `r emoji("heart")` Misses eating dumplings everyday for breakfast!
+-   `r emoji("heart")` Making her way through all of Rebecca Kuang's books
 :::
 :::::
 
-<!-- ## About your Instructor -->
+## About your Instructor
 
-<!-- ::::: columns -->
-<!-- ::: {.column width="40%"} -->
-<!-- <center><img src="images/profile-pics/minh.jpg" width="200px"/></center> -->
+::::: columns
+::: {.column width="40%"}
+<center><img src="images/profile-pics/minh.jpg"></center>
 
-<!-- **Minh Nyugen** -->
+**Minh Nyugen**
 
-<!-- PhD Candidate at Monash University -->
+PhD Student at Monash University
 
-<!-- ::: -->
+:::
 
-<!-- ::: {.column width="60%"} -->
-<!-- -   `r emoji("graduation")` Just started her PhD in ... -->
+::: {.column width="60%"}
+-   `r emoji("graduation")` Monash Actuarial Science undergrad, Hons. in Business Analytics, and now a PhD student in Data Vis
 
-<!-- -   `r emoji("globe")` Home country is ... -->
+-   `r emoji("globe")` From Vietnam 
 
-<!-- -   `r emoji("coder")` Worked in fields of ... -->
+-   `r emoji("coder")` Previous jobs: pricing actuary, business analyst.
 
-<!-- -   `r emoji("coder")` Research underpinned by .. -->
+-   `r emoji("coder")` Almost did fine arts degree, but found my canvas in data
 
-<!-- -   `r emoji("heart")` Loves ... -->
-<!-- ::: -->
-<!-- ::::: -->
+-   `r emoji("heart")` Often in the campus centre playing piano and doing karaoke as a break
+
+:::
+:::::
 
 ## Get to know your peers!
 
@@ -192,6 +193,33 @@ You might like to ask each other:
 
 
 # Unit Details {background-color="#006DAE"}
+
+## ETX2250 / ETF5922 Unit Developers
+
+Most of the material in this unit was developed by Dr. Kate Saunders and Dr. Shanika Wickramasuriya
+
+::::: columns
+::: {.column width="50%"}
+<center><img src="images/profile-pics/kate-portrait.jpg" width="300px"/>
+
+**Kate Saunders**
+
+</center>
+
+:::
+
+::: {.column width="50%"}
+<center><img src="images/profile-pics/shanika.jpg" width="300px"/>
+
+**Shanika Wickramasuriya**
+
+</center>
+
+:::
+
+:::::
+
+But there have been many contributors to the unit design and teaching over the years. 
 
 ## Why take this unit?
 
@@ -239,15 +267,14 @@ What that means:
 Compared to normal semesters the content is condensed.
 
 ::: incremental
--   There will be pre-recorded material for you to watch in your own time.
-
+-   There sometimes will be pre-recorded material for you to watch in your own time.
 <!-- -   [**Watch any pre-recorded material**]{style="color:red;"} before class -->
 
 -   Lectures and tutorials will run together as a workshop in one class block.
 
 -   The balance of lecture material to in class activities will change a little each week.
 
--   The unit is running flexibly so if you want to attend class on zoom you can.
+-   The unit is running flexibly so if you want to attend class on zoom you can
 
 :::
 ::::
@@ -282,9 +309,9 @@ Compared to normal semesters the content is condensed.
 -   Workshop 3: Visualisation in BI
 :::
 
-4 quizzes due end of the week
+3 quizzes related this this week's content
 
-There are group exercised in workshop 2 and 3 that you need to complete to do your 1st assignment.
+There are group exercises in workshop 2 and 3 that you need to complete to do your 1st assignment.
 
 ## Overview of the unit: Week 2
 
@@ -298,7 +325,7 @@ There are group exercised in workshop 2 and 3 that you need to complete to do yo
 -   Workshop 6: Visualisation in R: Plots of 2 or more Variables
 :::
 
-3 quizzes due end of the week.
+3 quizzes related this this week's content
 
 Assignment 1 will cover the first two weeks of material.
 
@@ -315,7 +342,7 @@ Assignment 1 will cover the first two weeks of material.
 
 :::
 
-3 quizzes due end of the week.
+3 quizzes related this this week's content
 
 ## Week 4: Overview of the unit
 
@@ -330,7 +357,7 @@ Assignment 1 will cover the first two weeks of material.
 
 :::
 
-2 quizzes due end of the week.
+2 quizzes related this this week's content
 
 Assignment 2 will cover the last two weeks of material.
 
@@ -352,9 +379,9 @@ Assignment 2 will cover the last two weeks of material.
 
 -   10% of your total grade
 
--   Quizzes will be due at the end of each week, so 3 quizzes due each Friday.
+-   ~ 3 Quizzes will be due each week
 
--   **No special consideration** for quizzes - do not leave them until Sunday 11:55 pm
+-   **No special consideration** for quizzes - do not leave them until the last minute
 
 :::
 ::::
@@ -377,7 +404,7 @@ Assignment 2 will cover the last two weeks of material.
 
 -   If you need special consideration, apply ASAP and no later than 11.55 pm on the day your assessment is due.
 
-- Do not email me. You must apply centrally using the link above.
+- **Do not email me.** You must apply centrally using the link above.
 
 :::
 ::::
@@ -394,15 +421,44 @@ Assignment 2 will cover the last two weeks of material.
 
 -   I will run an additional session in January to help you study. Date: TBC
 
+- The exam might seem far away, but you will need to keep up with class to do well. 
+
 :::
 ::::
 
 ## Generative AI
 
 :::columns
+
 ::: {.column width="40%"}
 ![](images/lecture-01/ai_learning.jpg)
 :::
+
+::: {.column width="60%"}
+
+:::callout-tip 
+## You can use Generative AI in this unit. 
+
+* In fact I encourage it! 
+
+* It's a great tool for those learning to code 
+
+* [Monash Guidance on Gen AI use](https://www.monash.edu/student-academic-success/build-digital-capabilities/create-online/using-artificial-intelligence)
+
+:::
+
+:::
+
+:::
+
+## Generative AI
+
+:::columns
+
+::: {.column width="40%"}
+![](images/lecture-01/ai_learning.jpg)
+:::
+
 ::: {.column width="60%"}
 
 :::callout-tip 
@@ -428,6 +484,7 @@ Assignment 2 will cover the last two weeks of material.
 :::
 
 :::
+
 :::
 
 ## Academic Integrity 
@@ -524,7 +581,7 @@ What happens if I breach academic integrity? [Click here](https://www.monash.edu
 :::
 ::::
 
-## Time to get started
+# Time to get started
 
 Let's develop some intuition for why data visualisations are important!
 
@@ -671,7 +728,8 @@ Despite the clear message that invading Russia in winter is a bad idea, some peo
 ## What about Modern Visualisations? 
 
 <br><br><br>
-::: callout-note
+
+:::callout-note
 ## Break-out discussion
 
 Take some time to discuss in groups where you encounter data visualisation in your everyday life?
@@ -862,7 +920,7 @@ In other words: we need to learn how to go from [Data-to-Viz!](https://www.data-
 -   **Example:**
     -   Blood type (A, B, AB, O)
     -   Types of pets (dog, cat, bird)
-    -   People's names (Kate, Kris, Bets, Javad).
+    -   People's names (Kate, Bets, Minh).
 -   **Characteristics:**
     -   Purely descriptive labels.
     -   Cannot rank or order categories.
