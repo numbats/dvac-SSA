@@ -157,7 +157,7 @@ PhD Student at Monash University
 ::: {.column width="40%"}
 <center><img src="images/profile-pics/minh.jpg"></center>
 
-**Minh Nyugen**
+**Minh Nguyen**
 
 PhD Student at Monash University
 
