@@ -1,0 +1,1192 @@
+---
+pagetitle: "ETX2250/ETF5922"
+subtitle: "The Good, the Bad and the Ugly of Data Visualisations"
+author: Kate Saunders
+email: "etx2250-etf5922.caulfield-x@monash.edu"
+date: "Lecture 2"
+department: "Department of Econometrics and Business Statistics"
+footer: "ETX2250/ETF5922"
+unit-url: "dvac.ss.numbat.space"
+format: 
+  revealjs: 
+    logo: images/monash-one-line-black-rgb.png
+    slide-number: c
+    multiplex: false
+    theme: ../assets/monash.scss
+    show-slide-number: all
+    show-notes: false
+    controls: true
+    width: 1280
+    height: 720
+    css: [../assets/custom.css, ../assets/lecture-01.css]
+    include-after-body: "../assets/after-body.html"
+    # chalkboard:
+    #   boardmarker-width: 5
+    #   buttons: true
+    embed-resources: true
+---
+
+```{r}
+# Install the packages if you don't have them 
+
+if(!require(colorblindr)){
+   install.packages("devtools")
+   library(devtools)
+   remotes::install_github("clauswilke/colorblindr")
+}
+ 
+if(!require(colorspace)){
+   install.packages("colorspace")
+}
+
+# Now they are installed, load the packages from your library
+
+library(tidyverse)
+library(colorspace)
+library(colorblindr)
+library(ggtext)
+library(kableExtra)
+
+dfsex <- read_csv("data/census-birthplace-by-sex.csv") %>%
+  filter(!birth %in% c("Total")) %>% 
+  filter(!birth %in% c("Not Stated", "Other", "Australia")) %>% 
+  mutate(birth = fct_reorder(birth, count, mean)) %>% 
+  group_by(sex) %>% 
+  mutate(rank = rank(-percentage)) %>% 
+  filter(rank %in% 1:5) %>% 
+  ungroup()
+
+df <- read_csv(here::here("data/census-birthplace.csv"))
+df2021 <- df %>% 
+  filter(census == 2021) %>% 
+  filter(!birth %in% c("Total")) %>% 
+  select(-census)
+
+df2 <- df %>% 
+  filter(census %in% c(2021, 2016)) %>% 
+  filter(!birth %in% c("Total")) %>% 
+  filter(!birth %in% c("Not Stated", "Other", "Australia")) %>% 
+  group_by(census) %>% 
+  mutate(rank = rank(-percentage)) %>% 
+  filter(rank %in% 1:5) %>% 
+  ungroup()
+
+```
+
+## <br>[`r rmarkdown::metadata$pagetitle`]{.monash-blue} {#etc5523-title background-image="images/bg-01.png"}
+
+### `r rmarkdown::metadata$subtitle`
+
+Lecturer: *`r rmarkdown::metadata$author`*
+
+`r rmarkdown::metadata$department`
+
+::: tl
+<br>
+
+<ul class="fa-ul">
+
+<li><i class="fas fa-envelope"></i>`r rmarkdown::metadata$email`</li>
+
+<li><i class="fas fa-calendar-alt"></i> `r rmarkdown::metadata$date`</li>
+
+<li><i class="fa-solid fa-globe"></i>\<a href="`r rmarkdown::metadata[["unit-url"]]`"\>`r rmarkdown::metadata[["unit-url"]]`</a></li>
+
+</ul>
+
+<br>
+:::
+
+## Reminder
+
+:::: callout-important
+### Why Data Visualisation?
+
+It's important to realise that there are different purposes for visualisation.
+
+The two main purposes that we will use are:
+
+::: incremental
+-   **visualisation for exploration** (to understand and identify important features in the data), and
+
+-   **visualisation for communication** (to communicate your understanding to others).
+:::
+
+Today we will focus on visualisation for communication
+::::
+
+## Today's lecture
+
+::: callout-tip
+## What's you'll learn
+
+-   Tufte’s principles of graphical excellence
+
+-   Human perception of visual elements
+
+    -   This includes colour scales
+
+-   Learn how to avoid bad plots
+
+-   What makes a misleading visualisations
+:::
+
+# Principles of graphical excellence {background-color="#006DAE"}
+
+Let's start by looking at an example
+
+## Birth place from the 2021 Australian Census {.scrollable auto-animate="true"}
+
+::::: columns
+::: {.column width="60%"}
+```{r}
+df2021 %>% 
+  mutate(count = scales::comma(count, 1),
+         percentage = scales::comma(percentage, 0.1)) %>% 
+  knitr::kable(col.names = c("Birth place", "Count", "%"),
+               align = "lrr") %>% 
+  kableExtra::kable_classic(full_width = FALSE)
+```
+:::
+
+::: {.column width="40%"}
+-   Tables are be useful
+
+-   But quickly seeing differences between two large numbers is hard
+
+-   Visualising this data *well* would make the differences clearer
+:::
+:::::
+
+## Birth place from the 2021 Australian Census {auto-animate="true"}
+
+```{r census2021-part1, fig.width = 12, fig.height = 4}
+df2021 %>% 
+  ggplot(aes(birth, percentage)) +
+  geom_col() +
+  theme(text = element_text(size = 18),
+        axis.text.x = element_text(angle = 45, size = 10, hjust = 1)) + 
+  labs(x = "", y = "Percentage", caption = "Data source: Australian Census 2021")
+```
+
+. . .
+
+Which birth place is the third largest among people in Australia?\
+(see related [article](https://www.theguardian.com/australia-news/2022/jun/28/india-now-third-most-common-place-of-birth-of-australian-residents-census-results-show) in the Guardian)
+
+## Birth place from the 2021 Australian Census {auto-animate="true"}
+
+```{r census2021-part2, fig.width = 12, fig.height = 4}
+df2021 %>% 
+  mutate(birth = fct_reorder(birth, -percentage)) %>% 
+  ggplot(aes(birth, percentage)) +
+  geom_col() +
+  theme(text = element_text(size = 18),
+        axis.text.x = element_text(angle = 45, size = 10, hjust = 1)) + 
+  labs(x = "", y = "Percentage", caption = "Data source: Australian Census 2021")
+```
+
+. . .
+
+<i class="fa-solid fa-face-meh" style=" transform: rotate(-45deg)"></i> Can you read the labels without tilting your head?
+
+## Birth place from the 2021 Australian Census {.scrollable auto-animate="true"}
+
+::::: columns
+::: {.column width="40%"}
+```{r census2021-part4, fig.height = 12, fig.width = 4}
+df2021 %>% 
+  mutate(birth = fct_reorder(birth, percentage)) %>% 
+  ggplot(aes(percentage, birth)) +
+  geom_col() +
+  theme(text = element_text(size = 18),
+        axis.text.y = element_text(size = 8)) + 
+  labs(y = "", x = "Percentage", caption = "Data source: Australian Census 2021")
+```
+:::
+
+::: {.column width="60%"}
+<br> Even if we fix the labels, something is not working with this plot.
+
+<br> There is a lot of empty wasted space
+
+<br> Hard to tell what's going on
+
+<br> Not 'showing' the data.
+:::
+:::::
+
+## Graphical Principle: Data Density
+
+::: callout-important
+## Data Density
+
+**Definition:** Data-to-density is the ratio of how much information is communicated in the visualisation compared to the size of the whole visualisation
+
+**Objective:**
+
+-   Use space effectively to communicate ideas
+
+-   The data density should be such that patterns and trends are clear
+
+**Why:**
+
+-   Complicated graphics are hard to interpret and can be overwhelming
+
+-   Under-dense graphics waste space and might not show enough detail
+
+**Example:** In the previous example the data to density ratio is too low. Patterns in the data are not clear.
+:::
+
+## Mathematically
+
+<!-- **Data density**: -->
+
+<br><br>
+
+$$\mbox{Data density}=\frac{\mbox{Number of data points}}{\mbox{Area of graphic}}$$
+
+-   Generally want a high data density
+
+-   When the data is small (only a few points) - you may be better using a table.
+
+## Top 5 countries of birth outside Australia {auto-animate="true"}
+
+::::: flex
+::: w-55
+```{r census2021-part5o1}
+
+total2021 <- df %>% 
+  filter(birth=="Total" & census==2021) %>% 
+  pull(count)
+
+auperc2021 <- df %>% 
+  filter(birth=="Australia" & census==2021) %>% 
+  pull(percentage)
+
+nsperc2021 <- df %>% 
+  filter(birth=="Not Stated" & census==2021) %>% 
+  pull(percentage)
+
+df2021 %>% 
+  arrange(desc(percentage)) %>% 
+  filter(!birth %in% c("Australia", "Other", "Not Stated")) %>% 
+  slice(1:5) %>% 
+  mutate(birth = fct_reorder(birth, count)) %>% 
+  ggplot(aes(count, birth)) +
+  geom_col(aes(fill = birth)) +
+  geom_text(aes(label = scales::percent(percentage/100, 0.1)),
+            nudge_x = -50000, color = "white") +
+  scale_x_continuous(labels = scales::comma) +
+  theme(text = element_text(size = 18),
+        axis.text.y = element_text(size = 8),
+        plot.title.position = "plot") + 
+  labs(y = "Birth place", x = "Number of Australian residents\n", caption = "Data source: Australian Census 2021",
+       title = "Top 5 countries of birth outside Australia") + 
+  theme(legend.position = "none")
+```
+:::
+
+::: {.w-45 .f3}
+Improving the data-density makes for a much better plot!
+
+<small>The bar text shows the percentage of `r scales::comma(total2021)` Aussie residents born in that place.</small>
+:::
+:::::
+
+## Graphical Principle: Data to ink ratio
+
+::: callout-important
+## Data to ink ratio
+
+**Definition:** Is the proportion of "ink" used to show the data compared with the total ink used.
+
+**Objective:**
+
+-   Reduce non-essential elements that don't convey data messages (like extra borders, colours, shading, or decorative graphics).\
+-   Want a clean and focused design.
+
+**Why:** Want a data-to-ink ratio that promotes readability and clarity.
+
+**Example:** In the previous example the colour looked cool, but its not adding anything to the data story.
+:::
+
+## Mathematically
+
+<br><br>
+
+$$\mbox{Data ink ratio}=\frac{\mbox{Ink used to display data}}{\mbox{Ink used in graphic}}$$
+
+-   Generally want a high data to ink ratio
+
+## Important points
+
+::: callout-caution
+## NO CHART JUNK !!!
+
+Chart junk is adding decorative elements we just don't need - think heavy gridlines, unnecessary text, extra pictures.
+
+Think back to Lecture 1 - were there any visualisations with really bad chart junk?
+:::
+
+. . .
+
+::: callout-tip
+## Understanding the difference
+
+**Data-to-ink ratio** is about how efficiently you use ink—avoiding unnecessary decoration so most ink directly represents data.
+
+**Data-density** is about how much data you show in a given space—how tightly information is packed.
+:::
+
+## India is No. 3 {auto-animate="true"}
+
+::::: flex
+::: w-45
+Color now enhances the data story!
+
+```{r census2021-part5}
+total2021 <- df %>% 
+  filter(birth=="Total" & census==2021) %>% 
+  pull(count)
+auperc2021 <- df %>% 
+  filter(birth=="Australia" & census==2021) %>% 
+  pull(percentage)
+nsperc2021 <- df %>% 
+  filter(birth=="Not Stated" & census==2021) %>% 
+  pull(percentage)
+df2021 %>% 
+  arrange(desc(percentage)) %>% 
+  filter(!birth %in% c("Australia", "Other", "Not Stated")) %>% 
+  slice(1:5) %>% 
+  mutate(birth = fct_reorder(birth, count)) %>% 
+  ggplot(aes(count, birth)) +
+  geom_col() +
+  geom_col(data = ~filter(.x, birth=="India"),
+           fill = "#006DAE") + 
+  geom_text(aes(label = scales::percent(percentage/100, 0.1)),
+            nudge_x = -50000, color = "white") +
+  scale_x_continuous(labels = scales::comma) +
+  theme(text = element_text(size = 18),
+        axis.text.y = element_text(size = 8),
+        plot.title.position = "plot") + 
+  labs(y = "Birth place", x = "Number of Australian residents\n", caption = "Data source: Australian Census 2021",
+       title = "Top 5 countries of birth outside Australia")
+```
+:::
+
+::: {.w-55 .f3}
+<small>Top birth place in Australia is Australia with `r scales::percent(auperc2021/100, 0.1)`. Also note `r scales::percent(nsperc2021/100, 0.1)` of Australian residents did not state their birth place. </small>.
+
+<!-- <i class="fa-solid fa-newspaper"></i> Story from [The Guardian](https://www.theguardian.com/australia-news/2022/jun/28/india-now-third-most-common-place-of-birth-of-australian-residents-census-results-show). -->
+:::
+:::::
+
+## Good practice in data visualisation
+
+:::: callout-important
+## Tufte's Principles of Graphical Excellence
+
+::: incremental
+-   Show the data
+    -   Maximise data ink
+-   Avoid distorting what the data have to say
+    -   Do not create misleading visualisations
+-   Present your data in a small space; efficiently with clarity.
+    -   Optimise data density
+-   Make large data sets coherent
+    -   Use small multiples
+-   Encourage the eye to compare different pieces of data
+    -   Group your data appropriately
+
+<small> See the 'The Visual Display of Quantitative Information' by **Edward Tufte**. </small>
+:::
+::::
+
+# Human Perception {background-color="#006DAE"}
+
+## Human Perception
+
+:::: callout-note
+## What is human perception?
+
+::: incremental
+-   **Human perception** is the way our brains and sensory systems (especially vision) receive, process, and interpret information from the world.
+
+-   It's relevant in data visualisation as it relates to **how people see and understand patterns, shapes, colours, positions, and sizes** on a graph or chart.
+:::
+::::
+
+. . .
+
+:::: callout-important
+## Why it is important for us?
+
+::: incremental
+-   Data visualisations are only useful if people can quickly and accurately interpret them.
+
+-   If a graph conflicts with how human perception works, it can confuse, mislead, or overwhelm the audience.
+
+-   Good visualisation uses human perception!
+:::
+::::
+
+## Human Perception
+
+:::: callout-note
+## Key elements of perception
+
+These include:
+
+::: incremental
+-   Pre-attentive processing
+-   Visual hierarchy
+-   Encoding efficiency
+-   Gestalt principles
+-   Color perception
+-   Pattern and trend recognition
+-   Managing cognitive load
+-   Cultural and contextual factors
+:::
+::::
+
+## Pre-attentive Processing
+
+::: callout-important
+## What is it? 
+
+It's the stage of **visual perception** where the human brain detects certain visual properties almost
+instantly (within approx 200-250 milliseconds), before conscious attention is engaged.
+
+:::
+
+. . . 
+
+::: callout-note 
+
+## Example
+
+If I give you the following sequence, how quickly you can count the number of 7s
+
+35617482457135176492764527256772
+
+What about now? 
+
+<span style="color:gray">3561</span>**7**<span style="color:gray">48245</span>**7**<span style="color:gray">1351</span>**7**<span style="color:gray">6492</span>**7**<span style="color:gray">6452</span>**7**<span style="color:gray">256</span>**77**<span style="color:gray">2</span>
+
+By using pre-attentive attributes we can help our audience to see what we want them to see before they even know
+they are seeing it!
+
+:::
+
+## Lots of ways to catch the eye
+
+If used sparingly, preattentive attributes can be very useful
+
+![](images/lecture-05/preattentive_processing.png){fig-align="center" width="600"}
+
+## More examples 
+
+There is no pre-attentive attribute here.
+
+I have used [colour]{style="color:red;"}to get your attention.
+
+I have used <span style="font-size:1.6em;">size</span> to get your attention.
+
+I have used <span style="border:2px solid #1B9E77; padding:2px;">enclosure</span> to get your attention.
+
+I have used **<span style="font-weight:900;">weight</span>** to get your attention.
+
+I have used <span style="font-style:italic;">italic</span> to get your attention.
+
+I have used [space]{style="color:white;"} position [space]{style="color:white;"} to get your attention.
+
+I have used <span style="text-decoration:underline;">underline</span> to get your attention.
+
+## What do you think?
+
+<br><br>
+
+:::callout-note
+## Break-out Discussion 
+
+Discuss in your group which of these pre-attentive attributes are the most eye catching!
+
+Decide your top 3.
+
+:::
+
+## Visual Hierachy 
+
+::: callout-important
+## What do we notice first?
+
+:::incremental 
+
+* Pre-attentive attributes grab our attention.
+
+* Some attributes draw your eyes with greater or weaker force than others.
+
+* **NOTICE THAT LARGER** or [brighter elements]{style="color:red;"} are seen as more important
+
+* So beyond drawing our audience's attention to where we want them to focus, we can use pre-attentive attributes to create visual hierarchy.
+
+* Combining multiple pre-attentive attributes together to make our visuals scannable, emphasising some components and de-emphasising others.
+
+:::
+
+:::
+
+
+## Encoding Efficiency
+
+::: callout-note
+## Judging differences
+
+Our brain is better at more accurately telling difference between some visual elements than others.
+:::
+
+::: incremental
+-   **Most accurate encodings:** Position, length (e.g., bar charts).
+
+-   **Less precise encodings:** Area, color hue (e.g., pie charts).
+:::
+
+# Gestalt Principles {background-color="#006DAE"}
+
+## 
+
+<div style="text-align:center;">
+<iframe width="800" height="450"
+        src="https://www.youtube.com/embed/-0aZ2TmrsX8"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+</iframe>
+</div>
+
+[URL](https://www.youtube.com/watch?v=-0aZ2TmrsX8)
+
+## Gestalt Principles
+
+::: callout-important
+## Gestalt Principle
+
+-   "Gestalt" is German for form or shape.
+
+-   A set of laws to address the natural compulsion to find order in disorder by perceiving a series of individual elements as a whole.
+
+::: 
+
+## Gestalt Principles 
+
+::: callout-important 
+## Different Principles
+
+::: incremental 
+
+- **Proximity** — things that are close together are perceived as belonging together.
+
+- **Similarity** — similar shapes, colours, or sizes are seen as part of the same group.
+
+- **Enclosure** — objects within a boundary are grouped together.
+
+- **Closure** — we mentally fill gaps to see complete shapes.
+
+- **Continuity** — we follow smooth, continuous lines or patterns.
+
+- **Connection** — elements connected by lines or arrows are seen as related.
+
+- **Figure–ground** — we separate objects (figure) from the background (ground).
+
+::: 
+
+:::
+
+
+## Where do you see relationships? 
+
+:::callout-note 
+## Break-out Discussion 
+
+Where do you perceive objects to be grouped in this image? 
+
+:::
+
+![](images/lecture-05/gestalt.jpg){fig-align="center" width="600"}
+
+<small> Healy, Kieran. Data visualization: a practical introduction. Princeton University Press, 2024. </small>
+
+## Let's look at an example
+
+::: callout-note
+## Data in the News
+
+India has overtaken China and New Zealand to become the third largest country of birth for Australian residents, 2021 census data has found.
+
+[-- The Guardian](https://www.theguardian.com/australia-news/2022/jun/28/india-now-third-most-common-place-of-birth-of-australian-residents-census-results-show)
+:::
+
+```{r}
+df2 %>% 
+  select(-rank) %>% 
+  mutate(count = scales::comma(count, 1),
+         percentage = scales::comma(percentage, 0.1)) %>% 
+  knitr::kable(col.names = c("Birth place", "Count", "%", "Census Year"),
+               align = "lrrr") %>% 
+  kableExtra::kable_classic(full_width = FALSE)
+```
+
+## Aussie residents 2016 compared with 2021
+
+India has overtaken China and New Zealand to become the third largest country of birth for Australian residents.
+
+```{r census2-part1, fig.width = 8, fig.height = 3, fig.align= 'center'}
+df2  %>% 
+  mutate(birth = fct_reorder(birth, count, sum)) %>% 
+  ggplot(aes(count, birth)) +
+  geom_col() + 
+  geom_col(data = ~filter(.x, birth=="India"),
+           fill = "#006DAE") + 
+  geom_text(aes(label = scales::percent(percentage/100, 0.1)),
+            nudge_x = -70000, color = "white") +
+  scale_x_continuous(labels = scales::comma) +
+  theme(text = element_text(size = 18),
+        axis.text.y = element_text(size = 8),
+        plot.title.position = "plot") +
+  facet_wrap(~census) + 
+  scale_x_continuous(labels = scales::comma) +
+  labs(y = "Birth place", x = "Number of Australian residents\n", caption = "Data source: Australian Census 2016 and 2021",
+       title = "Top 5 countries of birth outside Australia")
+```
+
+Does this show that India overtook China and New Zealand?
+
+## Let's use the Gestalt Principles
+
+::: callout-important
+## Proximity
+
+-   By placing elements closer together, it makes it easier to make comparisons.
+:::
+
+::: callout-important
+## Continuity and connection
+
+-   We can easily track patterns following a continuous path 
+-  Connected items appear related
+
+:::
+
+## Changes in Aussie Residents
+
+::::: columns
+::: {.column width="35%"}
+Better!
+
+Clear that India has overtaken China and New Zealand to become the third largest country of birth for Australian residents.
+:::
+
+::: {.column width="65%"}
+```{r census2-part2, fig.width = 7, fig.height = 5, fig.align = "center"}
+df2 %>% 
+  ggplot(aes(factor(census), count, color = birth)) +
+  geom_line(aes(group = birth))  +
+  theme(text = element_text(size = 18),
+        axis.text.y = element_text(size = 8),
+        plot.title.position = "plot") + 
+  geom_point() + 
+  scale_y_continuous(labels = scales::comma) +
+  labs(y = "Number of \nAustralian residents\n", caption = "Data source: Australian Census 2016 and 2021", x = "Census Year", color = "Birth place",
+       title = "Top 5 countries of birth outside Australia")
+```
+:::
+:::::
+
+But, should we shoow percentage instead of counts?
+
+## Changes in Aussie Residents
+
+::::: columns
+::: {.column width="35%"}
+-   Note whether the trend is up or down changes.
+
+-   So should you use percentage or total number?
+
+-   Depends, e.g. For housing availability, total numbers of new residents are more important
+:::
+
+::: {.column width="65%"}
+```{r census2-part3, fig.width = 7, fig.height = 5, fig.align = 'center'}
+df2 %>% 
+  ggplot(aes(factor(census), percentage/100, color = birth)) +
+  geom_line(aes(group = birth)) + 
+  geom_point() + 
+  theme(text = element_text(size = 18),
+        axis.text.y = element_text(size = 8),
+        plot.title.position = "plot") + 
+  scale_y_continuous(labels = scales::percent) +
+  labs(y = "Percentage of\nAustralian residents\n", caption = "Data source: Australian Census 2016 and 2021", x = "Census Year", color = "Birth place",
+       title = "Top 5 countries of birth outside Australia")
+```
+:::
+:::::
+
+## Changes in Aussie Residents
+
+::::: columns
+::: {.column width="40%"}
+Even Better!
+
+By adding the names to the plot directly we can:
+
+(i) make clearer what line belongs to which country, and
+
+(ii) increasing the data-density ratio.
+
+We can also change the theme to reduce 'chart junk'.
+:::
+
+::: {.column width="60%"}
+```{r census2-part5, fig.width = 6, fig.height = 5, fig.align='center'}
+df2 %>% 
+  arrange(census, birth) %>% 
+  ggplot(aes(factor(census), percentage/100, color = birth)) +
+  geom_line(aes(group = birth)) + 
+  geom_point() + 
+  theme_minimal() +
+  theme(text = element_text(size = 18),
+        axis.text.y = element_text(size = 8),
+        plot.title.position = "plot",
+        legend.position = "none") + 
+  scale_y_continuous(labels = scales::percent) +
+  geom_text(aes(label = birth), 
+            data = ~{ .x %>% 
+                filter(census==2021) %>% 
+                mutate(percentage = case_when(birth=="China" ~ percentage + 0.05,
+                                              birth=="New Zealand" ~ percentage - 0.05,
+                                              TRUE ~ percentage))}, 
+            hjust = 0, nudge_x = 0.05) +
+  labs(y = "Percentage of\nAustralian residents\n", caption = "Data source: Australian Census 2016 and 2021", x = "Census Year", color = "Birth place",
+       title = "Top 5 countries of birth outside Australia") 
+```
+:::
+:::::
+
+## One more example
+
+```{r gestalt-proximity3, fig.height = 2, fig.width = 8}
+gprox <- dfsex |>
+  ggplot(aes(count, birth, fill = sex)) + 
+  geom_col(position = "dodge") + 
+  scale_x_continuous(labels = scales::comma) + 
+  labs(y = "Birth place", x = "Number of Australian Residents",
+       caption = "Data Source: Australian Census 2021",
+       title = "Top 5 countries of birth outside Australia by sex",
+       fill = "Sex")
+gprox
+```
+
+. . .
+
+**Data story**
+
+Census 2021 shows far more women born in Phillipines and China migrate to Australia than men born in their respective countries, whilst more men born in India migrate to Australia than women born in India.
+
+## Graphical Principle: Similarity
+
+::: callout-important
+## Law of Similarity
+
+-   When objects share similar attributes, they are perceived as being part of the same group.
+:::
+
+```{r gestalt-similarity1, fig.height = 2, fig.width = 8}
+span <- function(color, text) glue::glue("<b style='color:{color};'>{text}</b>")
+dfsex %>% 
+  mutate(birth = case_when(birth == "England" ~ span("#006DAE", "England"),
+                           birth == "India" ~ span("#C8008F", "India"),
+                           birth == "China" ~ span("#C8008F", "China"),
+                           birth == "Philippines" ~ span("#C8008F", "Philippines"),
+                           birth == "New Zealand" ~ span("#008A25", "New Zealand")),
+         birth = fct_reorder(birth, count)) %>% 
+  ggplot(aes(count, birth, fill = sex)) + 
+  geom_col(position = "dodge") + 
+  scale_x_continuous(labels = scales::comma) + 
+  labs(y = "Birth place", x = "Number of Australian Residents",
+       caption = "Data Source: Australian Census 2021",
+       title = "Top 5 countries of birth outside Australia by sex",
+       fill = "Sex") +
+  theme(axis.text.y = ggtext::element_markdown())
+```
+
+Notice that the countries are colored by their continent (`r span("#006DAE", "Europe")`, `r span("#C8008F", "Asia")`, and `r span("#008A25", "Oceania")`).
+
+## Graphical Principle: Enclosure
+
+::: callout-important
+## Law of Enclosure
+
+Objects collected within a boundary-like structure are perceived as a group.
+:::
+
+```{r gestalt-closure1, fig.height = 2, fig.width = 8}
+span <- function(color, text) glue::glue("<b style='color:{color};'>{text}</b>")
+dfsex %>% 
+  mutate(group = case_when(birth == "England" ~ "Europe",
+                           birth == "India" ~ "Asia",
+                           birth == "China" ~ "Asia",
+                           birth == "Philippines" ~ "Asia",
+                           birth == "New Zealand" ~ "Oceania")) %>% 
+  ggplot(aes(count/1000, birth, fill = sex)) + 
+  geom_col(position = "dodge") + 
+  scale_x_continuous(labels = scales::comma) + 
+  labs(y = "Birth place", x = "Number of Australian Residents ('000s)",
+       caption = "Data Source: Australian Census 2021",
+       title = "Top 5 countries of birth outside Australia by sex",
+       fill = "Sex") +
+  facet_wrap(~group, scales = "fixed") +
+  theme(axis.text.y = ggtext::element_markdown())
+```
+
+You may also like to look revisit this example of exit polls from [Lecture 1](https://www.bbc.com/news/articles/c0lp48ldgyeo).
+
+# Colour {background-color="#006DAE"}
+
+## Color Perception
+
+::: callout-note
+## Colour effectivness
+
+-   **Contrast Sensitivity:** Luminescence (brightness /transparency) differences are more noticeable than colour differences
+
+-   **Colour scales:** Different colour scales are better at representing different types of data
+
+-   **Colourblind Accessibility:** Need to choose colour scales that are accessible (colour vision deficiencies in \~8% of men).
+:::
+
+## Qualitative palettes
+
+-   Designed for a categorical variable with no particular ordering
+
+```{r, fig.height = 4, fig.width = 8, echo = TRUE}
+#| code-line-numbers: false
+colorspace::hcl_palettes("Qualitative", plot = TRUE, n = 7)
+```
+
+## Sequential palettes
+
+Designed for ordered categorical variables, or numbers going from low to high (or vice-versa).
+
+```{r, fig.height = 4, fig.width = 10, echo = TRUE}
+#| code-line-numbers: false
+colorspace::hcl_palettes("Sequential", plot = TRUE, n = 7)
+```
+
+## Diverging palettes
+
+Designed for ordered categorical variables, or number going from low to high (or vice-versa) with a neutral value in between
+
+```{r, fig.height = 6, fig.width = 8, echo = TRUE}
+#| code-line-numbers: false
+colorspace::hcl_palettes("Diverging", plot = TRUE, n = 7)
+```
+
+## Colourblindness
+
+Colourblindness affects roughly 1 in 8 men.
+
+```{r, fig.width = 12}
+colorblindr::cvd_grid(gprox)
+```
+
+Check your color choices using the [`colorblindr`](https://github.com/clauswilke/colorblindr) package or otherwise.
+
+# More on Human Perception {background-color="#006DAE"}
+
+## Other aspects
+
+::: callout-note
+## Perception of Patterns and Trends
+
+The brain is good at identifying linear relationships.
+
+-   Anomalies and groupings are quickly noticed.
+:::
+
+. . . o ::: callout-note \## Managing Cognitive Load
+
+Overly complex visuals overwhelm viewers.
+
+-   Remove unnecessary elements (e.g., gridlines, 3D effects).
+
+-   Focus on clarity and minimalism. :::
+
+## Other aspects ctd.
+
+:::: callout-note
+## Cultural and Contextual Factors
+
+::: incremental
+-   Be aware of symbolism
+
+    -   *e.g. I've had to tell my mum not to send certain emojis*
+
+-   *Co*lors and shapes can have different meanings across cultures
+
+    -   *e.g. Red can mean good luck and prosperity in China*
+
+-   Tailor visualisations to your audience's cultural context.
+
+    -   *e.g. Visualising election data, use the party colours*
+
+-   Be mindful of universal symbols and interpretations
+
+    -   *e.g. red = hot, blue = cold, or*
+
+    -   *e.g. red = danger or hazard, orange/yellow = warning or watch out, green = safe*
+:::
+::::
+
+## Human Perception Take Aways
+
+Human perception impacts how we interpret visualisations.
+
+::: callout-important
+## Key takeaways:
+
+-   Use pre-attentive attributes effectively.
+
+-   Leverage Gestalt principles and visual hierarchy.
+
+-   Prioritise accurate encoding methods.
+
+-   Design for accessibility and simplicity.
+
+-   Consider cultural and contextual nuances.
+:::
+
+# Bad Plots {background-color="#006DAE"}
+
+<!-- ## A comment -->
+
+<!-- Sometimes rules are more like guidelines. -->
+
+<!-- For instance the default background for `ggplot2` is arguably 'chartjunk'. -->
+
+<!-- But there are good reasons for using it. -->
+
+<!-- The gridlines help you judge the position of your data -->
+
+<!-- In general though - stick to the rules and don't got reinventing data visualisation conventions. -->
+
+<!-- ## ggplot2 -->
+
+<!-- ```{r, echo=FALSE, out.width="40%"} -->
+
+<!-- library(ggplot2) -->
+
+<!-- ggplot(anscombe, aes(x1, y1)) + -->
+
+<!--   geom_point() -->
+
+<!-- ``` -->
+
+<!-- ## Wickham on the grey background -->
+
+<!-- > *"We can still see the gridlines to aid in the judgement of position (Cleveland, 1993b), but they have little visual impact and we can easily "tune" them out... Finally, the grey background creates a continuous field of colour which ensures that the plot is perceived as a single visual entity."* -->
+
+<!-- Source: ggplot2: Elegant Graphics for Data Analysis. -->
+
+## Bad plots
+
+::: callout-note
+## Bad plots
+
+What makes plots *bad* can be broadly put into three categories:
+
+-   Taste (Aesthetic)
+-   Perception
+-   Data
+:::
+
+## Errors of perception
+
+:::: callout-note
+::: incremental
+-   Data visualisation is all about mapping data in such a way that the viewer can understand what's going on.
+
+-   The way the data is displayed therefore should not be done in an inaccurate or misleading way.
+
+-   The following plots provide some examples of what can go wrong.
+:::
+::::
+
+<!-- ## Confusing length and area -->
+
+<!-- ```{r, echo=FALSE, fig.align='center'} -->
+
+<!-- knitr::include_graphics('images/lecture-05/mac.jpg') -->
+
+<!-- ``` -->
+
+<!-- ## Confusing length and area -->
+
+<!-- -   On the previous plot the number of customers is represented by length (height of computer). -->
+
+<!-- -   However the *area* of the 2D pictures of computers scale up more than their *heights*. -->
+
+<!-- -   Also the picture leads us to imagine a 3D computer making this effect worse. -->
+
+<!-- -   The value for *Mac* is only about 3 to 4 times more than for *None* but we perceive the difference to be much more. -->
+
+## Beware 3D
+
+```{r, echo=FALSE, fig.align='center'}
+knitr::include_graphics('images/lecture-05/seo-traffic-columns.gif')
+```
+
+## Beware 3D
+
+```{r, echo=FALSE, fig.align='center'}
+knitr::include_graphics('images/lecture-05/seo-traffic-pie-chart.gif')
+```
+
+## Beware 3D
+
+:::: callout-warning
+::: incremental
+-   Difficult to line up the heights of bars with the actual values.
+
+-   Closer green bar (MSN) looks bigger.
+
+-   On the pie chart rendering in 3D makes the blue segment (Google) look the biggest.
+
+-   Do not use three dimensions when two will work well.
+:::
+::::
+
+## Road miles (from Tufte)
+
+```{r, echo=FALSE, out.width="80%", fig.align='center'}
+knitr::include_graphics('images/lecture-05/Lie_factor_example1_image.jpg')
+```
+
+## Effects
+
+:::: callout-warning
+::: incremental
+-   The data says that mileage rose from 18 to 27.5 which is a 53% increase.
+
+-   The line on the graph increases from 0.6 inches to 5.3 inches which is a 783% increase!
+
+-   The lie factor is $783/53 \approx 14$
+
+-   The size of the effect visually displayed is **not** the same as the effect size in the data
+:::
+::::
+
+Here is [another example](https://www.mattcowgill.com/posts/election_sugarbag/election_sugarbag.html) where the data size of visual elements does not relate to the effect size in the data.
+
+## Lie factor
+
+The lie factor is given by
+
+$$\mbox{Lie factor}=\frac{\mbox{Size of effect in graph}}{\mbox{Size of effect in data}}$$
+
+-   Ideally, the lie factor should be 1.
+
+-   Tufte recommended $0.95 < \text{lie factor} < 1.05$.
+
+# Bad data {background-color="#006DAE"}
+
+## Bad data
+
+::: callout-note
+-   Sometimes there is nothing wrong with the plot but with the data.
+
+-   On the following slide is a plot comparing the cost of going to college in the US against the salaries of college graduates.
+
+-   Can you find problems with this graph?
+:::
+
+## College cost
+
+```{r, echo=FALSE, fig.align='center'}
+knitr::include_graphics('images/lecture-05/diminishing-return.jpg')
+```
+
+## Problems
+
+::: callout-warning
+-   There is nothing *incorrect* about this graph.
+
+-   However the message is misleading.
+
+-   The income is a yearly income while the cost of college is over four years (and only paid once).
+
+-   Also it does not show the income of people who are not college graduates.
+
+-   Think carefully about comparisons on a plot.
+
+-   Make sure your conclusions align with what is in the plot.
+:::
+
+# Misleading plots {background-color="#006DAE"}
+
+## Stock prices
+
+```{r, echo=FALSE, fig.align='center'}
+knitr::include_graphics('images/lecture-05/twitter_short.png',dpi = 200)
+```
+
+From this graph we conclude that Twitter stock prices increased **dramatically** on April 26.
+
+## A longer term view
+
+```{r, echo=FALSE, fig.align='center'}
+knitr::include_graphics('images/lecture-05/twitter_long.png',dpi = 200)
+```
+
+Not that dramatic anymore. This is an example of using a misleading x-axis.
+
+## The y-axis
+
+::: callout-note
+-   Watch this [video](https://www.youtube.com/watch?v=14VYnFhBKcY).
+
+-   Are we interested in the size of the variable rather than changes in the variable?
+
+-   Is zero a reasonable value for the variable to take?
+
+-   Are we using a bar chart?
+
+-   Answering yes to these questions means we should give more consideration to including zero on the y-axis.
+:::
+
+# Summary {background-color="#006DAE"}
+
+## Summary
+
+:::: callout-note
+## What we've covered
+
+::: incremental
+-   We've seen that data visualisation can be good and bad.
+
+-   Understood the principles of graphical excellence and their application
+
+-   Learnt how to use human perception in our visual designs
+
+-   Learnt how to use color to improve clarity and accessibility.
+
+-   Can identify common pitfalls in bad plots
+
+-   Recognise how visuals can misrepresent data and are going to avoid this!
+:::
+::::
+
+<!-- To dos:  -->
+
+<!-- * Tidy up the bad plots part -->

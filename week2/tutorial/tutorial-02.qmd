@@ -13,7 +13,7 @@ editor: visual
 
 ## Plot crimes and plot masterpieces
 
-### Overview 
+### Overview
 
 Today you will be working in groups to critique data visualisations.
 
@@ -21,11 +21,15 @@ We recommend not using AI for these tasks. Discuss ideas as a group or get direc
 
 ### Learning Objectives
 
--   Consolidate your knowledge of graphical principles
+-   Work in a team to consolidate your knowledge of graphical principles, visual encodings and visual hierarchy
 
--  Practice critically assessing data visualisation 
+-   Together critically assess and evaluate data visualisations
 
-- Practice writing and sharing your analysis  
+-   Share knowledge and opinions to understand differences in human perception and cultural lenses
+
+-   Practice writing and sharing your analysis
+
+<!-- Collaborate effectively, contributing to team performance and the achievement of collective goals, and demonstrate leadership where appropriate; -->
 
 ### Preparation
 
