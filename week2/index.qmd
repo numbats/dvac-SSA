@@ -704,7 +704,7 @@ df2 %>%
 :::
 :::::
 
-But, should we shoow percentage instead of counts?
+But, should we show percentage instead of counts?
 
 ## Changes in Aussie Residents
 
@@ -915,13 +915,19 @@ The brain is good at identifying linear relationships.
 -   Anomalies and groupings are quickly noticed.
 :::
 
-. . . o ::: callout-note \## Managing Cognitive Load
+. . . 
+
+::: callout-note 
+
+## Managing Cognitive Load
 
 Overly complex visuals overwhelm viewers.
 
 -   Remove unnecessary elements (e.g., gridlines, 3D effects).
 
--   Focus on clarity and minimalism. :::
+-   Focus on clarity and minimalism. 
+
+:::
 
 ## Other aspects ctd.
 
