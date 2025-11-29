@@ -1,0 +1,943 @@
+---
+pagetitle: "ETX2250/ETF5922"
+subtitle: "Data Visualisations in R"
+author: Kate Saunders
+email: "etx2250-etf5922.caulfield-x@monash.edu"
+date: "Lecture 4"
+department: "Department of Econometrics and Business Statistics"
+unit-url: "dvac.ss.numbat.space"
+footer: "ETX2250/ETF5922"
+format: 
+  revealjs: 
+    logo: images/monash-one-line-black-rgb.png
+    slide-number: c
+    multiplex: false
+    theme: ../assets/monash.scss
+    show-slide-number: all
+    show-notes: false
+    controls: true
+    width: 1280
+    height: 720
+    css: [../assets/custom.css, ../assets/lecture-01.css]
+    include-after-body: "../assets/after-body.html"
+    #   boardmarker-width: 5
+    #   buttons: true
+    embed-resources: true
+---
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+
+if(!require(tidyverse))
+  install.packages("tidyverse")
+
+library(tidyverse)
+
+```
+
+## <br>[`r rmarkdown::metadata$pagetitle`]{.monash-blue} {#etc5523-title background-image="images/bg-01.png"}
+
+### `r rmarkdown::metadata$subtitle`
+
+Lecturer: *`r rmarkdown::metadata$author`*
+
+`r rmarkdown::metadata$department`
+
+::: tl
+<br>
+
+<ul class="fa-ul">
+
+<li><i class="fas fa-envelope"></i>`r rmarkdown::metadata$email`</li>
+
+<li><i class="fas fa-calendar-alt"></i> `r rmarkdown::metadata$date`</li>
+
+<li><i class="fa-solid fa-globe"></i>\<a href="`r rmarkdown::metadata[["unit-url"]]`"\>`r rmarkdown::metadata[["unit-url"]]`</a></li>
+
+</ul>
+
+<br>
+:::
+
+## Today's Lecture
+
+:::: callout-note
+## Learning Objectives
+
+::: incremental
+-   Introduce you to the grammar of graphics
+
+-   Learn how to create plots in R
+
+-   Learn about plots to show distributions, correlations and relationships 
+
+- Builds on plots showing rankings/comparisons of categoric variables from last lecture 
+
+:::
+::::
+
+# Plotting in R {background-color="#006DAE"}
+
+## Base R Plotting
+
+:::: callout-note
+### Base R Plotting
+
+There are basic plotting functions in R that don't require any packages.
+
+::: incremental
+-   Examples of common base R plotting functions:
+
+    -   `plot()` for scatterplots.\
+    -   `barplot()` for bar charts.\
+    -   `hist()` for histograms.
+    -   check these out using the help menu `?plot()`
+
+-   But, there is limited flexibility for complex or layered plots
+
+-   Base R plots are much harder to customise
+:::
+::::
+
+## Enter **ggplot2**
+
+:::: callout-note
+### ggplot2
+
+**ggplot2** is part of the **tidyverse**, a collection of R packages great for data analytics and data science.
+
+::: incremental
+-   A powerful and flexible tool for creating layered, customisable plots.
+
+-   The "2" in ggplot2?
+
+    -   It's the **second iteration** of the ggplot package, created by Hadley Wickham.
+
+    -   ggplot2 improved upon the original package with more features and better usability.
+:::
+::::
+
+## The grammar of graphics
+
+:::: callout-note
+### Grammar of graphics
+
+Part of what makes `ggplot2` so powerful is it built on the ideas of **Grammar of Graphics** a text by Leland Wilkinson.
+
+::: incremental
+-   The grammar of graphics breaks down visualisations into individual pieces that you layer together
+
+-   Basically creating a set of rules for creating almost any graphic
+
+-   At first using `ggplot2` will seem complicated
+
+-   But master the **grammar** and you'll create detailed plots easily 
+:::
+::::
+
+# Getting started in ggplot2 {background-color="#006DAE"}
+
+## Shrek
+
+::: callout-tip
+### Shrek and ggplot2
+
+Don't be scared of `ggplot2`, it's just like Shrek!
+
+Get to know it before you judge it! 
+
+*"Ogres have layers. Onions have layers. You get it? We both have layers"* - Shrek
+:::
+
+![](images/lecture-04/donkey-and-shrek.jpg){fig-align="center"}
+
+## The Layers
+
+:::: callout-note
+## Key layers include:
+
+::: incremental
+-   **Data**:
+    -   The dataset you're visualising.\
+-   **Aesthetic Mappings (`aes()` for short)**:
+    -   Map variables to visual properties like x, y, color, size, etc.\
+-   **Geometries (`geom_*`)**:
+    -   Define the type of plot (e.g., bars, lines, points).
+-   **Scales**:
+    -   Control how data maps to aesthetics (e.g., axis limits, color gradients).
+-   **Facets**:
+    -   Split the data into multiple panels (e.g., `facet_wrap()`, `facet_grid()`).
+-   **Themes**:
+    -   Customise the non-data components (e.g., background, grid lines).
+:::
+::::
+
+## Base Layer
+
+Start by creating an empty plot on which to add your layers. We'll add layers to this plot using `+`. 
+
+::: columns
+::: {.column width="50%"}
+
+```{r echo = TRUE}
+library(ggplot2)
+
+ggplot()
+
+```
+:::
+::: {.column width="50%"}
+
+:::callout-warning
+## Common Mistake
+To add layers to a plot we use `+` not `|>`!  
+:::
+:::
+:::
+
+## Data Layer
+
+::: callout-note
+## What to plot 
+
+-   First step is to add our data
+
+-   I'm going to use this data set I prepared earlier
+:::
+
+```{r echo = TRUE}
+library(here)
+all_years_boston_celtics = read_csv(here::here("data/boston_celtics.csv")) 
+boston_celtics = all_years_boston_celtics |> 
+   filter(season == 2025)
+head(boston_celtics)
+```
+
+## Reading Data
+
+::: callout-important
+## Checklist
+
+-   Remember you need to tell R where to look for this file by setting your working directory
+
+-   Setting up a R Project helps with this!
+
+-   Check you current working directory with `getwd()`
+
+-   Check your file is in this directory `list.files()`
+
+-   After your read in your data look at it using `View()` of `head()`
+
+-   Make sure it looks like what you expect
+
+-   Also check what type the computer thinks your data is: use `str()`, `class()` or `summary()`
+
+-   If all that seems good - we can add it to our plot!
+:::
+
+## Add you data layer
+
+It's still an empty plot because we haven't told R what to do with the data yet.
+
+```{r echo = TRUE}
+ggplot(data = boston_celtics) 
+```
+
+## Geometry Layer (geom)
+
+:::: callout-note
+## geom
+
+-   If you type `?geom_` in your Console and hit tab to scroll through a list of all the different plot geometries
+
+-   Think of all these types is like the Visualisation Pane in Power BI
+
+:::
+
+. . . 
+
+::: callout-note
+## Our turn 
+
+-   Let's create a bar plot showing the `team_ score` each game this season
+
+-   Use the geometry layer - `geom_col`
+
+-   Similar to `geom_bar` (but does slightly different things)
+
+::::
+
+## Bar Plot
+
+::: callout-note
+## Add the geom
+
+This is what your code should look like when you add your geom layer
+:::
+
+```{r echo = TRUE, eval = FALSE}
+ggplot(data = boston_celtics) + 
+  geom_col()
+```
+
+::: callout-warning
+-   But ... this code won't work yet - we haven't added our aesthetic layer
+
+-   The **aesthetic layer** defines how data is mapped to visual properties in your plot
+
+    -   *e.g what goes on the x/y axes*
+:::
+
+## Aesthetic Layer
+
+:::: callout-note
+### Common Aesthetic Mappings
+
+Use the `aes()` function to map variables to aesthetics.
+
+The common parts are:
+
+::: incremental
+-   **x**: The variable on the x-axis.
+
+-   **y**: The variable on the y-axis.
+
+-   **color**: The color of points, lines, or outlines.
+
+-   **fill**: The fill color for bars, areas, or shapes.
+
+-   **size**: The size of points or lines.\
+
+-   **shape**: The shape of points (e.g., circles, triangles).
+
+-   **alpha**: The transparency level.
+:::
+::::
+
+## Adding the aesthetic layer
+
+```{r echo = TRUE, fig.align = 'center'}
+ggplot(data = boston_celtics, aes(x = game_date, y = team_score)) + 
+  geom_col() 
+```
+
+## Subtle Difference
+
+::: callout-important
+* When using only **one data source** you can put the `aes()`  mapping as input into `ggplot2()`
+
+* For **multiple data sources** - the data and aesthetics mapping should go in the geom layer directly.
+:::
+
+```{r echo = TRUE, eval = FALSE, fig.align = 'center'}
+ggplot() +
+  geom_col(data = boston_celtics, aes(x = game_date, y = team_score))
+```
+
+## Colours in R 
+
+<br>
+
+:::callout-note 
+## Colours
+
+* There are [657 named colours](https://r-graph-gallery.com/42-colors-names.html) in R
+*e.g. "red", "blue", "yellow"*
+
+* To see theam all run `colors()` 
+
+* Colours can also be specified using hex codes, 
+e.g. `"forestgreen"` is `"#228B22"`.
+
+::: 
+
+## Colour and Fill
+
+:::callout-note 
+## Colour vs Fill 
+
+Let's set the bar **colour** to Green
+
+::: 
+
+```{r echo = TRUE, fig.align = 'center'}
+ggplot() + 
+  geom_col(data = boston_celtics, aes(x = game_date, y = team_score), col = "forestgreen") 
+```
+
+## Colour and Fill
+
+:::callout-note 
+## Colour vs Fill 
+
+Let's set the bar **fill** to Green
+
+::: 
+
+```{r echo = TRUE, fig.align = 'center'}
+ggplot() + 
+  geom_col(data = boston_celtics, aes(x = game_date, y = team_score), fill = "forestgreen") 
+```
+
+## Scale Layer 
+
+:::callout-tip 
+## Next Layer 
+
+Now we are happy with our:
+
+* data layer 
+* aesthetic layer, and 
+* geometry layer 
+
+we can work on the scale layer.
+*e.g. axis limits and color scales*
+
+:::
+
+## Scales: Colour and Fill
+
+:::callout-important 
+# Scale mapping
+To map a **variable** to the colour or fill, we need to specify the mapping in `aes()`.
+:::
+
+```{r echo = TRUE, fig.align = 'center'}
+ggplot(data = boston_celtics) + 
+  geom_col(aes(x = game_date, y = team_score, fill = team_winner))
+
+```
+
+<!-- ## Colour and Fill In Code -->
+
+<!-- ::: callout-note -->
+<!-- ## Common misunderstandings -->
+
+<!-- -   If it the asethetic mapping is the name of a variable then you need to put it in the the `aes()` brackets -->
+
+<!-- -   If it is fixed, e.g. you want to colour everything black, then it is just in the `geom_*()` bracket. -->
+
+<!-- -   Depending on what geom you use, there may be a difference between colour and fill -->
+
+<!-- -   Both spellings of colour and color will work -->
+<!-- ::: -->
+
+## Using In Built Fill/Colour Scales
+
+There are many inbuilt palettes, see [RColourBrewer](https://r-graph-gallery.com/42-colors-names.html)
+
+```{r echo = TRUE, fig.align = 'center'}
+ggplot(data = boston_celtics) + 
+  geom_col(aes(x = game_date, y = team_score, fill = team_winner), col = "gray") + 
+  scale_fill_brewer(palette = "Greens") 
+```
+
+## Manual fill and colour scales
+
+You can also change fill/colour scales manually using `scale_colour_manual` or `scale_fill_manual`.
+
+```{r echo = TRUE, fig.align = 'center'}
+ggplot(data = boston_celtics) + 
+  geom_col(aes(x = game_date, y = team_score, fill = team_winner), col = "gray") +
+  scale_fill_manual(label = c("Loss", "Win"), values = c("TRUE" = "forestgreen", "FALSE" = "lightgreen"))
+```
+
+## Colour Scales
+
+:::: callout-note
+## Colour Scales
+
+IMO: Colour scales are on the hardest parts about learning `ggplot2`
+
+::: incremental
+-   To change colour scale, use `scale_colour_*`
+
+-   To change fill scale, use `scale_fill_*`
+
+-   Check out all the different types of scales using the help menu `?scale_colour` and hit tab.
+
+-   Note for **discrete variables** needing distinct colours, such as **categorical** variables, you can use `scale_*_brewer`
+
+-   For **continuous variables** needing a smooth gradient use `scale_*_distiller`
+
+-   You can also set colours manually using `scale_*_manual`
+:::
+::::
+
+<small> Note \* here is like a blank space and it means there are multiple things that could be inserted here </small>
+
+## Theme Layer
+
+::: callout-note
+### Themes
+
+-   Here is a list of the [themes](https://ggplot2.tidyverse.org/reference/ggtheme.html).
+
+-   My favourite is `theme_bw()`.
+:::
+
+## Default Theme
+
+::: callout-note
+## Grey Background
+
+-   The default background for `ggplot2` is arguably chartjunk.
+
+-   But - There are good reasons for using it.
+:::
+
+> *"We can still see the gridlines to aid in the judgement of position (Cleveland, 1993b), but they have little visual impact and we can easily "tune" them out... Finally, the grey background creates a continuous field of colour which ensures that the plot is perceived as a single visual entity."*  
+Wickham on the grey background* 
+Source: ggplot2: Elegant Graphics for Data Analysis.
+
+
+## Changing Theme Background
+
+Here I change the theme background to `theme_bw()`.
+
+```{r echo = TRUE, fig.align='center'}
+ggplot(data = boston_celtics) + 
+  geom_col(aes(x = game_date, y = team_score, fill = team_winner), col = "gray") +
+  scale_fill_manual(label = c("Loss", "Win"), values = c("TRUE" = "forestgreen", "FALSE" = "lightgreen")) + 
+  theme_bw() 
+```
+
+## Plot Theme Specifics
+
+::: callout-note
+## Plot Theme Specifics
+
+-   To tune the more specific aspects of your theme, we use the `theme()` layer.
+
+-   Look up `?theme` there are a lot of options!
+:::
+
+## Changing Theme Specifics
+
+To improve data-density we can move the legend to the bottom and remove the legend label.
+
+```{r echo = TRUE, fig.align='center'}
+ggplot(data = boston_celtics) + 
+  geom_col(aes(x = game_date, y = team_score, fill = team_winner), col = "gray") +
+  scale_fill_manual(label = c("Loss", "Win"), values = c("TRUE" = "forestgreen", "FALSE" = "lightgreen")) + 
+  theme_bw() + 
+  theme(legend.position = "bottom", legend.title = element_blank())
+```
+
+## Polising your plot
+
+The `theme()` layer is also were you can add specifics about titles, text and axes. 
+
+```{r echo = TRUE}
+celtics_plot <- ggplot(data = boston_celtics) + 
+  geom_col(aes(x = game_date, y = team_score, fill = team_winner), col = "gray") +
+  scale_fill_manual(label = c("Win", "Loss"), values = c("TRUE" = "forestgreen", "FALSE" = "lightgreen")) + 
+  theme_bw() + 
+  theme(
+    legend.position = "bottom", 
+    legend.title = element_blank(),
+    plot.title = element_text(size = 20), 
+    axis.title.x = element_text(size = 15),  
+    axis.title.y = element_text(size = 15),  
+    axis.text = element_text(size = 12),      
+    legend.text = element_text(size = 12)) + 
+  xlab("Game Date") + 
+  ylab("Team Score") + 
+  ggtitle("Boston Celtics 2025 Season so far")
+```
+
+## Final plot
+
+```{r echo = TRUE, fig.align='center'}
+celtics_plot
+```
+
+## Your turn
+
+::: callout-note
+### Your turn
+
+**Recreate this plot** - But experiment with the different parts to see how they work!
+
+-   Change the fixed fill and the colour
+
+-   Change the colour/fill palette
+
+-   Experiment with different ranges of the y-axes (x is tricky so don't worry about that for now.)
+
+-   Change the titles and axes labels
+
+-   Change the theme
+
+Do these one at a time so you understand what each piece of code does!
+:::
+
+# Distribution Plots {background-color="#006DAE"}
+
+## Distribution Plots
+
+::: callout-note
+## Distribution Plots
+
+Instead of comparing the points scored per game, I might like to look at the distribution of points scored in a game.
+
+-   What's the highest number of points scored?
+-   What's the lowest number of points scored?
+-   What's the average number of points scored?
+-   How much variation is their in the number of points scored each game?
+:::
+
+## Histogram
+
+Too many bins:
+
+```{r}
+ggplot(data = all_years_boston_celtics) + 
+  geom_histogram(aes(x = team_score), binwidth = 1) + 
+  theme_bw()
+```
+
+## Histogram
+
+Too few bins:
+
+```{r}
+ggplot(data = all_years_boston_celtics) + 
+  geom_histogram(aes(x = team_score), binwidth = 20) + 
+  theme_bw()
+```
+
+## Histogram
+
+A better number of bins:
+
+```{r}
+ggplot(data = all_years_boston_celtics) + 
+  geom_histogram(aes(x = team_score), binwidth = 5) + 
+  theme_bw()
+```
+
+## Density Plot
+
+```{r}
+ggplot(data = all_years_boston_celtics) + 
+  geom_density(aes(x = team_score)) + 
+  geom_vline(aes(xintercept = mean(team_score)), col = "red", linetype = "dotted") +
+  theme_bw()
+```
+
+## Box Plot
+
+```{r}
+ggplot(data = all_years_boston_celtics) + 
+  geom_boxplot(aes(x = team_score)) + 
+  theme_bw()
+```
+
+## Histogram
+
+::: callout-note
+## When to Use
+
+-   Use to visualise the **distribution** of a single numeric variable.\
+-   Good for identifying the **shape** of data (e.g., normal, skewed, bimodal).\
+-   Example: Examining the frequency of income ranges.
+:::
+
+. . . 
+
+::: callout-caution
+### Watch out for
+
+- Too few bins: Hides important details
+- Too many bins: Creates noise in the data
+
+:::
+
+
+## Density Plot
+
+::: callout-note
+## When to use
+
+-   **Smoothed alternative** to a histogram
+-   Best for showing the **underlying distribution** without binning
+-   Example: Distribution of test scores.
+:::
+
+. . . 
+
+::: callout-caution
+### Watch out for
+
+* Over-smoothing or under-smoothing 
+  - Over-smoothing hides important features like multiple peaks.
+  - Under-smoothing makes the plot noisy.
+
+* Inappropriate for small datasets
+  - Need sufficient data points to estimate the density curve
+:::
+
+## Boxplot
+
+::: callout-note
+## When to Use
+
+-   Use to summarize the **central tendency** and **spread** of a numeric variable.
+-   Provides a **5 number summary**
+    -   min, first quartile (Q1), median, third quartile (Q3), max
+-   Can be used to show **outliers** compared to the main data distribution. 
+-   Example: Summarising salary bands
+:::
+
+. . . 
+
+::: callout-caution
+### Watch out for
+
+- Outliers are necessarily errors! Leave them in, unless you have a good reason. 
+
+- R automatically plots points as outliers if they are 1.5 times greater than the interquartile range
+
+- A boxplot is a summary. If the shape of the underlying distribution is important, try `geom_violin()`
+
+:::
+
+## A guide
+
+Choosing the Right Plot
+
+| **Plot Type** | **Best For**                 | **Features**              |
+|---------------|------------------------------|---------------------------|
+| Histogram     | Raw frequency counts         | Splits the data into bins |
+| Density Plot  | Smoothed Distribution        | Continuous, no bins       |
+| Box plot      | Showing the 5 number Summary | Shows outliers as points  |
+
+. . . 
+
+::: callout-important
+## Key Takeaways
+
+Pick the appropriate plot for you data and the relationship you want to show
+
+:::
+
+## Histogram and Density
+
+```{r fig.align='center'}
+all_years_boston_celtics = read_csv(here::here("data/boston_celtics.csv"))
+
+ggplot(data = all_years_boston_celtics, aes(x = team_score)) + 
+  geom_histogram(aes(y = ..density..), alpha = 0.4, col = "lightgray") + 
+  geom_density(col = "red", adjust = 1.25, size = 1.1) +
+  geom_vline(aes(xintercept = mean(team_score)), col = "red", linetype = "dotted", size = 1.1) +
+  theme_bw()
+```
+
+## Code
+
+::: callout-important
+## Key Takeaways
+
+And sometimes the best plot combines more than one geometry togehter!
+
+:::
+
+```{r echo = TRUE, eval = FALSE}
+boston_celtics = read_csv("data/boston_celtics.csv")
+
+ggplot(data = boston_celtics, aes(x = team_score)) + 
+  geom_histogram(aes(y = ..density..), 
+                 alpha = 0.4, 
+                 col = "lightgray") + 
+  geom_density(col = "red", 
+               adjust = 1.25, 
+               size = 1.1) +
+  geom_vline(aes(xintercept = mean(team_score)), 
+             col = "red", 
+             linetype = "dotted", 
+             size = 1.1) +
+  theme_bw() + 
+  ggtitle("Boston Celtics Team Score 2021 - Present")
+```
+
+<!-- ## Violin Plot + Jittered Points -->
+
+<!-- ```{r eval = FALSE} -->
+<!-- ggplot(data = all_years_boston_celtics) +  -->
+<!--   geom_violin(aes(x = )) +  -->
+<!--   geom_jitter() +  -->
+<!--   theme_bw() -->
+<!-- ``` -->
+
+# Plots showing relationships {background-color="#006DAE"}
+
+## Correlation and Relationships
+
+::: callout-note
+### Plots showing correlation and realtionships
+
+-   Scatter Plot (`geom_point`)
+-   Bubble Plots (`size`)
+-   Line Plots (`geom_line`)
+-   Heatmaps (`geom_hex`, `geom_bin2d`)
+-   Contour Plots (`geom_density_2d`)
+
+And their variations!
+:::
+
+## Scatter Plot
+
+:::callout-tip 
+## Scatter Plot
+
+Good for looking a relationships between two numeric variables
+
+:::
+
+```{r echo = TRUE}
+field_goals_scatter_plot <- ggplot(data = all_years_boston_celtics) + 
+  geom_point(aes(x = field_goals_attempted, y = field_goals_made)) + 
+  theme_bw() + 
+  xlab("Field Goals Attempted (2 pts)") + 
+  ylab("Field Goals Made (2 pts)") + 
+  theme(legend.position = "bottom") + 
+  ggtitle("Boston Celtics Field Goals 2021 - Present")
+```
+
+## Scatter Plot
+
+```{r echo = TRUE, fig.align='center'}
+field_goals_scatter_plot
+```
+
+## What if you want to add more variables 
+
+Say I want to show the total point score as well or which games they won?
+
+::: callout-tip
+## Back to preattentive processing
+
+* Could try changing point colour
+* Could try changing point size 
+
+:::
+
+## Point Colour
+
+```{r echo = TRUE}
+field_goals_colour_plot <-
+  all_years_boston_celtics |>
+  ggplot() + 
+  geom_point(aes(x = field_goals_attempted, y = field_goals_made, col = team_score), alpha = 0.4) +
+  scale_colour_distiller(palette = "Greens") +
+  theme_bw() + 
+  xlab("Field Goals Attempted (2 pts)") + 
+  ylab("Field Goals Made (2 pts)") + 
+  theme(legend.position = "bottom") + 
+  ggtitle("Boston Celtics Field Goals 2021 - Present") + 
+  coord_fixed()
+```
+
+## Points by Colour
+
+```{r echo = TRUE, fig.align='center'}
+field_goals_colour_plot
+```
+
+## Point Size: Bubble Plot
+
+```{r echo = TRUE}
+field_goals_bubble_plot <-
+  all_years_boston_celtics |>
+  # filter(season == 2025) |>
+  ggplot() + 
+  geom_point(aes(x = field_goals_attempted, y = field_goals_made, size = team_score), alpha = 0.4) + 
+ scale_size_continuous(
+    name = "Team Score",
+    breaks = c(110, 115, 120, 125, 130)
+  ) +
+  theme_bw() + 
+  xlab("Field Goals Attempted (2 pts)") + 
+  ylab("Field Goals Made (2 pts)") + 
+  theme(legend.position = "bottom") + 
+  ggtitle("Boston Celtics Field Goals 2021  - Present") + 
+  coord_fixed()
+```
+
+## Bubble Plot
+
+```{r echo = TRUE, fig.align='center'}
+field_goals_bubble_plot
+```
+
+## Bubble Plot ctd
+
+:::callout-caution 
+## Watch out for
+In both scatter and bubble plots **overplotting** can occur. Changing transparency can help, but sometimes there are too many points!
+:::
+
+. . .
+
+:::callout-tip 
+## Solution 
+In these instances a heatmap can help. 
+
+Heatmaps are like a histogram, but data is binned in along both the x and y axis.
+:::
+
+## Heatmap and Density
+
+```{r echo = TRUE}
+field_goals_heatmap_all <-
+  ggplot(data = all_years_boston_celtics) + 
+  geom_hex(
+    aes(
+    x = field_goals_attempted, 
+    y = field_goals_made
+    )) + 
+  scale_fill_distiller(palette = "Greens", direction = 1, name = "Count") +
+  geom_density_2d(
+    aes(
+    x = field_goals_attempted, 
+    y = field_goals_made
+    ), alpha = 0.4, adjust = 1.2, col = "forestgreen") +
+  theme_bw() +
+  xlab("Field Goals Attempted (2 pts)") + 
+  ylab("Field Goals Made (2 pts)") + 
+  ggtitle("Boston Celtics Field Goals 2021 - 2024") + 
+  coord_fixed()
+```
+
+## Heatmap and Density
+
+```{r echo = TRUE, fig.align='center'}
+field_goals_heatmap_all
+```
+
+# Summary {background-color="#006DAE"}
+
+## Summary
+
+:::: callout-note
+## Summary
+
+::: incremental
+-   Learnt about plotting in R.
+
+    -   This included how to use the `ggplot2` package in R, and
+
+    -   The grammar of graphics
+
+-   Learnt `ggplot2` is like Shrek!
+
+    -   It is an onion with many layers.
+
+-   Learnt how to create a range of plots in R
+
+    -   These include common plots to show correlations and relationships
+
+-   Remember the tips for learning R from Lecture 1 if you get stuck!
+:::
+::::
+
