@@ -1,0 +1,1023 @@
+---
+pagetitle: "ETX2250/ETF5922"
+subtitle: "Data Wrangling for Plotting"
+author: Kate Saunders
+email: "etx2250-etf5922.caulfield-x@monash.edu"
+date: "Lecture 5"
+department: "Department of Econometrics and Business Statistics"
+unit-url: "dvac.ss.numbat.space"
+footer: "ETX2250/ETF5922"
+format: 
+  revealjs: 
+    logo: images/monash-one-line-black-rgb.png
+    slide-number: c
+    multiplex: false
+    theme: ../assets/monash.scss
+    show-slide-number: all
+    show-notes: false
+    controls: true
+    width: 1280
+    height: 720
+    css: [../assets/custom.css, ../assets/lecture-01.css]
+    include-after-body: "../assets/after-body.html"
+    #   boardmarker-width: 5
+    #   buttons: true
+    embed-resources: true
+---
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+
+if(!require(emoji))
+  install.packages("emoji")
+
+if(!require(tidyverse))
+  install.packages("tidyvers")
+
+library(emoji)
+library(tidyverse)
+
+```
+
+## <br>[`r rmarkdown::metadata$pagetitle`]{.monash-blue} {#etx2250-etf5922-title background-image="images/bg-01.png"}
+
+### `r rmarkdown::metadata$subtitle`
+
+Lecturer: *`r rmarkdown::metadata$author`*
+
+`r rmarkdown::metadata$department`
+
+::: tl
+<br>
+
+<ul class="fa-ul">
+
+<li><i class="fas fa-envelope"></i>`r rmarkdown::metadata$email`</li>
+
+<li><i class="fas fa-calendar-alt"></i> `r rmarkdown::metadata$date`</li>
+
+<li><i class="fa-solid fa-globe"></i>\<a href="`r rmarkdown::metadata[["unit-url"]]`"\>`r rmarkdown::metadata[["unit-url"]]`</a></li>
+
+</ul>
+
+<br>
+:::
+
+## Real World
+
+Data often isn't given to us in the form we want!!!
+
+:::: callout-important
+## Getting Data
+
+::: incremental
+-   Often the variables we want to plot aren't in the data set
+
+-   We may need to create variables we want ourselves
+
+-   Or get rid of variables we don't need
+
+-   Or create new summaries of our data for plotting
+
+-   We might also need to restructure our data entirely to plot it
+:::
+::::
+
+## Today's Lecture
+
+:::: callout-note
+## Learning Objectives
+
+::: incremental
+-   Learn more about reading data in R so our data types are correct
+
+-   Learn more about how we'd like to give and receive data
+
+    -   Codd's Model / Tidy Data
+
+-   Learn the basics of transforming data
+
+    -   filtering, selecting, and mutating (making new variables)
+
+-   Learn how to create new data sets from existing data by:
+
+    -   grouping, summarising, reshaping, and joining
+:::
+::::
+
+# Importing Data {background-color="#006DAE"}
+
+## Data import
+
+:::: callout-note
+### Overview
+
+::: incremental
+-   Data often stored in a single table
+
+-   Columns are separated by a comma or a tab
+
+-   The `readr` package is very useful for reading files into R as *data frame* objects
+
+-   The `readr` package is part of the `tidyverse` packages
+:::
+::::
+
+## Data frame
+
+:::: callout-note
+### Data frame
+
+::: incremental
+-   A data frame is an object with:
+    -   Each row corresponding to an observation or case,
+    -   Each column corresponding to a variable.
+-   Two types of data frames in R are:
+    -   The `data.frame` in base R
+    -   The `tibble` in the tidyverse
+:::
+::::
+
+## The readr package
+
+:::: callout-note
+### Read functions
+
+::: incremental
+-   Two of the more useful functions are `read_csv` and `read_tsv` for comma delimited and tab delimited files, respectively
+
+-   Generally the defaults for this function work quite well.
+
+-   One argument that is worth discussing a little is `col_types`
+:::
+::::
+
+## 
+
+| Code              | Description                       |
+|-------------------|-----------------------------------|
+| `col_logical()`   | Logical (TRUE, FALSE, or NA)      |
+| `col_integer()`   | Integer                           |
+| `col_double()`    | Double (numeric with decimals)    |
+| `col_character()` | Character                         |
+| `col_factor()`    | Categorical variable as a factor  |
+| `col_date()`      | Date (YYYY-MM-DD)                 |
+| `col_datetime()`  | Date-time (POSIXct)               |
+| `col_time()`      | Time (HH:MM:SS)                   |
+| `col_skip()`      | Skip this column entirely         |
+| `col_guess()`     | Let `readr` guess the column type |
+
+## Characters or Dates?
+
+::: callout-note
+-   A common problem is dates reading in as a character string
+
+-   This might have happened to you: here is how to fix it
+:::
+
+```{r echo = TRUE}
+library(tidyverse)
+boston_celtics <- read_csv("data/boston_celtics.csv", 
+           col_types = cols(game_date = col_date()))
+str(boston_celtics$game_date)
+```
+
+## Reading in long numbers
+
+:::: callout-note
+### Long numbers
+
+::: incremental
+-   The largest integer that many computers will accurately store is about 19 digits long.
+
+-   Some identification numbers are longer than that (for instance IBAN numbers used for bank transfers).
+
+-   In some cases, R may try to read these numbers in as integers.
+
+-   To avoid errors these should be read in as characters.
+:::
+::::
+
+```{r echo = TRUE, eval = FALSE}
+# Example - code will not run
+read_csv("data/bank_data.csv", 
+           col_types = cols(
+             IBAN = col_character()
+           ))
+```
+
+## Column types
+
+:::: callout-warning
+### Be careful
+
+::: incremental
+-   Specifying `col_types = list(.default = "c")` overrides the default behaviour of `readr`.
+
+-   You can use this to force everything to be read in as a character.
+
+-   If needed these can subsequently be converted to numeric variables or other variable types.
+:::
+::::
+
+# Tidy Data {background-color="#006DAE"}
+
+## Example
+
+Suppose we have the following database:
+
+```{r, echo=FALSE}
+eg <- tibble(Name = c('Ahmed', 'Bin', 'Carol'),
+             DoB = c('1994/03/01', '1954/12/23', '1982/07/16'),
+             Email = c('ahmed@personal.com',
+                       'bin@me.com; bin@work.com',
+                       'carol@mailcom'))  
+gt::gt(eg)
+```
+
+## Problems
+
+:::: callout-warning
+### Problems
+
+::: incremental
+-   Carol's entry is not a valid email.
+    -   A function can be written to check and remove this.
+-   A bigger problem is that the email entry is not **atomic**. There are two emails for Bin.
+    -   If code is written to check if the email is valid, then this code will also fail for Bin.
+-   On the next slide is a solution.
+:::
+::::
+
+## Possible solution
+
+```{r, echo=FALSE}
+eg <- tibble(Name = c('Ahmed', 'Bin', 'Carol'),
+             DoB = c('1994/03/01', '1954/12/23', '1982/07/16'),
+             Email1 = c('ahmed@personal.com',
+                        'bin@me.com',
+                        'carol@mailcom'),
+             Email2 = c(NA, 'bin@work.com', NA))  
+gt::gt(eg)
+```
+
+## Problems
+
+:::: callout-warning
+### Still problems
+
+::: incremental
+-   This solution forces an ordering between Email1 and Email2 that may be arbitrary.
+
+-   Also, a new entry into the database may be:
+
+    -   Name: Deepal
+    -   DoB: 1987/04/23
+    -   Email: deepal\@work.com; deepal\@me.com; coolgirl87\@me.com
+
+-   The entire database needs to be changed to allow for three email addresses.
+:::
+::::
+
+## Solution
+
+```{r, echo=FALSE}
+eg <- tibble(Name = c('Ahmed', 'Bin', 'Bin', 'Carol'),
+             DoB = c('1994/03/01', '1954/12/23', '1954/12/23',
+                     '1982/07/16'),
+             Email = c('ahmed@personal.com',
+                       'bin@me.com',
+                       'bin@work.com',
+                       'carol@mailcom'))  
+gt::gt(eg)
+```
+
+Deepal can be added as
+
+```{r, echo=FALSE}
+eg <- tibble(Name = rep('Deepal', 3),
+             DoB = rep('1987/04/23',3),
+             Email = c('deepal@work.com', 
+                       'deepal@me.com',
+                       'coolgirl87@me.com'))  
+gt::gt(eg)
+```
+
+## First normal form (1NF)
+
+We want data in an easily workable and robust form!
+
+:::: callout-tip
+### Databases
+
+::: incremental
+-   1NF is an important concept in *database normalisation*
+
+-   No repeating groups
+
+-   Every field contains **atomic** (indivisible) values
+
+-   Each record is unique
+:::
+::::
+
+## Data analysis
+
+1NF is closely related to Tidy data principles.
+
+::: callout-tip
+## Tidy Data Principles[^1]
+
+-   Each variable must have its own column
+-   Each observation must have its own row
+-   Each value must have its own cell
+:::
+
+[^1]: Wickham (2014) Tidy Data. *Journal of Statistical Software* **59**
+
+## Codd's model
+
+:::: callout-note
+## `dlpyr` R package for data wrangling
+
+::: incremental
+-   Many of the functions in `dplyr` are similar to functions in the SQL (database language)
+
+-   SQL is itself built upon (but not exactly the same) as a theoretical model known as Codd's model
+
+-   An important aspect of Codd's model is the first normal form
+
+-   Codd's model provides guidelines for good data management
+:::
+::::
+
+. . .
+
+::: callout-tip
+## Why you care: TLDR
+
+-   We map variables to our aesthetic layer for plotting
+
+-   If our data is a tidy form then it's easy for us to do that mapping
+
+-   If not - We'll use `dlpyr` tools to format our data
+:::
+
+# Selecting and Filtering {background-color="#006DAE"}
+
+## `dplyr` R package
+
+::: callout-important
+## Again
+
+-   Data rarely comes in the format we want
+:::
+
+. . .
+
+:::: callout-note
+## A few simple functions
+
+::: incremental
+-   Much can be done with a few simple functions from the `dplyr` package:
+
+    -   Choose column variables with `select`
+    -   Choose rows of observations with `filter`
+    -   Transform and create new variables with `mutate`
+
+-   In all cases both input and output is a data frame.
+
+-   Check out the `dplyr` [cheat sheet](https://rstudio.github.io/cheatsheets/html/data-transformation.html)
+:::
+::::
+
+## Let's look at an example
+
+The diamonds data is a tibble include in R
+
+```{r}
+#| echo: true
+
+diamonds
+```
+
+## Select variables
+
+::: callout-note
+-   The `select` function can be used if we only want to focus on a subset of variables
+
+-   Check out `?select` for all the different way to select columns
+
+e.g. For the diamonds data set we may only be interested in `carat`, `cut` and `price`.
+:::
+
+```{r}
+#| echo: true
+
+diamonds |> select(carat, cut, price)
+```
+
+## Select variables
+
+To drop variables, use a `-` sign.
+
+```{r}
+#| echo: true
+
+diamonds |> select(-c(carat, cut, price))
+```
+
+## Filter observations
+
+Suppose we only want to consider diamonds worth more than \$1000
+
+```{r}
+#| echo: true
+
+diamonds |> filter(price > 1000)
+```
+
+## Logical statements
+
+:::: callout-note
+### Examples
+
+::: incremental
+-   The term `price > 1000` is an example of a logical statement. It can be true or false.
+
+-   Other examples are
+
+    -   Price less than 1000: `price < 1000`
+    -   Price less than or equal to 1000: `price <= 1000`
+    -   Price not equal to 1000: `price != 1000`
+    -   Price exactly 1000: `price == 1000`
+
+-   Note **two** equal signs.
+
+-   In general `!` is the negation of a statement.
+:::
+::::
+
+## AND operator
+
+-   If two statements need to be satisfied use `&`.
+
+```{r, echo=TRUE}
+diamonds |> filter(price > 1000 & cut == 'Ideal')
+```
+
+## OR operator
+
+-   If either one or the other statement needs to be satisfied use `|`.
+
+```{r, echo=TRUE}
+diamonds |> filter(cut == 'Ideal' | color == 'E')
+```
+
+## IN operator
+
+-   Another useful operator is `%in%`.
+
+```{r,echo=TRUE}
+diamonds |> filter(cut %in% c('Ideal', 'Fair'))
+```
+
+## NOT operator
+
+-   Use `!` as not.
+
+```{r,echo=TRUE}
+diamonds |> filter(!(cut %in% c('Ideal', 'Fair')))
+```
+
+## Your turn
+
+::: callout-caution
+### Your turn
+
+-   Write R code for the following:
+    -   `price` greater than 2000 and `carat` less than 3.
+    -   `price` greater than 2000 and `cut` either Very Good, Premium or Ideal.
+    -   `carat` less than 2 or price greater than 500.
+    -   `carat` less than 2 and `cut` not equal to Premium.
+:::
+
+# Creating New Variables {background-color="#006DAE"}
+
+## Let's look at an example
+
+The mpg (**m**iles **p**er **g**allon) data is a tibble include in R
+
+```{r, echo=TRUE}
+mpg
+```
+
+## Mutate
+
+::: callout-note
+### Example
+
+-   Suppose we are interested in fuel efficiency in the city or on the highway
+-   We'll need the variables `cty` and `hwy`
+-   These are measured in miles per gallon, but we want to convert into metric units
+-   One mile per gallon equals 0.425144 km per litre.
+:::
+
+```{r, echo=TRUE}
+mpg_subset <- mpg |> select(cty, hwy)
+mpg_subset <- mpg_subset |> mutate( 
+                     cty_metric = 0.425144 * cty,
+                     hwy_metric = 0.425144 * hwy)
+```
+
+## Result
+
+```{r, echo=FALSE}
+mpg_subset
+```
+
+## The pipe operator
+
+::: callout-important
+## Super useful
+
+-   In `dplyr` as the input and output are always data frames.
+
+-   That means chain commands together using `|>` (or older version `%>%`)
+:::
+
+```{r}
+#| echo: true
+
+out <- c(1, 12, 4) |>
+  mean() |>
+  sqrt()
+
+str(out)
+```
+
+## Pipes and dplyr
+
+This code
+
+```{r, echo=TRUE}
+mpg_subset <- mpg |> select(cty, hwy)
+mpg_subset <- mpg_subset |> mutate( 
+                     cty_metric = 0.425144 * cty,
+                     hwy_metric = 0.425144 * hwy)
+```
+
+does the same as this code
+
+```{r,echo=TRUE}
+mpg_subset <- mpg |> 
+  select(cty, hwy) |> 
+  mutate(cty_metric = 0.425144 * cty,
+         hwy_metric = 0.425144 * hwy)
+```
+
+and it's a lot more readable!
+
+## Your turn
+
+::: callout-caution
+### Your turn
+
+Start with `mpg` and practice using the `|>` operator:
+
+-   Create the new variables for `cty_metric` and `hwy_metric` yourself
+
+-   Add another new variable called `efficient` - cars are efficient if the `hwy_metric < 6`
+
+-   Then create a data set of `manufacturer` and `model` that contains only the `efficient` cars
+
+-   How many `efficient` cars are there? (Hint: look up `?distinct()` and `?nrow()`)
+:::
+
+# Grouping {background-color="#006DAE"}
+
+## Let's look at an example
+
+::: callout-note
+## Data
+
+-   The `txhousing` data is a tibble included in R
+
+-   Contains monthly sales data for each city from year 2000-2016
+
+-   Suppose the aim is to find total number of sales across all cities in a year
+:::
+
+```{r, echo=TRUE}
+txhousing
+```
+
+## Group by function
+
+::: callout-note
+## group_by
+
+-   `group_by` allows us perform functions on groups within our data
+
+-   e.g across a `year`, or a categorical variable
+
+-   When used in combination with `summarise` function, it can construct new data sets
+
+-   e.g get a total, mean, sd for that group
+:::
+
+## Group by and summarise
+
+```{r, echo=TRUE}
+total_sales <- txhousing |>
+  group_by(year) |>
+  summarise(total_sales = sum(sales, na.rm = TRUE)) 
+head(total_sales, n = 5)
+```
+
+::: callout-note
+-   Data for some cities is unavailable and is filled in as `NA` (early years in particular)
+
+-   `na.rm = TRUE` removes missing data before taking the sum
+:::
+
+## group_by two variables
+
+::: callout-note
+### Two variables
+
+-   Suppose we want to get the yearly total for each city
+
+-   Need to group by `city` and `year`.
+:::
+
+## group_by and summarise
+
+```{r, echo=TRUE}
+total_sales <- txhousing |>
+  group_by(year, city) |>
+  summarise(total_sales = sum(sales, na.rm = TRUE))
+total_sales
+```
+
+## Your turn
+
+::: callout-caution
+### Your turn
+
+-   In the `diamonds` data set, find the average price for each cut of diamond
+
+-   In the `diamonds` data set, find the average price for each cut of diamond given that price is above 2000.
+
+-   In the `mpg` data set find the average fuel efficiency in the city for each year.
+
+-   In the `mpg` data set, consider Toyota, Nissan and Honda. Find the value of `hwy` for each of these manufacturer's most fuel efficient car on the highway.
+:::
+
+# Reshaping {background-color="#006DAE"}
+
+## Long vs. wide format
+
+:::: callout-note
+::: incremental
+-   Generally attempt to have one column per variable.
+
+-   Sometimes the meaning of a *variable* is ambiguous
+
+-   In many cases it is easier to use `ggplot2` if the data are reshaped into a different form.
+
+-   We investigate using the `economics` data.
+:::
+::::
+
+## Economics: wide
+
+```{r, echo=TRUE}
+economics
+```
+
+-   It has a column for each variable and a row for each observation/case.
+
+## Economics: long
+
+```{r, echo=TRUE, warning=FALSE}
+economics_long
+```
+
+-   It has one column indicating the type of variable contained in that row and then a separate column for the value for that variable.
+
+-   Both wide and long formats store the same information.
+
+## Use case of wide format
+
+```{r,echo=TRUE, fig.height=5}
+ggplot(economics, aes(x = uempmed, y = psavert)) +
+  geom_point()
+```
+
+## Use case of long format
+
+```{r, echo=TRUE, fig.height=5, fig.width=8}
+ggplot(economics_long, aes(x = date, y = value)) +
+  geom_line() +
+  facet_wrap(vars(variable), scales = 'free_y')
+```
+
+We will learn about `facet_wrap` next workshop.
+
+## From wide to long
+
+```{r, echo=TRUE}
+long_data <- economics |> 
+  pivot_longer(
+    cols = -date,
+    names_to = 'Variable',
+    values_to = 'Value')
+long_data
+```
+
+## Pivot longer
+
+:::: callout-note
+### Arguments
+
+::: incremental
+-   The `names_to` will be a variable of column names.
+
+-   The `values_to` will be a variable that stores the body of the data frame.
+
+-   Use `-` in the `cols` argument to exclude variable(s).
+
+-   Here this was done for the `date` variable.
+:::
+::::
+
+## From long to wide
+
+```{r,echo=TRUE}
+wide_data <- economics_long |> 
+  pivot_wider(
+    id_cols = date,
+    names_from = variable,
+    values_from = value)
+wide_data
+```
+
+## Pivot wider
+
+:::: callout-note
+### Arguments
+
+::: incremental
+-   The `names_from` will be a variable including column names of the new data frame.
+
+-   The `values_from` will be a variable that will become the body of the new data frame.
+
+-   The `id_cols` will be the variables used to uniquely identify the observations in the new data frame.
+:::
+::::
+
+## Your turn
+
+::: callout-caution
+### Your turn
+
+Consider again the `mpg` data. There is a column for `cty` and `hwy`.
+
+-   Make a long format where there is a column for `road_type` (`cty` or `hwy`) and the values are in the new column called `mpg`
+
+-   (Extra) You may also like to create a metric version of the variables and a new column for `units`
+:::
+
+# Joins {background-color="#006DAE"}
+
+## Joins
+
+:::: callout-important
+## Multiple data sets
+
+::: incremental
+-   Often we work with multiple data sets
+
+-   We need to know how to join data sets together
+:::
+::::
+
+. . .
+
+:::: callout-note
+## Example
+
+::: incremental
+Consider electricity and weather data (on Moodle):
+
+-   Hot days we use our airconditioner
+
+-   Cold days we use our heating
+
+Makes sense to analyse these together
+:::
+::::
+
+## Energy data
+
+Electricity price: demand and export by date, day and State
+
+```{r, echo=T,message=FALSE}
+energy <- read_csv('data/energydata.csv')
+energy
+```
+
+## Weather data
+
+Weather variables: Maximum temperature, wind direction and wind speed by Date
+
+```{r, echo=T,message=FALSE}
+weather <- read_csv('data/weather.csv')
+weather
+```
+
+## Types of join
+
+```{r, echo=FALSE}
+knitr::include_graphics('images/lecture-05/venn_diagrams_join.png')
+```
+
+## Types of join
+
+:::: callout-note
+### Types
+
+::: incremental
+-   Using `inner_join(x, y)` returns all rows from `x` with matching values in `y`.
+
+-   Using `left_join(x, y)` returns all rows from `x` with matching values in `y`, with `NA` if there is no match.
+
+-   Using `right_join(x, y)` returns all rows from `y` with matching values in `x`, with `NA` if there is no match.
+
+-   Using `full_join(x, y)` returns all rows from `x` or `y` with `NA` if there is no match.
+:::
+::::
+
+## Types of join
+
+```{r, echo=FALSE, out.width="60%", fig.cap="Source: Wickham, H., Çetinkaya-Rundel, M., Grolemund, G. (2023). R for Data Science. United States: O'Reilly Media."}
+fig_inner <- figpatch::fig("images/lecture-05/inner.png")
+fig_left <- figpatch::fig("images/lecture-05/left.png")
+fig_right <- figpatch::fig("images/lecture-05/right.png")
+fig_full <- figpatch::fig("images/lecture-05/full.png")
+patchwork::wrap_plots(fig_inner, fig_left, fig_right, fig_full,
+                      nrow = 2) 
+```
+
+## Your turn
+
+::: callout-caution
+### Your turn
+
+Try out each of the different joins and see what they do
+
+Compare the resulting dataset size using `dim()`
+:::
+
+For example:
+
+```{r,echo=T}
+energy_weather_inner <- inner_join(energy, weather, by = c('Date', 'State'))
+energy_weather_inner
+```
+
+# Summary {background-color="#006DAE"}
+
+## Summary
+
+:::: callout-note
+## Summary
+
+::: incremental
+<!-- -   Learnt about common types in R for data -->
+
+<!--     -   `data.frame` and `tibble` -->
+
+<!-- -   Learnt about reading data -->
+
+<!--     -   `read_csv()` (comma-separated, tab-separated and urls) -->
+
+-   Covered changing data types in R when reading data
+
+-   Reviewed good data practices: 1NF and tidy data
+
+-   Learnt the basics of transforming data
+
+    -   `dplyr` package: `select()`, `filter()`, `mutate()`
+    -   Logical statements
+
+-   Created new data sets
+
+    -   using `group_by()` and `summarise()`
+
+-   Learnt how to reshape our data changing from long vs. wide formats
+
+    -   `pivot_wider()` or `pivot_longer`
+
+-   Learnt how to joining data sets
+
+    -   `inner_join()`, `left_join()`, `right_join()` , `full_join()`
+:::
+::::
+
+# Reading data from the web {background-color="#006DAE"}
+
+## Getting data
+
+:::: callout-tip
+::: incremental
+-   Although data will sometimes be provided to you, it is useful to know some ways to get data off the web.
+
+-   This can be integrated into your R workflow.
+
+-   Techniques range from commands to download files to more sophisticated *web scraping*.
+
+-   Websites can change so always make sure to save data as well.
+:::
+::::
+
+## Downloading files in R
+
+-   As an example consider wholesale electricity prices which can be downloaded [online](https://www.aemo.com.au/energy-systems/electricity/national-electricity-market-nem/data-nem/aggregated-data).
+
+```{r}
+#| echo: false
+#| out-width: 50%
+
+knitr::include_graphics('images/lecture-05/aemo.png')
+```
+
+Hover over download, right click and obtain link location.
+
+## Reading Data from a URL
+
+We can use `read_csv` to also read data from a URL.
+
+#### Example
+
+```{r echo = TRUE}
+
+url = "https://www.aemo.com.au/aemo/data/nem/priceanddemand/PRICE_AND_DEMAND_202411_NSW1.csv"
+
+aemo_data <- read_csv(url)
+
+head(aemo_data)
+
+write_csv(aemo_data, "data/PRICE_AND_DEMAND_202411_NSW1.csv")
+```
+
+<!-- ## Downloading files in R -->
+
+<!-- The `download.file` function in the `utils` package can be used to download a csv file. -->
+
+<!-- ```{r} -->
+
+<!-- #| echo: true -->
+
+<!-- #| eval: false -->
+
+<!-- download.file('https://www.aemo.com.au/aemo/data/nem/priceanddemand/PRICE_AND_DEMAND_202407_NSW1.csv',  -->
+
+<!--               'data/data_202407_NSW.csv') -->
+
+<!-- # URL loc is -->
+
+<!-- # https://www.aemo.com.au/aemo/data/nem/priceanddemand/PRICE_AND_DEMAND_202407_NSW1.csv -->
+
+<!-- ``` -->
+
+<!-- The first argument is the URL and the second argument is the location where you want to store the data. -->
+
+<!-- You can read the csv file into R as: -->
+
+<!-- ```{r} -->
+
+<!-- #| echo: true -->
+
+<!-- #| eval: false -->
+
+<!-- dat <- read_csv('data/data_202407_NSW.csv') -->
+
+<!-- ``` -->
+
+## Benefits
+
+:::: callout-note
+### Why use URL?
+
+::: incremental
+-   Location where data is retrieved is kept.
+
+-   Usually URL are created systematically.
+
+    -   Data for Victoria will have VIC as part of URL.
+    -   Data for May 2024 will have 202405 as part of URL.
+
+-   A large number of files can be downloaded and combined using a loop.
+:::
+::::
