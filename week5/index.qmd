@@ -231,7 +231,10 @@ eg <- tibble(Name = c('Ahmed', 'Bin', 'Carol'),
              Email = c('ahmed@personal.com',
                        'bin@me.com; bin@work.com',
                        'carol@mailcom'))  
-gt::gt(eg)
+
+eg 
+
+# gt::gt(eg)
 ```
 
 ## Problems
@@ -257,7 +260,9 @@ eg <- tibble(Name = c('Ahmed', 'Bin', 'Carol'),
                         'bin@me.com',
                         'carol@mailcom'),
              Email2 = c(NA, 'bin@work.com', NA))  
-gt::gt(eg)
+
+eg
+# gt::gt(eg)
 ```
 
 ## Problems
@@ -287,8 +292,10 @@ eg <- tibble(Name = c('Ahmed', 'Bin', 'Bin', 'Carol'),
              Email = c('ahmed@personal.com',
                        'bin@me.com',
                        'bin@work.com',
-                       'carol@mailcom'))  
-gt::gt(eg)
+                       'carol@mailcom')) 
+eg 
+
+# gt::gt(eg)
 ```
 
 Deepal can be added as
@@ -298,8 +305,9 @@ eg <- tibble(Name = rep('Deepal', 3),
              DoB = rep('1987/04/23',3),
              Email = c('deepal@work.com', 
                        'deepal@me.com',
-                       'coolgirl87@me.com'))  
-gt::gt(eg)
+                       'coolgirl87@me.com'))
+eg 
+# gt::gt(eg)
 ```
 
 ## First normal form (1NF)
@@ -860,14 +868,32 @@ knitr::include_graphics('images/lecture-05/venn_diagrams_join.png')
 
 ## Types of join
 
-```{r, echo=FALSE, out.width="60%", fig.cap="Source: Wickham, H., Çetinkaya-Rundel, M., Grolemund, G. (2023). R for Data Science. United States: O'Reilly Media."}
-fig_inner <- figpatch::fig("images/lecture-05/inner.png")
-fig_left <- figpatch::fig("images/lecture-05/left.png")
-fig_right <- figpatch::fig("images/lecture-05/right.png")
-fig_full <- figpatch::fig("images/lecture-05/full.png")
-patchwork::wrap_plots(fig_inner, fig_left, fig_right, fig_full,
-                      nrow = 2) 
-```
+::::{.columns}
+
+::: {.column width="50%"}
+![](images/lecture-05/inner.png)
+
+![](images/lecture-05/left.png)
+:::
+
+::: {.column width="50%"}
+![](images/lecture-05/right.png)
+
+![](images/lecture-05/full.png)
+:::
+
+::::
+
+<small>Source: Wickham, H., Çetinkaya-Rundel, M., Grolemund, G. (2023). R for Data Science. United States: O'Reilly Media.</small>
+
+<!-- ```{r, echo=FALSE, out.width="60%", fig.cap="Source: Wickham, H., Çetinkaya-Rundel, M., Grolemund, G. (2023). R for Data Science. United States: O'Reilly Media."} -->
+<!-- # fig_inner <- figpatch::fig("images/lecture-05/inner.png") -->
+<!-- # fig_left <- figpatch::fig("images/lecture-05/left.png") -->
+<!-- # fig_right <- figpatch::fig("images/lecture-05/right.png") -->
+<!-- # fig_full <- figpatch::fig("images/lecture-05/full.png") -->
+<!-- # patchwork::wrap_plots(fig_inner, fig_left, fig_right, fig_full, -->
+<!-- #                       nrow = 2)  -->
+<!-- ``` -->
 
 ## Your turn
 
