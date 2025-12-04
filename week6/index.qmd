@@ -96,14 +96,14 @@ Lecturer: *`r rmarkdown::metadata$author`*
     -   `facet_wrap()`
     -   `facet_grid()`
     
--   Summary plots in higher dimensions
-    -   `ggpairs()`
-    
--   Patchwork
-    -   Combining plots together
+-   Combining plots together
+    -   `patchwork` Package
     
 :::
 ::::
+
+<!-- -   Summary plots in higher dimensions -->
+<!--     -   `ggpairs()` -->
 
 # Groups {background-color="#006DAE"}
 
@@ -199,16 +199,6 @@ ggplot(data = energy_weather,
 #| warning: FALSE
 #| eval: TRUE
 #| echo: true
-
-ggplot(data = energy_weather, aes(x = MaxTemp, y = Demand)) + 
-  geom_point(aes(col = State)) + 
-  geom_smooth(aes(group = State))
-```
-
-```{r}
-#| message: FALSE
-#| warning: FALSE
-#| fig-align: center
 
 ggplot(data = energy_weather, aes(x = MaxTemp, y = Demand)) + 
   geom_point(aes(col = State)) + 
@@ -426,7 +416,7 @@ energy_weather |>
 
 :::callout-warning 
 
-You'll notice:  
+You may find your plot looks different to mine.
 
 * The facet order is different 
 
@@ -476,6 +466,7 @@ energy_weather |>
 #| fig-align: center
 
 energy_weather |> 
+  filter(!is.na(Day)) |>
   ggplot(aes(x = MaxTemp, y = Demand)) +
   geom_point(alpha = 0.25) + 
   geom_smooth() +
@@ -592,6 +583,32 @@ This **doesn't** mean each plot will have it's one x and y scale.
 
 # Higher Dimensions {background-color="#006DAE"}
 
+## Pairs plot
+
+:::: callout-note
+## Pairs plot
+
+::: incremental
+-   A pairs plot gives an array of plots.
+
+-   This can be implemented using the *ggpairs* function in the *GGally* package.
+
+-   You will get different plots depending on the type of variables in your data set
+
+- Look at the [examaples here](https://r-charts.com/correlation/ggpairs/)
+
+:::
+::::
+
+. . .
+
+Example use: 
+
+```{r, eval=FALSE, echo = TRUE}
+library(GGally)
+ggpairs(energy_weather)
+```
+
 # Combining Plots {background-color="#006DAE"}
 
 ## Patchwork 
@@ -668,6 +685,40 @@ temp_vs_demand_plot / weather_distrib_plot +
 ```
 # Wrap Up {background-color="#006DAE"}
 
+## Summary
+
+:::: callout-note
+## What we've covered
+
+**Today has been all about how create panels of plots**
+
+::: incremental
+-   We've learnt how use the `group` aesthetic 
+
+-   We learnt how to create small multiples using facets
+    -   `facet_wrap()`
+    -   `facet_grid()`
+    
+<!-- -   We learnt how to create quick visual summaries -->
+<!--     -   Displaying multiple dimensions -->
+<!--     -   Using the pairs plot (`ggpairs`) -->
+    
+-   Learnt how to combine multiple plots together with `patchwork`
+    
+:::
+::::
+
+. . . 
+
+:::callout-important
+## Key Message 
+
+There are lots of ways to visual data! Consider what comparisons are important.
+
+:::
+
+# Solutions {background-color="#006DAE"}
+
 ## Answers 
 
 ```{r}
@@ -734,9 +785,4 @@ energy_weather |>
   facet_wrap(vars(State), scales = "free")
 ```
 
-<!-- Fix -->
-<!-- Tricky words  -->
-<!-- NA on grid  -->
-<!-- Under construction slide -->
-<!-- Wrap Up -->
 
