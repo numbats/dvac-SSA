@@ -1,0 +1,742 @@
+---
+pagetitle: "ETX2250/ETF5922"
+subtitle: "Visualisations in R: Part 2"
+author: Kate Saunders
+email: "etx2250-etf5922.caulfield-x@monash.edu"
+date: "Lecture 6"
+department: "Department of Econometrics and Business Statistics"
+unit-url: "dvac.ss.numbat.space"
+footer: "ETX2250/ETF5922"
+format: 
+  revealjs: 
+    logo: images/monash-one-line-black-rgb.png
+    slide-number: c
+    multiplex: false
+    theme: ../assets/monash.scss
+    show-slide-number: all
+    show-notes: false
+    controls: true
+    width: 1280
+    height: 720
+    css: [../assets/custom.css, ../assets/lecture-01.css]
+    include-after-body: "../assets/after-body.html"
+    #   boardmarker-width: 5
+    #   buttons: true
+    embed-resources: true
+---
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+
+# if(!require(GGally))
+#   install.packages("GGally")
+
+if(!require(tidyverse))
+  install.packages("tidyverse")
+
+# if(!require(patchwork))
+#   install.packages("patchwork")
+
+# library(GGally)
+library(tidyverse)
+library(patchwork)
+```
+
+## <br>[`r rmarkdown::metadata$pagetitle`]{.monash-blue} {#etx2250-etf5922-title background-image="images/bg-01.png"}
+### `r rmarkdown::metadata$subtitle`
+
+Lecturer: *`r rmarkdown::metadata$author`*
+
+`r rmarkdown::metadata$department`
+
+::: tl
+<br>
+
+<ul class="fa-ul">
+
+<li><i class="fas fa-envelope"></i>`r rmarkdown::metadata$email`</li>
+
+<li><i class="fas fa-calendar-alt"></i> `r rmarkdown::metadata$date`</li>
+
+<li><i class="fa-solid fa-globe"></i>\<a href="`r rmarkdown::metadata[["unit-url"]]`"\>`r rmarkdown::metadata[["unit-url"]]`</a></li>
+
+</ul>
+
+<br>
+:::
+
+## What we've covered 
+
+:::callout-important 
+## We've learnt ... 
+
+:::incremental
+
+* We can map variables to different geometries (bar charts, line plots, scatter plots etc), and 
+
+* We can map variables to different pre-attentive attributes (colour, shape, size, etc)
+
+* We also know small multiples can be highly effective to show the data when there is too much information on a single plot
+
+* Breaking a plot into panels by category can help!
+
+::: 
+
+::: 
+
+## Today's Lecture
+
+:::: callout-note
+## Learning Objectives
+
+::: incremental
+-   Grouping 
+    - `group` aesthetic mapping 
+    
+-   Small multiples in R aka. facetting 
+    -   `facet_wrap()`
+    -   `facet_grid()`
+    
+-   Summary plots in higher dimensions
+    -   `ggpairs()`
+    
+-   Patchwork
+    -   Combining plots together
+    
+:::
+::::
+
+# Groups {background-color="#006DAE"}
+
+## Example Data 
+
+```{r}
+#| echo: TRUE
+#| message: FALSE
+#| warning: FALSE
+
+library(tidyverse)
+energy = read_csv("data/energydata.csv")
+weather = read_csv("data/weather.csv")
+energy_weather = full_join(energy, weather, by = c("Date", "State"))
+head(energy_weather)
+```
+
+## Let's plot it 
+
+What is the relationship between Temperature and Demand? 
+
+```{r}
+#| message: FALSE
+#| warning: FALSE
+#| echo: TRUE
+#| eval: FALSE 
+
+ggplot(data = energy_weather,
+       aes(x = MaxTemp, y = Demand)) + 
+  geom_point() + 
+  geom_smooth()
+```
+
+## 
+
+:::callout-caution 
+## Something weird is going on? 
+
+* `geom_smooth()` is meant to show smoothed trend line 
+* But this isn't what we would expect of this relationship 
+
+::: 
+
+```{r}
+#| message: FALSE
+#| warning: FALSE
+#| fig-align: center
+
+ggplot(data = energy_weather, aes(x = MaxTemp, y = Demand)) + 
+  geom_point() + 
+  geom_smooth()
+```
+
+## Latent Variable
+
+:::callout-tip 
+## Found it 
+`State` variable wasn't visualised! - Show using `col`
+
+But - we need a trend for each `State`
+:::
+
+```{r}
+#| message: FALSE
+#| warning: FALSE
+#| echo: FALSE
+#| fig-align: center
+
+ggplot(data = energy_weather,
+       aes(x = MaxTemp, y = Demand)) + 
+  geom_point(aes(col = State)) + 
+  geom_smooth()
+```
+
+## Code for previous plot
+
+```{r}
+#| message: FALSE
+#| warning: FALSE
+#| echo: TRUE
+#| eval: FALSE
+
+ggplot(data = energy_weather,
+       aes(x = MaxTemp, y = Demand)) + 
+  geom_point(aes(col = State)) + 
+  geom_smooth()
+```
+
+## Enter groups 
+
+```{r}
+#| message: FALSE
+#| warning: FALSE
+#| eval: TRUE
+#| echo: true
+
+ggplot(data = energy_weather, aes(x = MaxTemp, y = Demand)) + 
+  geom_point(aes(col = State)) + 
+  geom_smooth(aes(group = State))
+```
+
+```{r}
+#| message: FALSE
+#| warning: FALSE
+#| fig-align: center
+
+ggplot(data = energy_weather, aes(x = MaxTemp, y = Demand)) + 
+  geom_point(aes(col = State)) + 
+  geom_smooth(aes(group = State))
+```
+
+## Even Better 
+
+```{r}
+#| echo: FALSE
+#| fig-align: center
+
+ggplot(data = energy_weather, 
+       aes(x = MaxTemp, y = Demand, col = State, group = State)) + 
+  geom_point() + 
+  geom_smooth() 
+```
+
+## Your turn 
+
+:::callout-caution 
+## Your turn 
+
+* Join the electricity and weather data together 
+
+* Recreate the plot on the previous slide with coloured trend lines
+
+* Think about which aesthetic mappings go in the top `ggplot()` call and which in the `geom` layers
+
+:::
+
+## Take a moment 
+
+:::callout-note
+## Reflect
+
+* Does this plot show our data well? Could we do better?
+
+:::
+
+. . . 
+
+::: callout-important 
+## Some notes on `geom_smooth()`
+
+* `geom_smooth()` can imply a trend or relationship that isn’t really there 
+
+* Only use it if smoothing is appropriate for your data! 
+
+:::
+
+# Facetting {background-color="#006DAE"}
+
+## Facetting
+
+::: callout-tip
+## Back to Tufte's Principles 
+
+-   Sometimes we cannot display everything on a single plot
+
+-   Small multiples are a way to display information on a plot efficiently
+
+::: 
+
+. . . 
+
+:::callout-note 
+## In R 
+
+-   `facet_wrap`: wraps a sequence of panels based on one variable
+
+-   `facet_grid`: forms a matrix of panels defined by row and column variables.
+
+Let's see how this works 
+
+:::
+
+## Groups or facets
+
+<br>
+
+:::callout-tip
+## Comparisons
+
+* `facet_wrap` is useful to look at trends/patterns in each category 
+
+* The `group` aesthetic is useful for comparing trends/patterns across categories in a single plot
+
+::: 
+
+. . . 
+
+Example use: 
+
+```{r}
+#| warning: FALSE
+#| message: FALSE
+#| eval: FALSE
+#| echo: TRUE
+#| 
+energy_weather |> 
+  ggplot(aes(x = MaxTemp, y = Demand)) +
+  geom_point(alpha = 0.4) + 
+  geom_smooth() + 
+  facet_wrap(vars(State))
+```
+
+## `facet_wrap`
+
+```{r}
+#| warning: FALSE
+#| message: FALSE
+#| fig-align: center
+
+energy_weather |> 
+  ggplot(aes(x = MaxTemp, y = Demand)) +
+  geom_point(alpha = 0.4) + 
+  geom_smooth() + 
+  facet_wrap(vars(State))
+```
+
+
+## Catch
+
+<br>
+
+:::callout-warning
+## Catch 
+
+The previous example isn't a good use of data-density - lot's of empty space.
+
+We aren't showing our data well either - trends by state aren't clear
+
+:::
+
+## Fixed or Free Scales 
+
+<br>
+
+:::callout-tip 
+
+* We could let the scales differ, or be "free"
+
+* But... humans compare things well on a common scale
+
+* And... we can accidentally create misleading plots if we use different scales
+
+It's a balancing act!
+
+::: 
+
+## Free Scales in `facet_wrap`
+
+This is definitely better
+
+```{r}
+#| warning: FALSE
+#| message: FALSE
+#| fig-align: center
+
+energy_weather |> 
+  ggplot(aes(x = MaxTemp, y = Demand)) +
+  geom_point(alpha = 0.4) + 
+  geom_smooth() + 
+  facet_wrap(vars(State), scales = "free") 
+```
+
+## Code 
+
+```{r}
+#| warning: FALSE
+#| message: FALSE
+#| echo: TRUE
+#| eval: FALSE
+
+energy_weather |> 
+  ggplot(aes(x = MaxTemp, y = Demand)) +
+  geom_point(alpha = 0.4) + 
+  geom_smooth() + 
+  facet_wrap(vars(State), scales = "free") 
+```
+
+## Your turn 
+
+<br>
+
+::: callout-caution 
+
+* Filter to the State of Victoria (`VIC`)
+
+* Plot the `MaxTemp` against `Demand`
+
+* But wrap by the `Day` of the week
+
+::: 
+
+## What I want 
+
+```{r}
+#| warning: FALSE
+#| message: FALSE
+#| fig-align: center
+
+energy_weather |> 
+  filter(State == "VIC") |>
+  filter(!is.na(Day)) |>
+  mutate(Day = factor(Day, 
+                      levels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"))) |>
+  ggplot(aes(x = MaxTemp, y = Demand)) +
+  geom_point(alpha = 0.25) + 
+  facet_wrap(vars(Day), ncol = 2)
+```
+
+## Tricky!
+
+:::callout-warning 
+
+You'll notice:  
+
+* The facet order is different 
+
+* There is missing data
+
+* And a different numbers of rows
+
+This is where Generative AI is super useful to help you understand how to change each of these parts. 
+
+::: 
+
+
+## `facet_grid` 
+
+::: callout-note
+## `facet_grid`
+
+Sometimes you want to display facets using two categorical variables 
+  e.g. State and Day 
+  
+Notes: Use `~` to indicate a relationship between variables in R 
+  e.g. `Day ~ State`
+::: 
+
+. . .
+
+Example use: 
+
+```{r}
+#| eval: FALSE
+#| echo: TRUE 
+
+energy_weather |> 
+  filter(!is.na(Day)) |>
+  ggplot(aes(x = MaxTemp, y = Demand)) +
+  geom_point(alpha = 0.25) + 
+  geom_smooth() +
+  facet_grid(Day ~ State)
+```
+
+## Demand by Day and State
+
+```{r}
+#| warning: FALSE
+#| message: FALSE
+#| echo: FALSE
+#| fig-align: center
+
+energy_weather |> 
+  ggplot(aes(x = MaxTemp, y = Demand)) +
+  geom_point(alpha = 0.25) + 
+  geom_smooth() +
+  facet_grid(Day ~State)
+```
+
+## Bit Much 
+
+<br>
+
+:::callout-caution 
+
+## But 
+
+We expect a difference in demand when people are at home and at work 
+
+Let's try another way to visualise this
+
+:::
+
+## Weekday vs Weekend 
+
+Let's make a new variable for weekday or weekend. 
+
+Here I'm using `if_else`.
+
+```{r}
+#| eval: FALSE
+#| echo: TRUE 
+
+energy_weather |> 
+  filter(!is.na(Day)) |>
+  mutate(
+    Day_type = if_else(Day %in% c("Sat", "Sun"),
+                       "Weekend", "Weekday")
+  ) 
+```
+
+## Weekday or Weekend Demand by State
+
+```{r}
+#| warning: FALSE
+#| message: FALSE
+#| echo: FALSE
+#| fig-align: center
+
+energy_weather |> 
+  mutate(
+    Day_type = if_else(Day %in% c("Sat", "Sun"),
+                       "Weekend", "Weekday")
+  ) |>
+  ggplot(aes(x = MaxTemp, y = Demand)) +
+  geom_point(alpha = 0.25) + 
+  geom_smooth() +
+  facet_grid(Day_type ~ State, scales = "free")
+```
+
+## Your turn 
+
+<br>
+
+::: callout-caution 
+
+* Run my code to create the new variable for weekday and weekend
+
+* Plot the `MaxTemp` against `Demand`
+
+* Create a grid that shows `Day_type` and `State`
+
+::: 
+
+## Best Version 
+
+```{r}
+#| warning: FALSE
+#| message: FALSE
+#| echo: FALSE
+#| fig-align: center
+
+energy_weather |> 
+  mutate(
+    Day_type = if_else(Day %in% c("Sat", "Sun"),
+                       "Weekend", "Weekday")
+  ) |>
+  ggplot(aes(x = MaxTemp, y = Demand)) +
+  geom_point(alpha = 0.25) + 
+  geom_smooth(aes(group = Day_type, col = Day_type)) +
+  facet_wrap(vars(State), scales = "free")
+```
+
+## Best Version 
+
+:::callout-tip
+## Why can't we have both? 
+
+Using `group` and `facet_wrap` seems to show:  
+
+* the weekday/weekend relationship best, and   
+
+* show the differences between states
+
+:::
+
+ . . . 
+
+:::callout-warning
+## Subtle point 
+
+`Scales = "free"` allows for different scales for each category. 
+
+This **doesn't** mean each plot will have it's one x and y scale.
+
+::: 
+
+# Higher Dimensions {background-color="#006DAE"}
+
+# Combining Plots {background-color="#006DAE"}
+
+## Patchwork 
+
+::: callout-tip 
+## Patchwork 
+
+Sometimes we need plot panels that don't share a common variable or geometry
+
+For this we can use [patchwork](https://patchwork.data-imaginist.com/articles/guides/layout.html)
+
+Look at the patchwork documentation for more customisable layouts
+  
+Show you some basic ones
+
+:::
+
+## Some example plots
+
+```{r}
+#| echo: TRUE 
+
+tas_data = data = energy_weather |>
+         filter(State == "TAS")
+
+temp_vs_demand_plot <- ggplot(tas_data) + 
+  geom_point(aes(x = MaxTemp, y = Demand)) 
+
+demand_distrib_plot <- ggplot(tas_data) +
+  geom_density(aes(y = Demand)) 
+
+weather_distrib_plot <- ggplot(tas_data) +
+  geom_density(aes(x = MaxTemp))
+
+```
+
+## Example - side by side 
+
+```{r}
+#| echo: FALSE
+#| fig-align: center 
+library(patchwork)
+temp_vs_demand_plot + demand_distrib_plot +
+  plot_layout(widths = c(3, 1))
+```
+
+## Example - side by side 
+
+```{r}
+#| echo: TRUE
+#| eval: false
+
+library(patchwork)
+temp_vs_demand_plot + demand_distrib_plot +
+  plot_layout(widths = c(3, 1))
+```
+
+## Example - top and bottom
+
+```{r}
+#| fig-align: center
+temp_vs_demand_plot / weather_distrib_plot + 
+  plot_layout(heights = c(3, 1))
+```
+
+## Example - top and bottom
+
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+
+temp_vs_demand_plot / weather_distrib_plot + 
+  plot_layout(heights = c(3, 1))
+```
+# Wrap Up {background-color="#006DAE"}
+
+## Answers 
+
+```{r}
+#| echo: TRUE
+#| eval: false 
+
+ggplot(data = energy_weather, 
+       aes(x = MaxTemp, y = Demand, col = State, group = State)) + 
+  geom_point() + 
+  geom_smooth() 
+```
+
+## Answers 
+
+```{r}
+#| echo: TRUE
+#| eval: false 
+
+energy_weather |> 
+  filter(State == "VIC") |>
+  filter(!is.na(Day)) |>
+  mutate(Day = factor(Day, 
+                      levels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"))) |>
+  ggplot(aes(x = MaxTemp, y = Demand)) +
+  geom_point(alpha = 0.25) + 
+  facet_wrap(vars(Day), ncol = 2)
+```
+
+## Answers 
+
+```{r}
+#| warning: FALSE
+#| message: FALSE
+#| echo: TRUE
+#| eval: FALSE
+
+energy_weather |> 
+  mutate(
+    Day_type = if_else(Day %in% c("Sat", "Sun"),
+                       "Weekend", "Weekday")
+  ) |>
+  ggplot(aes(x = MaxTemp, y = Demand)) +
+  geom_point(alpha = 0.25) + 
+  geom_smooth() +
+  facet_grid(Day_type ~State, scales = "free")
+```
+
+## Answers
+
+```{r}
+#| warning: FALSE
+#| message: FALSE
+#| echo: true
+#| eval: false
+
+energy_weather |> 
+  mutate(
+    Day_type = if_else(Day %in% c("Sat", "Sun"),
+                       "Weekend", "Weekday")
+  ) |>
+  ggplot(aes(x = MaxTemp, y = Demand)) +
+  geom_point(alpha = 0.25) + 
+  geom_smooth(aes(group = Day_type, col = Day_type)) +
+  facet_wrap(vars(State), scales = "free")
+```
+
+<!-- Fix -->
+<!-- Tricky words  -->
+<!-- NA on grid  -->
+<!-- Under construction slide -->
+<!-- Wrap Up -->
+
