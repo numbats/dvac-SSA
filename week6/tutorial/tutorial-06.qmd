@@ -78,6 +78,16 @@ boston_celtics = boston_celtics |>
       recode(team_home_away,"home" = "Home", "away" = "Away"))
 ```
 
+```{r}
+#| echo: false
+#| eval: true
+ggplot(data = boston_celtics) + 
+  geom_boxplot(aes(x = team_score),
+                 fill = "forestgreen", alpha = 0.4, binwidth = 1) +
+  facet_grid(team_home_away ~ team_winner) + 
+  theme_bw()
+```
+
 **Hint:** What's tricky here is changing the order (levels) of the categorical variables. The default for how categorical variables are displayed on panels of plots is always alphabetical.
 
 ```{r}
