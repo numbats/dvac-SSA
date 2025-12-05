@@ -46,7 +46,8 @@ boston_celtics <- read_csv(here("data", "boston_celtics.csv"))
 
 Using `facet_wrap` recreate the following plot:
 
-```{r echo = show_solutions}
+```{r}
+#| echo: FALSE
 ggplot(data = boston_celtics) + 
   geom_histogram(aes(x = team_score), 
                  fill = "forestgreen", alpha = 0.4, binwidth = 4) +
@@ -57,6 +58,30 @@ ggplot(data = boston_celtics) +
   ylab("Count") +
   ggtitle("Boston Celtics Past Season Performance")
 ```
+
+::: {.callout-note collapse="true" title="Solutions" icon="false"}
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+
+season_summmary = boston_celtics |>
+  group_by(season) |>
+  summarise(season_mean = mean(team_score)) |> 
+  ungroup()
+
+ggplot(data = boston_celtics) + 
+  geom_histogram(aes(x = team_score), 
+                 fill = "forestgreen", alpha = 0.4, binwidth = 4) +
+  geom_vline(aes(xintercept = mean(team_score)), linetype = "dotted") +
+  geom_vline(data = season_summmary,
+             aes(xintercept = season_mean), linetype = "dotted", col = "forestgreen") +
+  facet_wrap(~season, ncol = 2) + 
+  theme_bw() + 
+  xlab("Team Score") + 
+  ylab("Count") +
+  ggtitle("Boston Celtics Past Season Performance")
+```
+:::
 
 **Hint:** Look up `geom_vline()` to add the average team score. You may like to challenge yourself to also add the average team score for each season as well.
 
@@ -88,6 +113,29 @@ ggplot(data = boston_celtics) +
   theme_bw()
 ```
 
+::: {.callout-note collapse="true" title="Solutions" icon="false"}
+
+```{r}
+#| echo: true
+#| eval: false
+
+boston_celtics = boston_celtics |>
+  mutate(team_winner = as.factor(team_winner)) |>
+  mutate(
+    team_winner = 
+      recode(team_winner,
+             "TRUE" = "Won", "FALSE" = "Lost"),
+    team_home_away = 
+      recode(team_home_away,"home" = "Home", "away" = "Away"))
+
+ggplot(data = boston_celtics) + 
+  geom_boxplot(aes(x = team_score),
+                 fill = "forestgreen", alpha = 0.4, binwidth = 1) +
+  facet_grid(team_home_away ~ team_winner) + 
+  theme_bw()
+```
+:::
+
 **Hint:** What's tricky here is changing the order (levels) of the categorical variables. The default for how categorical variables are displayed on panels of plots is always alphabetical.
 
 ```{r}
@@ -104,7 +152,7 @@ boston_celtics = boston_celtics |>
 
 We need to:
 
--   Tell R it's a categorical variable we make it a `factor` type
+-   To tell R it's a categorical variable we make it a `factor` type
 
 -   Change the order of the levels for plotting using `recode`.
 
@@ -126,6 +174,24 @@ ggplot(boston_celtics) +
         legend.title = element_blank())
 
 ```
+
+::: {.callout-note collapse="true" title="Solutions" icon="false"}
+```{r}
+#| eval: false
+#| echo: true
+
+ggplot(boston_celtics) + 
+  geom_density(aes(x = team_score, group = team_home_away, col = team_home_away), linewidth = 1.1) + 
+  scale_colour_manual(values = c("Home" = "forestgreen", "Away" = "lightgreen")) +
+  facet_wrap(vars(team_winner)) +
+  theme_bw() + 
+  xlab("Team Score") + 
+  ylab("Density") + 
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+```
+:::
 
 **Hint:** You can adapt the colour scale from Tutorial 4 and the `linewidth` is increased from default.
 
