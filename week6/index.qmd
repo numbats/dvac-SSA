@@ -438,7 +438,7 @@ Sometimes you want to display facets using two categorical variables
   e.g. State and Day 
   
 Notes: Use `~` to indicate a relationship between variables in R 
-  e.g. `Day ~ State`
+  e.g. `Day ~ State` means row ~ column in this context
 ::: 
 
 . . .
@@ -551,9 +551,9 @@ energy_weather |>
     Day_type = if_else(Day %in% c("Sat", "Sun"),
                        "Weekend", "Weekday")
   ) |>
-  ggplot(aes(x = MaxTemp, y = Demand)) +
+  ggplot(aes(x = MaxTemp, y = Demand, group = Day_type, col = Day_type)) +
   geom_point(alpha = 0.25) + 
-  geom_smooth(aes(group = Day_type, col = Day_type)) +
+  geom_smooth() +
   facet_wrap(vars(State), scales = "free")
 ```
 
@@ -779,9 +779,9 @@ energy_weather |>
     Day_type = if_else(Day %in% c("Sat", "Sun"),
                        "Weekend", "Weekday")
   ) |>
-  ggplot(aes(x = MaxTemp, y = Demand)) +
+  ggplot(aes(x = MaxTemp, y = Demand, group = Day_type, col = Day_type)) +
   geom_point(alpha = 0.25) + 
-  geom_smooth(aes(group = Day_type, col = Day_type)) +
+  geom_smooth() +
   facet_wrap(vars(State), scales = "free")
 ```
 
