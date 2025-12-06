@@ -1,0 +1,974 @@
+---
+pagetitle: "ETX2250/ETF5922"
+subtitle: "Iterating on your Visualisations"
+author: Kate Saunders
+email: "etx2250-etf5922.caulfield-x@monash.edu"
+date: "Lecture 7"
+department: "Department of Econometrics and Business Statistics"
+unit-url: "dvac.ss.numbat.space"
+footer: "ETX2250/ETF5922"
+format: 
+  revealjs: 
+    logo: images/monash-one-line-black-rgb.png
+    slide-number: c
+    multiplex: false
+    theme: ../assets/monash.scss
+    show-slide-number: all
+    show-notes: false
+    controls: true
+    width: 1280
+    height: 720
+    css: [../assets/custom.css, ../assets/lecture-01.css]
+    include-after-body: "assets/after-body.html"
+    #   boardmarker-width: 5
+    #   buttons: true
+    embed-resources: true
+---
+
+## <br>[`r rmarkdown::metadata$pagetitle`]{.monash-blue} {#etx2250-etf5922-title background-image="images/bg-01.png"}
+
+### `r rmarkdown::metadata$subtitle`
+
+Lecturer: *`r rmarkdown::metadata$author`*
+
+`r rmarkdown::metadata$department`
+
+::: tl
+<br>
+
+<ul class="fa-ul">
+
+<li><i class="fas fa-envelope"></i>`r rmarkdown::metadata$email`</li>
+
+<li><i class="fas fa-calendar-alt"></i> `r rmarkdown::metadata$date`</li>
+
+<li><i class="fa-solid fa-globe"></i>\<a href="`r rmarkdown::metadata[["unit-url"]]`"\>`r rmarkdown::metadata[["unit-url"]]`</a></li>
+
+</ul>
+
+<br>
+:::
+
+## Theory
+
+<br> So far we have developed a good understanding of the theory.
+
+:::: callout-note
+## We have learnt:
+
+::: incremental
+-   The best practice principles in data visualisation
+
+-   Know what separates a good plot from a bad one
+
+-   Also know what plots work best for which variables
+
+-   We know how to create a range of different plots
+:::
+::::
+
+## In practice
+
+<br>
+
+Practice is often very different to theory.
+
+:::: callout-caution
+## The facts:
+
+::: incremental
+-   The first plot you create will almost never be the plot you use
+
+-   Visualising data is not a linear process!
+
+-   You'll take 2 steps forward, 1 step backwards and another sideways before you produce your final plot
+
+-   You'll also need to create many, many visualisations, before you finalise a visualisation
+
+-   Visualising data is an iterative process
+:::
+::::
+
+## The cycle
+
+Data visualisation is a key part of the analysis cycle.
+
+![](images/lecture-07/data-science-cycle.png){fig-align="center"}
+
+Figure is from [R for Data Science Textbook 2nd Edition](https://r4ds.hadley.nz/intro).
+
+## Learning Objectives
+
+<br><br>
+
+Time to put theory into practice!
+
+:::: callout-tip
+## Today's class
+
+::: incremental
+-   Perform an exploratory analysis.
+
+-   Practice iterating your visualisations.
+
+-   Use case studies to practice.
+
+-   Create polished visualisations for a report or publication.
+:::
+::::
+
+# Exploratory Visualisation {background-color="#006DAE"}
+
+Penguins Data
+
+## Penguins Data
+
+Seems obvious but **always** look at the data before you start!
+
+```{r echo = TRUE}
+library(palmerpenguins)
+library(kableExtra)
+head(penguins) |> kable() |> kable_styling(font_size = 25)
+```
+
+## What to look for?
+
+Looking at your data helps you to get your data ready for plotting.
+
+:::: callout-tip
+## Sanity checklist
+
+::: incremental
+-   Did your data read in correctly?
+
+-   Does the data you have read in meet with your expectations?
+
+-   Does the data contains what it should?
+
+-   Does the data look like what you expect?
+
+- Does your data need any  transformations or pre-processing?
+
+:::
+::::
+
+## For each variable
+
+You might like to ask yourself the following questions.
+
+:::: callout-tip
+## Understanding your variables
+
+::: incremental
+-   What is the range of possible values?
+
+-   What are the most common values?
+
+-   What are the least common values?
+
+-   Are there any missing values/coded as NA?
+
+-   Are there any missing values coded as something other than NA?\
+    (e.g., 99 is a common alternative)
+
+-   Is there anything weird or surprising about the data?
+:::
+::::
+
+## Summary
+
+Summary will help you to answer these questions.
+
+```{r echo = TRUE}
+summary(penguins) 
+```
+
+Note: summary shows you what R *"thinks"* each variable is.
+
+## Learning about the data
+
+<br>
+
+Looking at the summary only gets you so far.
+
+::: callout-important
+## We should **visualise** the data!
+
+Visualisation helps us to
+
+-   to explore
+-   to understand, and
+-   to answer questions
+
+about our data.
+:::
+
+## For example with Palmer penguins
+
+What different species are represented in the data set?
+
+```{r fig.align='center'}
+library(tidyverse)
+  ggplot(data = penguins) +
+  geom_bar(aes(x = species)) + 
+  theme_bw()
+```
+
+Now we have an intuition that there are approximately twice as many Adelie Penguins as Chinstrap.
+
+## For example with Palmer penguins
+
+What does the distribution of different body sizes look like?
+
+```{r fig.align='center'}
+ggplot(data = penguins) +
+  geom_histogram(aes(x = body_mass_g)) + 
+  theme_bw()
+```
+
+Now we know this is a right skewed distribution.
+
+## For example with Palmer penguins
+
+Let's try changing the bin width
+
+```{r fig.align='center'}
+ggplot(data = penguins) +
+  geom_histogram(aes(x = body_mass_g), binwidth = 25) +
+  theme_bw()
+```
+
+This bin width is too small! But that's okay we learnt something.
+
+## For two or more variables
+
+We also want to understand if variables are related. Questions you might ask are:
+
+:::: callout-tip
+## Understanding your variables
+
+::: incremental
+-   Do these values seem to increase/decrease together?
+
+-   How noisy is this relationship (does it hold for all observations or just some)?
+
+-   Do different groups tend to have similar measurements on a particular variable?
+:::
+::::
+
+## For example with Palmer penguins
+
+Do different penguin species have different body mass?
+
+```{r, fig.align='center'}
+  ggplot(data = penguins) + 
+  geom_boxplot(aes(x = species, y = body_mass_g)) + 
+  theme_bw()
+```
+
+Although there are twice as many Adelie penguins as Chinstrap, the body mass distribution is very similar.
+
+Gentoo penguins are much bigger!
+
+## For example with Palmer penguins
+
+There are other more informative ways to look at that data.
+
+```{r, fig.align='center'}
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+  geom_violin() + 
+  theme_bw()
+```
+
+While the boxplots looked similar, now we have a better understanding of differences in the shape of the distribution.
+
+## For example with Palmer penguins
+
+There aren't too many, so we can also add the data points.
+
+```{r, fig.align='center'}
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+  geom_violin() + 
+  geom_jitter(height = 0) + 
+  theme_bw()
+```
+
+Although this doesn't add much in terms of added interpretation.
+
+## For example with Palmer penguins
+
+But what about if we consider sex? The added points tell us quite a bit!
+
+```{r, fig.align='center'}
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+  geom_violin() +
+  geom_jitter(aes(colour = sex),height = 0) + 
+  theme_bw()
+```
+
+We learn males are heavier.\
+We are also able to guess at what the sex of the NA penguins is.
+
+## Exploratory Analysis 
+
+<br>
+
+:::callout-tip 
+
+* What are the key variables you should visualise?
+
+* Are there any data relationships that you should explore? (space, time etc.)
+
+* Do you know anything about your data already that might help you? 
+
+* How can you be creative about your data and relationships you visualise? 
+
+* What are you curious about? 
+
+:::
+
+## 
+
+.
+
+# Case Study {background-color="#006DAE"}
+
+Reporting on penguin data
+
+## Penguins reporting
+
+This exploratory visualisation has been to help us with the following brief.
+
+::: callout-note
+## The Brief
+
+You are working with a government department that is creating summaries of the different species in Antarctica.
+
+Your task is to create a report the communicates the key characteristics of current species.
+
+That way any impacts on species due to climate change and tourism in Antarctica can be tracked over time.
+
+As part of this report you need to create a visualisation showing how the body mass of penguins differs by both species and by sex.
+:::
+
+## What is important to visualise
+
+:::: callout-note
+## What we know
+
+::: incremental
+Based on our exploratory analysis, we know:
+
+-   There is variation between the body mass of Gentoo penguins and other types.
+
+-   The body mass varies with the penguin sex. Males are heavier.
+
+-   There is missing data but it doesn't impact our understanding about the relationship between body mass, penguins species and penguin sex.
+:::
+::::
+
+## Missing data
+
+::: callout-important
+
+## It's not okay to just leave missing data out!
+
+::: incremental 
+
+* If we do leave it out, we need to be transparent about it in our report writing.
+
+* We also need to be very careful the missing data does not contribute to our understanding about the key relationships
+
+:::
+
+::: 
+
+```{r echo = TRUE}
+penguins_plot = penguins |>
+  filter(!is.na(body_mass_g) & !is.na(sex))
+```
+
+. . . 
+
+:::callout-caution 
+## Remove missing data with great caution 
+
+Based on our visualisations the missing data does not appear missing for a systematic reason, so we are going to leave it out - More on this is okay later.
+
+:::
+
+## Penguin species, sex and body mass
+
+Commonly, we can use facets to display multiple variables together.
+
+```{r, fig.align='center'}
+ggplot(data = penguins_plot, aes(x = species, y = body_mass_g)) +
+  geom_violin()+
+  facet_wrap(~sex) + 
+  theme_bw()
+```
+
+## Penguin species, sex and body mass
+
+<br>
+
+Not finished yet ..
+
+:::: callout-warning
+## This plot is just okay
+
+::: incremental
+-   It doesn't violate any principles of graphical excellence
+
+-   But, it is difficult to work out which comparisons we are meant to focus on.
+
+-   We cannot directly tell the differences between body mass for penguins of the same species.
+
+-   It might be better to have everything on one plot (Gestalt Principles)
+
+:::
+::::
+
+<!-- ## Penguin species, sex and body mass -->
+
+<!-- Using colour doesn't make the plot better -->
+
+<!-- # ```{r, eval=FALSE} -->
+
+<!-- # ggplot(data = penguins_plot) + -->
+
+<!-- #   geom_boxplot(aes(x = species, y = body_mass_g, fill = species)) + -->
+
+<!-- #   facet_grid(cols = vars(sex)) +  -->
+
+<!-- #   theme_bw() -->
+
+<!-- # ``` -->
+
+## Penguin species, sex and body mass
+
+This is better.
+
+```{r fig.align='center'}
+ggplot(data = penguins_plot) +
+  geom_violin(aes(x = species, y = body_mass_g, col = sex)) +
+  theme_bw()
+```
+
+Are we done? Let's try to make the comparisons even more direct.
+
+## Penguin species, sex and body mass
+
+Let's try switching up the primary and secondary variables on on x-axis, and let's try a different geometry.
+
+```{r, fig.align='center'}
+  ggplot(data =penguins_plot, aes(x = sex, y = body_mass_g, colour = species)) +
+  geom_jitter(height = 0) + 
+  theme_bw()
+```
+
+## Why this plot works
+
+<br>
+
+:::: callout-tip
+## We communicated the key messages!
+
+::: incremental
+-   Can can clearly compare the differences in size between species.\
+    $\rightarrow$ Effectively used colour to make this connection
+
+-   We can also clearly see the body size difference based on penguin sex.\
+    $\rightarrow$ We've chosen to visualise these groups separately on the x-axis.
+:::
+::::
+
+But wait there is more ...
+
+## Finalising the plot
+
+The next step is to tidy up the small details.
+
+::: callout-warning
+## Watch out!
+
+Anyone red/green colour blind won't be able to tell there are three penguin types!
+:::
+
+We also need to polish the plot annotations e.g. axis, labels, legends etc.
+
+## Finished plot
+
+We created at least 11 different iterations on plots before this one!
+
+```{r final-plot, fig.height = 5, fig.width = 8, fig.align = 'center', echo = F, eval = TRUE}
+
+library(ggthemes)
+penguins |>
+  filter(!is.na(body_mass_g) & !is.na(sex)) |>
+  mutate(sex = fct_recode(sex, Female = "female",
+                          Male = "male")) |>
+  ggplot(aes(x = sex, y = body_mass_g, colour = species)) +
+  geom_jitter(height = 0, alpha = .7) +
+  labs(title = "Difference in Body Mass by Penguin Species and Sex",
+       y = "Penguin Body Mass (g)",
+       x = "Penguin Sex",
+       colour = "Species") +
+  theme_bw() +
+  theme(legend.position = "bottom") +
+  scale_color_colorblind()
+```
+
+## The details
+
+:::: callout-note
+## Changes:
+
+::: incremental
+-   Colours are accessible and are sharp against the white background.
+
+-   Points were made a little transparent. This is less overwhelming visually.
+
+-   Theme with grid lines supports the main comparison but does not overwhelm the plot.
+
+-   Factor (categorical) variables were given capitals.
+
+-   Axis labels were changed from variable names to descriptors that **contain units** where required.
+
+-   Legend has been moved to the bottom of the plot. This maximises data ink.
+
+-   The title was also updated.
+:::
+::::
+
+## Code for finished product
+
+```{r final-plot-code, fig.height=5, echo = TRUE, fig.cap=fig_caption("Variation in body mass among Palmer penguins by species and sex."), eval = FALSE}
+
+
+library(ggthemes)
+penguins |>
+  filter(!is.na(body_mass_g) & !is.na(sex)) |>
+  mutate(sex = fct_recode(sex, Female = "female",
+                          Male = "male")) |>
+  ggplot(aes(x = sex, y = body_mass_g, colour = species)) +
+  geom_jitter(height = 0, alpha = .7) +
+  labs(y = "Penguin Body Mass (g)",
+       x = "Penguin Sex",
+       colour = "Species") +
+  theme_bw() +
+  theme(legend.position = "bottom") +
+  scale_color_colorblind()
+```
+
+## Your turn
+
+<br>
+
+::: callout-warning
+## Your turn
+
+* Run each line of code one at a time. 
+
+* Understand how each line  the code changes the plot.
+
+* Add a comment about what each line of code does.
+
+:::
+
+# Describing a plot {background-color="#006DAE"}
+
+## What now? 
+
+::: callout-note
+## Sharing
+
+Once we have a plot we are happy with the next step is often to share it. 
+
+This might be:
+
+* With your boss
+* In a weekly meeting
+* For a presentation 
+* In a report
+
+:::
+
+## Describing a plot
+
+
+::: callout-note
+## For a report:
+
+::: incremental 
+
+-   It's good communication practice to describe plots accurately in text.
+
+- You want to guide the reader to understand the key information visualised 
+
+- Helping to draw their eye to the important parts 
+
+- Here's one structure. 
+:::
+
+:::
+
+## Describing a plot
+
+::: callout-note
+Start with a **one sentence summary of the main point** the plot is trying to communicate.
+
+> "Figure 1. The Gentoo penguin species has a larger body mass than the Adelie and Chinstrap species."
+
+:::
+
+## Describing a plot
+
+::: callout-note
+
+Then **describe the different features** of the plot. Here is another example that directly connects the colour aesthetic.
+
+> "After disaggregating for sex (x-axis, points horizontally jittered within sex category), we see that the Gentoo penguins (blue points) tend to have a larger body mass (y-axis) than the Adelie (black) and Chinstrap (yellow) penguins."
+
+:::
+
+## Describing a plot
+
+::: callout-note
+Next **follow with other observations/secondary points**.
+
+> "On average, male penguins have a larger body mass than female penguins."
+
+> "The female Chinstrap penguins appear to be slightly larger on average than the Adelie penguins..."
+
+:::
+
+## Describing a plot
+
+::: callout-note
+
+And lastly **any constraints or cautions on interpretation**
+
+> "... but more data would be needed to get a clearer understanding. This data was only obtained on three islands, with not all penguin species present on different islands. Further investigation would be needed to investigate whether the difference in penguin mass is due to physiological species differences and not due to available island resources".
+:::
+
+## Remember Last Lecture - Example Data 
+
+```{r}
+#| echo: TRUE
+#| message: FALSE
+#| warning: FALSE
+
+library(tidyverse)
+energy = read_csv("data/energydata.csv")
+weather = read_csv("data/weather.csv")
+energy_weather = full_join(energy, weather, by = c("Date", "State"))
+head(energy_weather)
+```
+
+## And this was our best plot
+
+```{r}
+#| warning: FALSE
+#| message: FALSE
+#| echo: FALSE
+#| fig-align: center
+
+energy_weather |> 
+  mutate(
+    Day_type = if_else(Day %in% c("Sat", "Sun"),
+                       "Weekend", "Weekday")
+  ) |>
+  ggplot(aes(x = MaxTemp, y = Demand, group = Day_type, col = Day_type)) +
+  geom_point(alpha = 0.25) + 
+  geom_smooth() +
+  facet_wrap(vars(State), scales = "free")
+```
+
+## Iterations
+
+<br>
+
+::: callout-tip
+## Iterations 
+
+We made 10 different plots last lecture! 
+
+We used the plots to explore the relationships between: 
+
+* How `Demand` varies by `State`
+* How `MaxTemp` influences `Demand`
+* How `Day` of the week changes `Demand`
+
+:::
+
+## Your turn 
+
+<br>
+
+::: callout-warning
+## Your turn
+
+Write a description for our final plot
+
+Use this structure: 
+
+* Write a one sentence summary
+
+* Then describe the different aesthetic mappings / features  
+
+* Share any other observations or secondary points
+
+:::
+
+# Case study {background-color="#006DAE"}
+
+Communicating Climate Change
+
+## Communicating Climate Change
+
+::: callout-note
+## The Brief
+
+You are a scientist working with the media to help the public understand climate change.
+
+There has been a lot of misinformation and disinformation on this topic, such as:
+
+-   The trend is not significant
+
+-   Any change is within the natural variability of the climate
+
+You need to create a visualisation that can be used to communicate the science that the climate is warming.
+
+This visualisation needs to be robust to manipulations.
+:::
+
+## Line Graph
+
+The most common way to visualise this sort of data is with a line graph.
+
+```{r fig.align='center'}
+ 
+temp_data_average = readRDS("data/stripes_data_sydney.rds")
+
+ggplot(data = temp_data_average, aes(x = Year, y = mean_daily_temp)) + 
+  # geom_smooth() +
+  geom_line() +
+  ylab("Average daily max temp (°C)") + 
+  ggtitle("Sydney, Australia") +
+  theme_bw()
+```
+
+Is it clear what the trend is?
+
+## Perspective - Stretched
+
+<br>
+
+The problem: This visualisation is not robust to distortions.
+
+```{r fig.align='center', fig.width = 12, fig.height = 2}
+
+ggplot(data = temp_data_average, aes(x = Year, y = mean_daily_temp)) + 
+  geom_line() +
+  ylab("Average daily max temp (°C)") + 
+  ggtitle("Sydney, Australia") +
+  theme_bw() 
+```
+
+Stretching the plot makes it look like there is less of a trend and highlights the variability.
+
+## Perspective - Squished
+
+Squishing the plot brings out the trend, but is still a distortion of the figure. This is not okay.
+
+```{r fig.align='center', fig.width = 3, fig.height = 6}
+
+ggplot(data = temp_data_average, aes(x = Year, y = mean_daily_temp)) + 
+  geom_line() +
+  ylab("Average daily max temp (°C)") + 
+  ggtitle("Sydney, Australia") +
+  theme_bw() 
+```
+
+## Real World
+
+Watch famous science communicator Brian Cox use a visualisation just like this one to try to explain to Senator Malcolm Roberts that the climate is warming. [Q and A Video see 4:00 minute mark ](https://www.youtube.com/watch?v=lf3TGmaLXow)
+
+![](images/lecture-07/q_and_a.png){fig-align="center" width="515"}
+
+Do you think this was successful / convincing?
+
+## Take 2
+
+Let's rethink our approach
+
+:::: callout-note
+## Important messages
+
+::: incremental
+-   Need to communicate the climate is warming.
+
+-   The amount of warming will vary in different places (makes the messaging tricky).
+
+-   The amount of warming does matter, but the public won't necessarily understand what the difference between of 0.5°C, 1.°C, 1.5°C or 2.0°C of warming.
+
+-   #1 Priority is showing there is a warming trend
+
+-   #2 Priority is showing the amount of warming
+
+-   Want to avoid confusing the trend and natural variability
+:::
+::::
+
+## Warming Stripes
+
+Sydney #showyourstripes - The trend is clear.
+
+```{r fig.align='center'}
+
+vec_of_ones = rep(1, nrow(temp_data_average))
+temp_data_average <- mutate(temp_data_average, 
+                            ones = vec_of_ones)
+
+
+ggplot(temp_data_average, aes(x = Year, y = ones)) + 
+  geom_col(aes(fill = mean_daily_temp)) +
+  scale_fill_distiller("Mean Daily Temperature", palette = "RdBu") +  
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+There is no legend attached but does that matter? We quickly understand what this visualisation shows.
+
+<font size = "3"> Graphic by Prof. Ed Hawkins: https://showyourstripes.info/ </font size = "3">
+
+## Labelled Stripes
+
+```{r fig.align='center'}
+
+ggplot(temp_data_average, aes(x = Year, y = ones)) + 
+  geom_col(aes(fill = mean_daily_temp)) +
+  scale_fill_distiller("Mean Daily Temperature", palette = "RdBu") +  
+  theme_minimal() + 
+  theme(axis.text.y = element_blank(),
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank(),
+        legend.position = "none") +
+  ggtitle("Sydney Temperature Change (1859, 2020)") 
+```
+
+Do we need to know what the exact amount of temperature to get the message?
+
+## Iterations 
+
+:::callout-note 
+## Warming Stripes
+
+* This visualisation is world famous. 
+
+* But this was not Ed's first iteration  
+
+* It wasn't his last.
+
+:::
+
+## Bars
+
+```{r fig.align='center'}
+temp_data_average <- temp_data_average %>% 
+  mutate(transformed = (mean_daily_temp  - mean(mean_daily_temp))/
+           sd(mean_daily_temp))
+
+old_mean = mean(temp_data_average %>% 
+  filter(Year > 1971 & Year < 2000) %>% 
+  pull(mean_daily_temp), na.rm =TRUE)
+
+new_mean = mean(temp_data_average %>% 
+  filter(Year >= 2000) %>% 
+  pull(mean_daily_temp), na.rm =TRUE)
+
+ggplot(temp_data_average, aes(x = Year, y = transformed)) + 
+  geom_col(aes(fill = mean_daily_temp)) +
+  scale_fill_distiller("Temp (°C)", palette = "RdBu") +  # add a legend label
+  theme_void() + 
+  ggtitle(paste0("Sydney temperatures have increased by ", round(new_mean - old_mean, 2), "°C")) +
+  theme(legend.position = "none",
+        plot.title = element_text(size = 25)) 
+  
+```
+
+Does the bar size and summary text help convey the amount of change that is happening?
+
+## Bars with scale
+
+```{r fig.align='center'}
+ggplot(temp_data_average, aes(x = Year, y = transformed)) + 
+  geom_col(aes(fill = mean_daily_temp)) +
+  scale_fill_distiller("Temp (°C)", palette = "RdBu") +  
+  theme_minimal() + 
+  ggtitle("Sydney Temperature Change", "Relative to 1971 - 2000 [°C]") +
+  theme(legend.position = "none", 
+        axis.title.y = element_blank(),
+        plot.title = element_text(size = 20),
+        plot.subtitle = element_text(size = 15))
+  
+```
+
+What are the advantages / disadvantages to making this graphic more scientifically accurate?
+
+## Why this plot works
+
+<br>
+
+:::: callout-tip
+## We communicated the key messages!
+
+::: incremental
+-   Can clearly see there is a warming trend.\
+    $\rightarrow$ Effectively used colour to intuitively make this connection
+
+-   The warming stripes are very effective at getting the message across that the climate is warming.
+
+-   The warming bars are more suitable when it is important to communicate the amount of warming.\
+    $\rightarrow$ A bar geometry is effective here.
+
+-   And the warming stripes and bars are a much harder figures to argue with than those line plots!
+:::
+::::
+
+This plot is also already polished, so its ready to go.
+
+## Climate Spiral
+
+Interactive version shown at the Rio Olympics in 2016
+
+![](images/lecture-07/circlestripes1910.png){width="30%"} ![](images/lecture-07/circlestripes1985.png){width="30%"} ![](images/lecture-07/circlestripes2022.png){width="30%"}
+
+Does animation help convey the climate is warming? <br>
+
+<font size = "3"> https://climate.nasa.gov/climate_resources/300/video-climate-spiral-1880-2022/ </font size = "3">
+
+# Wrap Up {background-color="#006DAE"}
+
+## Summary
+
+
+:::: callout-note
+## Today we've covered -
+
+::: incremental
+-   Used visualisation to explore and understand our data
+
+-   Learnt creating a visualisation is not a linear process - **it is an iterative process!** 
+
+- And you need to create a lot of visualisations for a production ready visualisation.
+
+-   Practiced iterating on a design to communicate the key messages.
+
+-   Polished the final visualisations ready for inclusion in a report or publication.
+
+- Also learnt how to write about our visualisations
+
+:::
+::::

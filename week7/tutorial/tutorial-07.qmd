@@ -1,0 +1,88 @@
+---
+title: "Tutorial-07"
+author: Kate Saunders
+format: 
+  html:
+    toc: true
+    css: tutorial.css
+    embed-resources: true
+  pdf:
+    toc: true
+editor: visual
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, fig.align = 'center')
+show_solutions = FALSE
+```
+
+## Exploratory Visualisation
+
+### Learning Objectives
+
+-   Collectively as a class perform an exploratory analysis to get insights about a data set.
+
+-   Practice iterating on your visualisation
+
+-   Practice writing about your plot
+
+### Preparation
+
+-   Install the R Package `gapminder`
+
+    ```{r}
+    #| eval: false
+    #| echo: true
+    if(!require(gapminder)){
+      install.packages("gapminder")
+    }
+    ```
+
+### Motivation
+
+Sometimes your data sets will be too large to quickly visualise using functions like `ggairs` from the `Ggally` package.
+
+The most important insights from your data might also require you to use more sophisticated plots than plot of just 1 or 2 dimensions.
+
+In this tutorial we'll use other strategies to visualise and understand your data.
+
+### Exercise 1
+
+In small groups, take a look at what variables are in the `gapminder` data set.
+
+```{r}
+#| eval: false
+?gapminder
+```
+
+Scroll to the bottom of the help menu and run the examples. This will produce some basic plots that help you get started.
+
+Also take a look at the [gampinder github page](https://jennybc.github.io/gapminder/articles/gapminder.html) for some other inspiration of what plots you can create with this data set. Note there is an specific colour scale you can use to visualise the different countries.
+
+### Exercise 2
+
+Now, it's your turn. Decide at your tables what you think is important to visualise in this data set.
+
+Remember you have options to:
+
+-   `select` - reduce the number of variables
+
+-   `filter` - reduce the size of the data to look at a smaller, more targetted data set
+
+-   `group_by` and `summarise` - create aggregates so you can get an broad overview
+
+-   `facet_wrap` and `facet_grid` so you can use small multiples
+
+As a group decide what part of the data you want to visualise. Share what you plan to look at on the whiteboard or in the zoom chat.
+
+Remember, this will likely be an iterative process. So what you start off trying to visualise might need to change as you go.
+
+### Exercise 3
+
+Take some time to write up the insights you gain from your visualisation. This is to practice what we've learnt today about writing about your plots.
+
+### Finishing Up
+
+Share the plots your group created on the discussion forum along with your explanation of what the plots show.
+
+The goal here is that as a class we have performed an exploratory data analysis that gives us a better understanding of what is in this data set.
