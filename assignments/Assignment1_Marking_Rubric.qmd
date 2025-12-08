@@ -1,0 +1,310 @@
+---
+title: "Marking Scheme"
+format: html
+editor: visual
+---
+
+::: panel-tabset
+
+## Learning Objectives
+
+The following learning objectives are examined on this assignment:
+
+* **[LO1]** critically evaluate the quality of a data visualisation using the principles of graphical excellence
+
+* **[L02]** successfully create high-quality data visualisations in both Power BI and R that are appropriate for a given dataset
+
+## Question 1 
+
+### 20 marks total (5%)
+
+<br> 
+
+#### 1.1 Criteria A [LO1]: Appropriate Visualisations (1 mark)
+The visualisations chosen provided suitable depth for analysis. 
+
+| Mark | Description |
+|------|---------------------------------------------------|
+| 0    | Inappropriate for task  |
+| 1    | The chosen visualisations were appropriate |
+
+<br>
+
+#### 1.1 Criteria B [LO1]: Visualisation Rating (2 marks - 1 for each visualisation)
+Students/groups correctly assessed the overall quality of the visualisations they chose. 
+
+| Mark | Description |
+|------|---------------------------------------------------|
+| 0    | No star rating or rating incorrect  |
+| 1    | The star rating of the visualisation was appropriate |
+
+<br>
+
+#### 1.2 Criteria A [LO1]: Assessment of Principles (8 marks - 4 marks for each visualisation)
+Students/groups were able to explain the reason for their star rating using the principles of graphical excellence and principles of human perception.  
+ 
+| Mark | Description |
+|------|---------------------------------------------------|
+| 0 | No discussion given, or discussion was incorrect. |
+| 1 | Discussion was attempted, but there were many errors. |
+| 2 | Limited discussion of principles of graphical excellence and/or human perception, but important aspects were missing or incorrect. |
+| 3 | Most relevant aspects of graphical excellence were correctly discussed. |
+| 4 | All important aspects of graphical excellence were correctly discussed. |
+
+<br>
+
+#### 1.2 Criteria B [LO1]: Overall impression (5 marks) 
+The student/group was able to combine the graphical principles and elements of human perception together to critically evaluate their visualisations. Their understanding of how these different principles are interrelated is clear. The discussion is also clear and concise.
+
+| Mark | Description |
+|------|---------------------------------------------------|
+| 0 | No evidence of understanding how principles are interrelated. |
+| 1 | Limited understanding; interrelationships are unclear or superficial. |
+| 2 | Some understanding shown, but connections between principles are weak. |
+| 3 | Reasonable understanding of interrelationships; most connections are clear. |
+| 4 | Strong understanding; interrelationships between principles are mostly clear and well explained. |
+| 5 | Excellent understanding; interrelationships between principles are explicit, coherent, and insightful. |
+
+<br>
+
+#### 1.3 Criteria A [LO1]: Group Reflections (2 marks)
+
+The student/group has clearly described how the team divided the work, discussed differences or alignments in opinion.
+
+| Mark | Description |
+|------|---------------------------------------------------|
+| 0     | Limited or no explanation of teamwork, differences, or submission changes. |
+| 1   | Moderate explanation; some elements addressed but lacking clarity or detail. |
+| 2     | Clear and complete description of teamwork, differences or alignments, and any submission changes. |
+
+<br>
+
+#### 1.3 Criteria B [LO1]: Feedback (2 marks)
+The student/group has thoughtfully reflected on their forum submission and incorporated any relevant feedback to improve their submission.
+
+| Mark | Description |
+|------|---------------------------------------------------|
+| 0     | No meaningful reflection or feedback use described. |
+| 1   | Some reflection or mention of feedback, but limited detail or depth. |
+| 2     | Strong reflection and clear explanation of how feedback was used. |
+
+## Question 2
+
+### 20 marks total (5%)
+<br>
+
+#### 2.1 Criteria [LO2]: Key Comparison (2.5 marks)
+The student/pair clearly stated what they aimed to display in their visualisation. This intent aligns with their good visualisation and is deliberately broken in their bad visualisation.
+
+| Mark | Description |
+|------|---------------------------------------------------|
+| 0     | No clear statement of intent. |
+| 1.25     | Minimal statement of intent, visualisations only partially aligns with stated goal. |
+| 2.5     | Strong statement of intent; visualisation clearly reflects the stated goal. |
+
+<br>
+
+#### 2.2 Criteria A [L01, LO2]: Application of Principles - Bad Plot (5 marks)
+
+The student/pair has clearly explained how they deliberately violated or poorly applied the principles of graphical excellence and human perception to create their bad visualisation, and this is evident in their submission.
+
+| Mark | Description |
+|------|---------------------------------------------------|
+| 0     | No explanation of poor application; submission does not demonstrate understanding of principles. |
+| 1     | Minimal explanation; poor application is only vaguely apparent in the visualisation. |
+| 2     | Some explanation; poor application is partially evident, but impact on clarity or perception is limited. |
+| 3     | Reasonable explanation; poor application mostly evident and negatively affects the visualisation. |
+| 4     | Strong explanation; poor application clearly evident and substantially affects clarity or perception. |
+| 5     | Excellent explanation; deliberate poor application is fully evident and clearly demonstrates how violating principles affects interpretation. |
+
+<br>
+
+#### 2.2 Criteria B [L01, LO2]: Application of Principles - Good Plot (5 marks)
+
+The student/pair has clearly explained how they used the principles of graphical excellence and human perception to create their good visualisation, and this is evident in their submission.
+
+| Mark | Description |
+|------|---------------------------------------------------|
+| 0     | No explanation or application of graphical principles; submission does not reflect understanding. |
+| 1     | Minimal explanation; principles mentioned but poorly applied or unclear in the visualisation. |
+| 2     | Some explanation and partial application; visualisation reflects principles to a limited extent. |
+| 3     | Reasonable explanation; principles mostly applied and reflected in the visualisation. |
+| 4     | Strong explanation; principles clearly applied and evident in the visualisation. |
+| 5     | Excellent explanation; principles expertly applied and fully reflected in a clear, effective visualisation. |
+
+<br>
+
+#### 2.2 Criteria C [LO2]: Power BI Usage (2.5 marks)
+
+The student used Power BI effectively to create the visualisations for this task.
+
+| Mark | Description |
+|------|---------------------------------------------------|
+| 0     | Did not use Power BI or unable to create visualisations. |
+| 1     | Minimal use; limited understanding of features. |
+| 2     | Basic use; some features applied with limited effectiveness. |
+| 3     | Competent use; visualisations are mostly clear and appropriate. |
+| 4     | Strong use; features applied effectively to enhance clarity. |
+| 5     | Excellent use; visualisations are polished and make full use of Power BI features. |
+
+<br>
+
+#### 2.2 Criteria D [L01, L02]: Contrasting Visualisations (5 marks)
+
+The student/pair effectively demonstrates the interplay between their good and bad visualisations, using graphical principles and elements of human perception. Their discussion clearly explains the contrast and how the principles are applied differently in each plot.
+
+| Mark | Description |
+|------|---------------------------------------------------|
+| 0    | No evidence of contrast; visualisations and discussion do not reflect principles. |
+| 1    | Limited contrast shown; some principles applied but discussion of differences is unclear. |
+| 2    | Some contrast evident; principles partially applied; discussion moderately explains differences. |
+| 3    | Reasonable contrast; principles applied to both plots; discussion mostly clear about the differences. |
+| 4    | Strong contrast; principles clearly applied; discussion clearly explains differences between plots. |
+| 5    | Excellent contrast; principles expertly applied to both plots; discussion is concise, insightful, and clearly communicates how the plots differ and why. |
+
+
+## Question 3
+
+### 40 marks total (10%)
+<br>
+
+#### 3.1 Criteria A [L02]: Data Selection (2.5 marks) 
+
+Student has explained why they have selected their data set and what made them curious to explore it with visualisation.
+
+| Mark | Description |
+|------|---------------------------------------------------|
+| 0    | No explanation provided, or reasoning is unclear or unrelated to the dataset. |
+| 1.25 | Basic explanation; some indication of curiosity or relevance but limited depth or clarity. |
+| 2.5  | Clear and thoughtful explanation; student articulates meaningful reasons for choosing the dataset and what sparked their curiosity to explore it visually. |
+
+<br>
+
+#### 3.2 Criteria A [L02]: Portfolio Impression (10 marks) 
+
+The portfolio of plots is varied. The student has explored multiple aspects of the data and the relationships between variables. The work reflects genuine experimentation rather than superficial modifications. There is a breadth and depth to the chosen visualisations that shows the student understands different aesthetic mappings, geometries and plot configurations.  
+
+| Mark | Description |
+|------|---------------------------------------------------|
+| 1 | Very limited variety; minimal exploration; plots show little understanding. |
+| 2 | Limited variety; some basic exploration but mostly superficial changes. |
+| 3 | Some variety; explores a few aspects of the data but lacks depth. |
+| 4 | Moderate variety; shows partial experimentation with aesthetics or geometries. |
+| 5 | Adequate variety; explores several data relationships with basic experimentation. |
+| 6 | Good variety; clear experimentation with aesthetic mappings and plot types. |
+| 7 | Strong variety; meaningful exploration of multiple relationships and configurations. |
+| 8 | Strong variety; broad and deep experimentation with multiple visual forms. |
+| 9 | Extensive exploration showing strong conceptual understanding. |
+| 10 | Highly creative and comprehensive exploration demonstrating deep understanding of aesthetics, geometries, and data relationships. |
+
+<br>
+
+#### 3.2 Criteria B [L02]: Data Wrangling (5 marks) 
+
+Student has demonstrated a knowledge of data wrangling to expand the use of the data. This may include filtering observations, creating new variables and or summaries of their data 
+
+| Mark | Description |
+|------|---------------------------------------------------|
+| 0 | No evidence of data wrangling; data used as-is without transformation. |
+| 1 | Minimal or limited wrangling |
+| 2 | Basic wrangling; some transformations performed but with limited scope or purpose. |
+| 3 | Competent wrangling; clear use of filtering, new variables, or summaries to support visualisation. |
+| 4 | Strong wrangling; multiple appropriate transformations that meaningfully expand the data visualisation. |
+| 5 | Excellent wrangling; thoughtful, purposeful transformations that enhance the data set for visualisation. |
+
+<br>
+
+#### 3.2 Criteria C [LO2]: Power BI Usage (2.5 marks)
+
+The student used Power BI effectively to create the visualisations for this task.
+
+| Mark | Description |
+|------|---------------------------------------------------|
+| 0     | Did not use Power BI or unable to create visualisations. |
+| 0.5     | Minimal use; limited understanding of features. |
+| 1.0     | Basic use; some features applied with limited effectiveness. |
+| 1.5     | Competent use; visualisations are mostly clear and appropriate. |
+| 2.0    | Strong use; features applied effectively to enhance clarity. |
+| 2.5     | Excellent use; visualisations are polished and make full use of Power BI features. |
+
+<br>
+
+#### 3.2 Criteria D [LO2]: R usage (5 marks)
+
+The student used R effectively to create the visualisations for this task.
+
+| Mark | Description |
+|------|---------------------------------------------------|
+| 0   | Did not use R or unable to create visualisations. |
+| 1 | Minimal use; limited understanding of R plotting functions or packages. |
+| 2 | Basic use; some functions or layers applied with limited effectiveness. |
+| 3 | Competent use; visualisations are mostly clear and appropriate. |
+| 4 | Strong use; functions, layers, and mappings used effectively to enhance clarity. |
+| 5 | Excellent use; visualisations make skillful use of R’s visualisation capabilities. |
+
+
+<br>
+
+<!-- * (2.5 marks) Students have shown their ability to visual multiple variables on a plot using different aesthetic mappings and pre-attentive principles  -->
+
+<!-- * (2.5 marks) Students have experimented with different colour scales -->
+
+<br>
+
+#### 3.3 Criteria A [L02]: Reflection (10 marks)
+
+The student provides a clear, thoughtful, and concise reflection addressing experimentation with the grammar of graphics, perceptual principles, data relationships, new skills, failed attempts, and broader insights.
+
+| Mark | Description |
+|------|---------------------------------------------------|
+| 1 | Minimal reflection; little clarity or engagement with visualisation concepts. |
+| 2 | Very limited reflection; touches on few areas without depth. |
+| 3 | Some reflection; briefly addresses key areas but remains superficial or unfocused. |
+| 4 | Basic reflection; shows partial engagement with experimentation and learning. |
+| 5 | Adequate reflection; covers most focus areas with reasonable clarity. |
+| 6 | Clear reflection; demonstrates meaningful engagement with experimentation and perceptual principles. |
+| 7 | Strong reflection; insightful discussion of learning, experimentation, and data relationships. |
+| 8 | Very strong reflection; well-structured, thoughtful, and clearly integrates successes, failures, and new skills. |
+| 9 | Excellent reflection; clear, concise, and shows deep understanding and integration of concepts. |
+| 10 | Exceptional reflection; highly insightful, cohesive, and demonstrates deep conceptual integration across all aspects of the task. |
+
+<br>
+
+#### 3.3 Criteria B [L02]: Integration of Learning (5 marks)
+
+The reflection demonstrates how the student has integrated insights from experimentation to deepen their conceptual understanding of data visualisation.
+
+| Mark | Description |
+|------|---------------------------------------------------|
+| 0 | No evidence of new understanding or learning. |
+| 1 | Limited evidence of learning; connections to visualisation concepts are unclear or superficial. |
+| 2 | Some learning described, but connections to visualisation principles or experimentation are weak or incomplete. |
+| 3 | Clear links between experimentation, outcomes, and what the student learned. |
+| 4 | Strong integration of learning, with explicit connections to visualisation principles and reflective insight. |
+| 5 | Deep, well-articulated integration of learning; the student provides clear, reflective, and insightful explanations of how experimentation, mistakes, and tools used expanded their understanding. |
+
+## Other Marks
+
+As part of your assignment submission it is considered standard that do the following. 
+
+-   AI use is acknowledged appropriately as described on the assignment.
+
+-   All of your code, data, images etc. are provided in your submitted .zip to reproduce your assignment as proof of your work.
+
+**We will not be releasing grades unless the above is done and you risk a grade of 0.** 
+
+We also expect: 
+
+- You to provide appropriate citations. Refer to [Monash Library](https://www.monash.edu/library/help/citing-and-referencing) for guidance.
+
+  - Cite any packages you used, see `citation()`
+  - Cite the url source for your plots
+  - Cite your data resource for Task 3
+
+-   Your assignment is organised and neat.
+
+-   Your writing is clear, concise, and understandable.
+
+**Tutors may make minor deductions if your assignment does not meet these standards (-1% each).**
+
+:::

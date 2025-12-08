@@ -1,0 +1,193 @@
+---
+title: "Assignment 1: ETX2250/ETF5922"
+author: Kate Saunders
+format: 
+  html:
+    toc: true
+    css: tutorial.css
+    embed-resources: true
+  pdf:
+    toc: true
+editor: visual
+---
+
+## [Question 1 (5%)]{style="color: #006DAE;"}
+
+In tutorial 2, you worked in groups to review one beautiful visualisation and one ugly visualisation. For the assignment you will revisit this exercise.
+
+Go back to the visualisations' submitted on the discussion forum and polish your answer. You are able to change, update or extend what was submitted on the discussion forum.
+
+::: callout-tip
+## Option
+
+If you would like to submit Task 1 as group you can and all group members you will receive the same grade. Let Kate know by Friday December 5th if you would like to submit this task as a group or individually.
+:::
+
+::: callout-note
+## Question 1
+
+**1.1 Share your overall rating of your chosen visualisation on a scale from 1 to 5 stars** where:
+
+-   1 star - This visualisation is absolutely dreadful, and you'd get no marks if you handed something like this in.
+
+-   2 stars - This visualisation is below average, its violates most of the graphical principles we've learnt.
+
+-   3 stars - This visualisation is average. Some aspects of this plot are good, but equally some are bad.
+
+-   4 stars - This visualisation is above average. It adheres to most of the graphical principles we've learnt.
+
+-   5 stars - This plot is so beautiful I should show Kate!
+
+**1.2 Justify the rating** using what we've learnt about what makes a good data visualisation.
+
+Your discussion should include how well your chosen visualisation adheres to the principles of graphical excellence and a recognition of any relevant elements of human perception.
+
+**1.3 Reflect on your work**
+
+Describe in a few sentences each:
+
+-   How your team split the work (either in class or on the assignment.)
+-   Discuss any differences in opinion within your team. There should be some, but if not discuss where you were most strongly aligned.
+-   Also discuss any major differences between your submission on the discussion forum and the submission on your assignment.
+-   Discuss if you used feedback from other students or the teaching team to update your submission. (If you haven't yet, add your individual feedback post to help others.)
+:::
+
+<!-- **Marking Scheme:\ -->
+
+<!-- \ -->
+
+<!-- Question 1:** -->
+
+<!-- The selected visualisation was appropriate to complete this task\ -->
+
+<!-- 0 - None selected, or inapproriate selection.\ -->
+
+<!-- 1 - Visualisation selected, but was too simple.\ -->
+
+<!-- 2 - Appropriate visualisation selected.\ -->
+
+<!-- \ -->
+
+<!-- The star rating of the visualisation was correct.\ -->
+
+<!-- 0 - No rating or rating incorrect\ -->
+
+<!-- 1 - Rating was close, but the rating is not correct.\ -->
+
+<!-- 2 - Rating was correct. -->
+
+<!-- Appropriate discussion corresponding to the given the rating.\ -->
+
+<!-- 0 - No discussion given, or discussion was incorrect.\ -->
+
+<!-- 1 - Discussion was attempted, but there were many errors.\ -->
+
+<!-- 2 - Limited discussion of principles of graphical excellence, but a few aspects were missing or incorrect.\ -->
+
+<!-- 3 - Most aspects of graphical excellence discussed, but a few aspects were missing or incorrect.\ -->
+
+<!-- 4 - Most important aspects of graphical excellence were correctly discussed\ -->
+
+<!-- 5 - All important aspects of graphical excellence were correctly discussed -->
+
+<!-- The student has a clear understanding of the principles of graphical and how they connect to the underlying the visualisation.\ -->
+
+<!-- \ -->
+
+<!-- 0 - Understanding was not clear from discussion.\ -->
+
+<!-- 1 - Some understanding displayed.\ -->
+
+<!-- 2 - Clear understanding demonstrated. -->
+
+## [Question 2 (5%)]{style="color: #006DAE;"}
+
+In tutorial 3, you worked in pairs to create one beautiful visualisation and one ugly visualisation. For the assignment you will revisit this exercise.
+
+Go back to the visualisations' you submitted on the discussion forum and polish your answer. You are able to change, update or extend what was submitted on the discussion forum as a group.
+
+::: callout-tip
+## Option
+
+If you would like to submit Task 2 in your pairs you can. Pairs must agree to receive the same grade. Let Kate know by Friday December 5th if you would like to submit this task as a pair or individually. If completing this task as an individual complete both the good and the bad role.
+:::
+
+::: callout-note
+## Question 2
+
+**2.1 State clearly what key message(s) you your good visualisation shows.**
+
+**2.2 Discuss how you changed your visualisation to make it good and how you changed your visualisation to make it bad.** This discussion should make clear how you are using or breaking the principles of graphical excellence and using or abusing any aspects human perception.
+:::
+
+## [Question 3 (10%)]{style="color: #006DAE;"}
+
+Learning to create good visualisation takes a lot of practice. For this task you will create a range of different plots to explore the different aspects of what makes a good visualisation.
+
+This question is [inspired by the following story of 1000 pictures](https://jamesclear.com/repetitions), where producing quantity lead to better quality in the end.
+
+::: callout-note
+## Question 3
+
+**3.1 Pick a dataset from those uploaded with this assignment on Moodle**. Tell the teaching team why you chose this data to use for the exploratory analysis task.
+
+**3.2 Create at least 20 different plots.** Make 5 plots in PowerBI and 10 plots in R. You can chose how you create the remaining 5 plots.
+
+Practice the grammar of graphics, experiement with different aspects of human perception and try displaying different data relationships.
+
+Note making simple variations to a plot, for example only changing text or fixed colour, will not count as a new plot. Plots created using `facets` or `ggpairs` also only count as a single plot.
+
+It's also okay to create plots that just don't work. Actually I hope you create some plots that are mistakes - that's how we learn!
+
+**Important:** Do not waste time polishing these plots or making small changes to the themes. That is not the goal here. The goal here to create lots of different visualisations so you learn a range of new skills. Polishing plots will come on the next assignment.
+
+**3.3 Reflect on your visualisations.** (700 words max)
+
+You may like to discuss the following:
+
+-   How did you experiment with the grammar of graphics?
+
+-   How did you experiment with aspects of human perception - such as Gestalt Principles or Visual Hierarchy?
+
+-   How did you experiment with different data relationships?
+
+-   What new skills did you learn?
+
+-   Did you have any failed plots, what did you learn about why they didn't work?
+
+-   Or anything else important you want to tell us!
+:::
+
+<!-- If you aren't sure what exploratory analysis looks like see the case study on the Penguins data from Lecture 6. -->
+
+<!-- ## Question 4 -->
+
+<!-- For this question you need to book in a time with your tutor during consultation. -->
+
+<!-- The tutor will randomly assign you a dataset and you will be asked to read in the data, do a basic data manipulation and then produce a plot in Power BI. -->
+
+<!-- Once you have demonstrated this task in front of the tutor you will be awarded your marks. This is a hurdle task for this assesment, if you don't complete it you will get a failing grade on this assignment. -->
+
+<!-- If you attempt this and have trouble you can attempt the assessment again.\ -->
+
+<!-- \ -->
+
+<!-- This task must be completed by end of Week 2. -->
+
+#### Submission Instructions
+
+Submit one single zipped folder to Moodle.
+
+**Task 1:** Submit both visualisations and answers to the tasks in a pdf file. For simplicity if you worked in a group, share the pdf and each upload a copy.
+
+**Task 2:** Submit both visualisations and answers to the tasks in a pdf file. For simplicity if you worked in a pair, share the pdf and each upload a copy.
+
+**Task 3:** Submit your reflection as a pdf file. Combine your 20 plots into a single powerpoint presentation for marking. Put a single plot on each slide.
+
+Also upload your R Project, your data/data sets, any code you created, and your .pbix files in a single zipped folder. **You must include an R Project with all your code or you will automatically get 0 for this task.**
+
+**AI Statement:** You must write a description about how you used generative AI and submit any prompts you used to create your work. If I ask you about your work, and you cannot explain it, or cannot provide reference to how you have used generativeAI to support your work this is a form of academic misconduct. For more details see [generative AI](https://www.monash.edu/student-academic-success/build-digital-capabilities/create-online/acknowledging-the-use-of-generative-artificial-intelligence)
+
+## Note
+
+Your next assignment will build upon the exploratory analysis in question 3, and you will use the same data set.

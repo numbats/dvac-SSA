@@ -1,0 +1,41 @@
+---
+title: "Data Dictionary"
+editor: visual
+embed-resources: true
+---
+
+## Monthly average patronage by day type and by mode
+
+* Data was downloaded from the [Victorian Goverment website](https://discover.data.vic.gov.au/dataset/monthly-average-patronage-by-day-type-and-by-mode)
+
+* Details of the variables contained in the data are available [here](https://discover.data.vic.gov.au/dataset/monthly-average-patronage-by-day-type-and-by-mode/resource/2606a765-88f0-41c9-9b7c-76d3f2626a67)
+
+## Port Phillip Bay Water Quality 
+
+* Data was downloaded from the [Victorian Government website](https://discover.data.vic.gov.au/dataset/epa-port-phillip-bay-water-quality-data)
+
+* Meta data is contained in the .xlxs file itself
+
+* There many sheets of data you may like to combine together
+
+* You can save .csv files out individually or you may like to read this data into R using the `readxl` package. See here for [examples](https://readxl.tidyverse.org/).
+
+## Pokemon 
+
+* Data was downloaded from the Pokemon R Package, more details here [here](https://github.com/williamorim/pokemon/)
+
+* Details of the variables in the Pokemon data be found [here](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-01/readme.md)
+
+## Netflix 
+
+* Watch statistics for Netflix shows in 2025 were downloaded from the Tidy Tuesday Github,details here [here](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-07-29/readme.md).
+
+* Details of the variables can be found on the same website [here](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-07-29/readme.md)
+
+
+
+## Australian Tourism Data
+
+* Data is monthly tourism data for Australian states
+
+* Variables are Year, Quarter, Month, State, Purpose: Holiday, Family and Friends, Business and Other, Vistor Nights 

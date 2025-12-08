@@ -1,0 +1,42 @@
+---
+title: "Question 3"
+author: "STUDENT NAME, STUDENT NUMBER"
+format: pptx
+editor: visual
+---
+
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+library(tidyverse)
+
+## Read in your data here 
+```
+
+## Power BI Plot 1
+
+![](images/eg_plot.png)
+
+## Power BI Plot 2
+
+![](images/eg_plot.png)
+
+## Power BI Plot ...
+
+## R Plot 1
+
+```{r}
+plot_1 <- ggplot(data =NULL) + 
+  geom_point(aes(x = 1:10, y = 1:10))
+
+plot_1
+```
+
+## R Plot 2
+
+```{r}
+plot_2 <- ggplot(data =NULL) + 
+  geom_line(aes(x = 1:10, y = 1:10))
+
+plot_2
+```
+
+## R Plot ...
