@@ -1,0 +1,308 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Tutorial-08},
+  pdfauthor={Kate Saunders},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Tutorial-08}
+\author{Kate Saunders}
+\date{}
+
+\begin{document}
+\maketitle
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+
+\subsection{Visual Communication}\label{visual-communication}
+
+\subsubsection{Learning Objectives}\label{learning-objectives}
+
+Today we will look at examples of visualisation. We will practice
+identifying if key messages:
+
+\begin{itemize}
+\item
+  are appropriate for the audience
+\item
+  are they communicated well
+\end{itemize}
+
+To achieve this we will look at different examples of visual
+communication.
+
+\subsubsection{Preparation}\label{preparation}
+
+\begin{itemize}
+\tightlist
+\item
+  Take some time to read this
+  \href{https://www.washingtonpost.com/immigration/2024/02/11/trump-biden-immigration-border-compared/}{article}
+  by the Washington Post this article. If you can not access this
+  article, do not pay for it. I haved include the important plots below,
+  you can read the article text by accessing the article from the
+  \href{https://www.proquest.com/docview/2924818088/D66F0B6AE5C14557PQ/1?accountid=12528&sourcetype=Blogs,\%20Podcasts,\%20&\%20Websites}{library
+  here}.
+\end{itemize}
+
+\subsubsection{Motivation}\label{motivation}
+
+This lecture we want to look at visual communication and discuss key
+messages.
+
+Recall this plot from Lecture 1, which has been used by President Trump
+to show how the number of illegal immigration over time and with
+different administrations.
+
+\begin{center}
+\includegraphics[width=4.16667in,height=\textheight]{../images/lecture-01/ImmigrationChart.png}
+\end{center}
+
+The Washington Post used 12 plots to explore this same issue. Using
+these plots to provide more context to the rates of illegal immigration.
+
+\paragraph{Some Context}\label{some-context}
+
+\begin{itemize}
+\item
+  Immigration was a key issue in the 2024 presidential race.
+\item
+  Trump lost the 2020 presidential election to Biden in November, 2020.
+\item
+  Biden took the presidential office in January 2021.
+\item
+  Trump won the 2024 presidential election in November, 2024.
+\end{itemize}
+
+\subsubsection{Exercise 1}\label{exercise-1}
+
+Discuss in your groups, the immigration plot used at Trump Republican
+rally's:
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  Who is the audience for this plot?
+\item
+  What is the \textbf{key} message of this plot?
+\item
+  What are the important secondary messages?
+\item
+  Are the key messages clear and easy to identify?
+\item
+  How does the audience influence the perception of the key messages?
+\end{enumerate}
+
+\subsubsection{Exercise 2}\label{exercise-2}
+
+Discuss in your group's the immigration plots shown by the Washington
+Post.
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\item
+  Who is the audience for these plots?
+\item
+  What is the \emph{key} message for each of the below plots?
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  This plot shows the number of Illegal crossing at the US-Mexico border
+  (2017 - 2023).
+\end{itemize}
+
+\includegraphics[width=4.16667in,height=\textheight]{images/illegal_border_crossings.png}
+
+\begin{itemize}
+\tightlist
+\item
+  This plot shows the number of single adults, families and
+  unaccompanied minors.
+\end{itemize}
+
+\includegraphics[width=4.16667in,height=\textheight]{images/who_is_crossing.png}
+
+\begin{itemize}
+\tightlist
+\item
+  This plot shows the main countries of where illegal immigrants are
+  coming from.
+\end{itemize}
+
+\includegraphics[width=4.16667in,height=\textheight]{images/where_people_came_from.png}
+
+\begin{itemize}
+\tightlist
+\item
+  This plot shows the number of people deported each year.
+\end{itemize}
+
+\includegraphics[width=4.16667in,height=\textheight]{images/deported.png}
+
+\subsubsection{Note}\label{note}
+
+In Assignment 2, you will combine your own set of plots to tell a data
+story and share key messages.
+
+\subparagraph{Material developed by Dr.~Kate
+Saunders.}\label{material-developed-by-dr.-kate-saunders.}
+
+
+
+
+\end{document}
