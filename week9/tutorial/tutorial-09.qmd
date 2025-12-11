@@ -1,0 +1,136 @@
+---
+title: "Tutorial-09"
+author: Kate Saunders
+format: 
+  html:
+    toc: true
+    css: tutorial.css
+    embed-resources: true
+  pdf:
+    toc: true
+editor: visual
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, fig.align = 'center')
+show_solutions = FALSE
+```
+
+## Quarto Basics and Scrollytelling
+
+### Learning Objectives
+
+-   Practice communicating your results using Quarto
+
+    -   Including practicing combining text, code, images and visualisations in the same document
+
+-   Practice communicating your key messages by writing about your plots
+
+-   Practice converting your Quarto into a scrollbased storytelling
+
+### Preparation
+
+-   We expect you to be using an R project for all tutorials
+
+-   Download the dataset from Moodle, `boston_celtics.csv,` and place it in a folder called `data` within your R Project.
+
+### Tasks
+
+Building on tutorial 4, you will be creating visualisations in `ggplot2` to analyse sporting statistics from the Boston Celtics NBA basketball team.
+
+```{r echo = TRUE}
+library(tidyverse)
+library(here)
+boston_celtics <- read_csv(here("data", "boston_celtics.csv"))
+```
+
+### Task 1
+
+Using `facet_wrap` recreate the following plot:
+
+```{r echo = show_solutions}
+ggplot(data = boston_celtics) + 
+  geom_histogram(aes(x = team_score), 
+                 fill = "forestgreen", alpha = 0.4, binwidth = 4) +
+  geom_vline(aes(xintercept = mean(team_score)), linetype = "dotted") +
+  facet_wrap(~season, ncol = 2) + 
+  theme_bw() + 
+  xlab("Team Score") + 
+  ylab("Count") +
+  ggtitle("Boston Celtics Past Season Performance")
+```
+
+**Hint:** Look up `geom_vline()` to add the average team score. You may like to challenge yourself to also add the average team score for each season as well.
+
+### Task 2
+
+Using `facet_grid` recreate the following plot:
+
+```{r}
+#| echo: false
+#| eval: true
+
+boston_celtics = boston_celtics |>
+  mutate(team_winner = as.factor(team_winner)) |>
+  mutate(
+    team_winner = 
+      recode(team_winner,
+             "TRUE" = "Won", "FALSE" = "Lost"),
+    team_home_away = 
+      recode(team_home_away,"home" = "Home", "away" = "Away"))
+```
+
+```{r}
+#| echo: false
+#| eval: true
+ggplot(data = boston_celtics) + 
+  geom_boxplot(aes(x = team_score),
+                 fill = "forestgreen", alpha = 0.4, binwidth = 1) +
+  facet_grid(team_home_away ~ team_winner) + 
+  theme_bw()
+```
+
+**Hint:** What's tricky here is changing the order (levels) of the categorical variables. The default for how categorical variables are displayed on panels of plots is always alphabetical.
+
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+boston_celtics = boston_celtics |>
+  mutate(
+    team_winner = 
+      factor(team_winner, levels = c("Won", "Lost")),
+    team_home_away = 
+      factor(team_home_away, levels = c("Home", "Away"))
+  )
+```
+
+We need to:
+
+-   Tell R it's a categorical variable we make it a `factor` type
+
+-   Change the order of the levels for plotting using `recode`.
+
+[Here](https://rstudio.github.io/cheatsheets/html/factors.html) is a cheat sheet on `factors` you can download to help you.
+
+### Task 3
+
+Use the `group` aesthetic mapping and `facet_wrap` to create the following plot:
+
+```{r}
+ggplot(boston_celtics) + 
+  geom_density(aes(x = team_score, group = team_home_away, col = team_home_away), linewidth = 1.1) + 
+  scale_colour_manual(values = c("Home" = "forestgreen", "Away" = "lightgreen")) +
+  facet_wrap(vars(team_winner)) +
+  theme_bw() + 
+  xlab("Team Score") + 
+  ylab("Density") + 
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+```
+
+**Hint:** You can adapt the colour scale from Tutorial 4 and the `linewidth` is increased from default.
+
+*Note I made a small mistake and the legend names were around the wrong way, so I have updated the figure.*
+
+##### © Copyright 2025 Monash University
