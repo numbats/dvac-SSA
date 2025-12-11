@@ -1,4 +1,0 @@
----
-title: "another_test"
-format: closeread-html
----

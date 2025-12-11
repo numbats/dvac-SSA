@@ -26,111 +26,56 @@ show_solutions = FALSE
 
 -   Practice communicating your key messages by writing about your plots
 
--   Practice converting your Quarto into a scrollbased storytelling
+-   Practice converting your Quarto into a storytelling document
 
 ### Preparation
 
--   We expect you to be using an R project for all tutorials
+-   We will use the energy and weather data again, and the plots we created in Workshop 6.
 
--   Download the dataset from Moodle, `boston_celtics.csv,` and place it in a folder called `data` within your R Project.
-
-### Tasks
-
-Building on tutorial 4, you will be creating visualisations in `ggplot2` to analyse sporting statistics from the Boston Celtics NBA basketball team.
-
-```{r echo = TRUE}
+```{r echo = TRUE, eval = FALSE}
 library(tidyverse)
 library(here)
-boston_celtics <- read_csv(here("data", "boston_celtics.csv"))
+energy = read_csv("data/energydata.csv")
+weather = read_csv("data/weather.csv")
+energy_weather = full_join(energy, weather, by = c("Date", "State"))
+
+energy_weather |> 
+  mutate(
+    Day_type = if_else(Day %in% c("Sat", "Sun"),
+                       "Weekend", "Weekday")
+  ) |>
+  ggplot(aes(x = MaxTemp, y = Demand, group = Day_type, col = Day_type)) +
+  geom_point(alpha = 0.25) + 
+  geom_smooth() +
+  facet_wrap(vars(State), scales = "free")
 ```
 
 ### Task 1
 
-Using `facet_wrap` recreate the following plot:
+i. Create a Quarto document that contains the above plot (don't show your code)
 
-```{r echo = show_solutions}
-ggplot(data = boston_celtics) + 
-  geom_histogram(aes(x = team_score), 
-                 fill = "forestgreen", alpha = 0.4, binwidth = 4) +
-  geom_vline(aes(xintercept = mean(team_score)), linetype = "dotted") +
-  facet_wrap(~season, ncol = 2) + 
-  theme_bw() + 
-  xlab("Team Score") + 
-  ylab("Count") +
-  ggtitle("Boston Celtics Past Season Performance")
-```
+ii. Write a sentence above the plot about the key message
 
-**Hint:** Look up `geom_vline()` to add the average team score. You may like to challenge yourself to also add the average team score for each season as well.
+iii. Below the plot write about the features of the plots and the key aesthetic mappings
 
-### Task 2
+iv. Write about any of the secondary messages or other important details 
 
-Using `facet_grid` recreate the following plot:
+v. Write about any important caveats 
 
-```{r}
-#| echo: false
-#| eval: true
+### Task 2 
 
-boston_celtics = boston_celtics |>
-  mutate(team_winner = as.factor(team_winner)) |>
-  mutate(
-    team_winner = 
-      recode(team_winner,
-             "TRUE" = "Won", "FALSE" = "Lost"),
-    team_home_away = 
-      recode(team_home_away,"home" = "Home", "away" = "Away"))
-```
+Turn your Quarto into a scroll based story. 
 
-```{r}
-#| echo: false
-#| eval: true
-ggplot(data = boston_celtics) + 
-  geom_boxplot(aes(x = team_score),
-                 fill = "forestgreen", alpha = 0.4, binwidth = 1) +
-  facet_grid(team_home_away ~ team_winner) + 
-  theme_bw()
-```
+i. Create a copy of your Task 1 Quarto file. 
 
-**Hint:** What's tricky here is changing the order (levels) of the categorical variables. The default for how categorical variables are displayed on panels of plots is always alphabetical.
+ii. Change the format to a `closeread-html`
 
-```{r}
-#| echo: TRUE
-#| eval: FALSE
-boston_celtics = boston_celtics |>
-  mutate(
-    team_winner = 
-      factor(team_winner, levels = c("Won", "Lost")),
-    team_home_away = 
-      factor(team_home_away, levels = c("Home", "Away"))
-  )
-```
+iii. Make the plot a sticky object by giving it an ID
 
-We need to:
+iv. Add the headers `:::cr-section` for where you want the scrolling to start and `:::` for where you want the scrolling to finish
 
--   Tell R it's a categorical variable we make it a `factor` type
+v. Inside your scrolly section, add the trigger for when you want your plot to appear
 
--   Change the order of the levels for plotting using `recode`.
 
-[Here](https://rstudio.github.io/cheatsheets/html/factors.html) is a cheat sheet on `factors` you can download to help you.
 
-### Task 3
 
-Use the `group` aesthetic mapping and `facet_wrap` to create the following plot:
-
-```{r}
-ggplot(boston_celtics) + 
-  geom_density(aes(x = team_score, group = team_home_away, col = team_home_away), linewidth = 1.1) + 
-  scale_colour_manual(values = c("Home" = "forestgreen", "Away" = "lightgreen")) +
-  facet_wrap(vars(team_winner)) +
-  theme_bw() + 
-  xlab("Team Score") + 
-  ylab("Density") + 
-  theme(legend.position = "bottom",
-        legend.title = element_blank())
-
-```
-
-**Hint:** You can adapt the colour scale from Tutorial 4 and the `linewidth` is increased from default.
-
-*Note I made a small mistake and the legend names were around the wrong way, so I have updated the figure.*
-
-##### © Copyright 2025 Monash University
