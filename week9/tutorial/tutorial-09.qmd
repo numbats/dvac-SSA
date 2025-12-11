@@ -70,12 +70,13 @@ i. Create a copy of your Task 1 Quarto file.
 
 ii. Change the format to a `closeread-html`
 
-iii. Make the plot a sticky object by giving it an ID
+iii. Make the plot a sticky object by giving it an ID (for example `:::{#cr-myplot}`)
 
-iv. Add the headers `:::cr-section` for where you want the scrolling to start and `:::` for where you want the scrolling to finish
+iv. Add the headers `:::{.cr-section}` for where you want the scrolling to start and `:::` for where you want the scrolling to finish
 
-v. Inside your scrolly section, add the trigger for when you want your plot to appear
+v. Inside your scrolly section, add the trigger for when you want your plot to appear and make the messages scroll by one at a time
 
+vi. Advanced: Add in other plots to improve the telling of this data story
 
 
 
