@@ -1,0 +1,1196 @@
+---
+pagetitle: "ETX2250/ETF5922"
+subtitle: "Infographics"
+author: Kate Saunders
+email: "etx2250-etf5922.caulfield-x@monash.edu"
+date: "Lecture 6"
+department: "Department of Econometrics and Business Statistics"
+unit-url: "dvac.ss.numbat.space"
+footer: "ETX2250/ETF5922"
+format: 
+  revealjs: 
+    logo: images/monash-one-line-black-rgb.png
+    slide-number: c
+    multiplex: false
+    theme: ../assets/monash.scss
+    show-slide-number: all
+    show-notes: false
+    controls: true
+    width: 1280
+    height: 720
+    css: [../assets/custom.css, ../assets/lecture-01.css]
+    include-after-body: "assets/after-body.html"
+    #   boardmarker-width: 5
+    #   buttons: true
+    embed-resources: true
+---
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+
+if(!require(tidyverse))
+  install.packages("tidyverse")
+
+# nolonger on CRAN
+if(!require(waffle))
+  remotes::install_github("hrbrmstr/waffle")
+
+if(!require(naniar))
+  install.packages("naniar")
+
+if(!require(ggthemes))
+  install.packages("ggthemes")
+
+library(tidyverse)
+library(waffle)
+library(naniar)
+library(ggthemes)
+```
+
+## <br>[`r rmarkdown::metadata$pagetitle`]{.monash-blue} {#etc5523-title background-image="images/bg-01.png"}
+
+### `r rmarkdown::metadata$subtitle`
+
+Lecturer: *`r rmarkdown::metadata$author`*
+
+`r rmarkdown::metadata$department`
+
+::: tl
+<br>
+
+<ul class="fa-ul">
+
+<li><i class="fas fa-envelope"></i>`r rmarkdown::metadata$email`</li>
+
+<li><i class="fas fa-calendar-alt"></i> `r rmarkdown::metadata$date`</li>
+
+<li><i class="fa-solid fa-globe"></i><a href="`r rmarkdown::metadata[["unit-url"]]`">`r rmarkdown::metadata[["unit-url"]]`</a> </li>
+
+</ul>
+
+<br>
+:::
+
+
+# Infographics {background-color="#006DAE"}
+
+## What are infographics?
+
+::: callout-note
+### Infographics
+
+**Infographics** are powerful forms of visual communication: Making complex data accessible, memorable, and engaging. They are: 
+
+::: incremental
+
+- Visual representations of data that combine graphics, text, and numbers.
+
+- Go beyond just visualisation
+
+- Guide the reader to the key messages
+
+- Commonly use a simple, narrative form 
+
+- Help reduce the cognitive load
+
+:::
+
+:::
+
+. . . 
+
+And we've seen a few [examples already](https://dvac.ss.numbat.space/week8/tutorial/tutorial-08.html)
+
+## Example
+
+:::{.columns} 
+
+:::{.column width="60%"}
+
+![](images/lecture-10/abs-migration.jpg){fig-align="center"}
+
+::: {style="font-size: 70%;"}
+
+[Source](https://www.facebook.com/absstats/posts/321161766722072)
+
+:::
+
+::: 
+
+::: {.column width="40%"}
+
+There is a big downward spike in 2020. Adding text here helps the audience understand why.
+
+:::
+
+:::
+
+## Infographics vs Visualisation
+
+:::{.incremental}
+
+:::{.callout-note}
+
+## What is the difference?
+
+-   They aren't necessarily different from one another.
+
+-   The key difference is that infographics usually contain additional text or other graphics, like icons.
+
+-   Infographics are just a form of data visualisation that use additional narrative elements
+
+:::
+
+:::
+
+## Chart junk? 
+
+<br>
+
+:::callout-caution 
+## Hang on 
+
+Isn't adding extra elements a from of chart junk? 
+
+:::incremental 
+
+* Technically yes ... 
+* But Tufte's principles were written in 1982
+* So let's think about this issue flexibly
+
+:::
+
+:::
+
+## So when should we use infographics?
+
+:::{.incremental}
+
+:::{.callout-note}
+## Some of the reasons
+
+-   To deliver the message quickly
+
+-   To explain a complex process
+
+- Alert the audience to an important part of our figure 
+
+-   Summarise a long report or blog succintly
+
+-   Create a visual that is easy to share
+
+:::
+
+:::
+
+<!-- . . .  -->
+
+<!-- :::callout-important  -->
+
+<!-- The guidelines around graphical excellence and effective use of human perception still apply -->
+
+<!-- ::: -->
+
+## Another Example
+
+:::{.columns} 
+
+:::{.column width="70%"}
+
+![](images/lecture-10/infographic.png){fig-align="center"}
+
+::: {style="font-size: 70%;"}
+
+[Source](https://informationisbeautiful.net/visualizations/the-problem-with-plastics-and-recycling-bioplastics-microplastics-ocean-waste/)
+
+:::
+
+:::
+
+:::{.column width="30%"}
+
+* Plastic recycling can be a boring
+
+* This image is engaging and colourful
+
+* The text guides the viewer 
+
+* Notice the use of human perception
+
+:::
+
+:::
+
+
+## Some Resources
+
+:::callout-important 
+### Infographics 
+
+Infographics use many of the same principles of good data visualisation! 
+
+* Here is more details on [key principles](https://libguides.hull.ac.uk/infographics/principles)
+
+* Here is a more general guide from [Monash library on infographics ](https://www.monash.edu/student-academic-success/excel-at-writing/how-to-write/infographic)
+
+* Some more advanced examples of [infographics in R](https://www.listendata.com/2019/06/create-infographics-with-r.html)
+
+* Guidance on creating graphical [summaries for an Article or Report](https://www.elsevier.com/researcher/author/tools-and-resources/graphical-abstract)
+
+:::
+
+## Your turn
+
+:::{.callout-caution}
+## Your turn
+
+Let's take some time to look some examples of infographics and their design elements: 
+
+-   [https://ourworldindata.org/data-insights](https://ourworldindata.org/data-insights)
+
+-   [https://www.instagram.com/absstats/](https://www.instagram.com/absstats/)
+
+-   [https://www.lsay.edu.au/publications/infographics](https://www.lsay.edu.au/publications/infographics)
+
+Note infographics are common on social media, but less so in technical reports.  
+Why do you think that is? 
+
+:::
+
+
+# How do we create one? {background-color="#006DAE"}
+
+## Messages
+
+:::{.incremental}
+
+:::{.callout-note}
+
+## Messages
+
+-   What messages are you trying to convey?
+
+- Where do you need to draw your reader's eye? 
+
+- What situational context can you provide to improve their understanding? 
+
+-   For example, important events like COVID-19 hurt the economy.
+
+-   Or, apple announces a new product that drives up the stock price
+
+:::
+
+:::
+
+## For example
+
+```{r}
+stock <- read_csv("data/big-tech-stock-price.csv") |> 
+  mutate(date = ymd(date)) |>
+  filter(stock_symbol == "AAPL",
+         year(date) > 2016) 
+
+ggplot(stock, aes(x = date, y = close)) +
+  geom_line() +
+  geom_vline(xintercept = as.numeric(as.Date("2020-01-01")), linetype = 2, color = "red", alpha = 0.4) +
+  geom_vline(xintercept = as.numeric(as.Date("2020-03-18")), linetype = 2, color = "blue", alpha = 0.4) +
+  geom_vline(xintercept = as.numeric(as.Date("2020-11-10")), linetype = 2, color = "blue", alpha = 0.4) +
+  # spring
+  annotate("rect", xmin = as.Date("2021-02-01"), xmax = as.Date("2022-12-01"), ymin = 20, ymax = 38, fill = "blue") +
+  annotate("segment", x = as.Date("2020-03-30"), xend = as.Date("2021-03-01"), y = 40, yend = 30, color = "blue") +
+  annotate("text", x = as.Date("2022-01-01"), y = 30, label = "Apple spring 2020 event", color = "white") +
+  # m1
+  annotate("rect", xmin = as.Date("2021-07-01"), xmax = as.Date("2023-01-01"), ymin = 70, ymax = 88, fill = "blue") +
+  annotate("segment", x = as.Date("2020-11-30"), xend = as.Date("2021-08-01"), y = 90, yend = 80, color = "blue") +
+  annotate("text", x = as.Date("2022-04-01"), y = 80, label = "M1 announcement", color = "white") +
+  # covid
+  annotate("rect", xmin = as.Date("2017-03-01"), xmax = as.Date("2018-11-01"), ymin = 140, ymax = 158, fill = "red") +
+  annotate("segment", x = as.Date("2018-01-01"), xend = as.Date("2019-12-01"), y = 140, yend = 100, color = "red") +
+  annotate("text", x = as.Date("2018-01-01"), y = 150, label = "COVID-19 Pandemic", color = "white") +
+  labs(x = "Date", y = "Closing price USD", title = "Apple Inc stock price during the pandemic") +
+  theme_bw() +
+  theme(aspect.ratio = 0.5,
+        plot.title = element_text(size = 16, face = "bold", hjust = 0.5)
+        )
+```
+
+## Adding messages
+
+:::{.incremental}
+
+:::{.callout-note}
+## Text layer
+
+-   You already know how to create a visualisation. 
+
+-   Now let's add some extra narratvie layers to our plot.
+
+-   There are many ways to do this in ggplot
+    -   `geom_text()`
+    -   `geom_label()`
+    -   `annotate()`
+
+:::
+
+:::
+
+
+## geom_text() and geom_label()
+
+-   These works the same way as `geom_point()`. 
+-   But instead of a point, you are adding text.
+-   `geom_label` wraps the text inside a rectangle
+
+:::{.callout-note}
+## Additional 
+
+Required aesthetics:
+
+-   `label`: the text you want to display
+
+Useful addition inputs:
+
+-   `nudge_x` and `nudge_y`: shifts the text along the x and y axis
+
+:::
+
+## Starter plot 
+
+```{r}
+#| echo: true
+#| code-line-numbers: "1|2"
+
+ggplot(data = mtcars) +
+  geom_point(aes(x = wt, y = mpg))
+```
+## Add some text 
+
+The text can be added using a character string
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "1|2|3|4|5|6"
+
+plot <- ggplot(data = mtcars) +
+  geom_point(aes(x = wt, y = mpg)) + 
+  geom_text(x = 4, y = 30, 
+            label = "As the car weight increases \n the fuel economy gets worse", 
+            color = "darkred", 
+            size = 6)
+```
+
+## Add some text 
+
+```{r}
+plot
+```
+
+## Add some more text 
+
+The text can be also added using a data frame
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "7|8|9|10"
+
+plot <- ggplot(data = mtcars) +
+  geom_point(aes(x = wt, y = mpg)) + 
+  geom_text(x = 4, y = 30, 
+            label = "As the car weight increases \n the fuel economy gets worse", 
+            color = "darkred", 
+            size = 6) + 
+  geom_text(aes(x = wt, y = mpg, label = rownames(mtcars)),
+            size = 2.5, 
+            alpha = 0.8, 
+            hjust = -0.2)
+```
+## But this is chart junk
+
+```{r}
+plot
+```
+
+## Better
+
+The text can be also added as a label
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-line-numbers: "1-3|4-6|7-9|10-12|13-15"
+
+most_efficient = mtcars |>
+  arrange(desc(mpg)) |>
+  slice(1)
+
+plot <- ggplot(data = mtcars) +
+  geom_point(aes(x = wt, y = mpg)) + 
+  geom_label(aes(
+    x = most_efficient$wt, y = most_efficient$mpg, 
+    label = paste(rownames(most_efficient), "is the most efficient car")),
+            size = 4, 
+            alpha = 0.8, 
+            hjust = - 0.1) + 
+  ggtitle("Lighter cars have better fuel economy") + 
+  xlab("Weight (in lbs)") + 
+  ylab("Miles per Gallon")
+```
+## Add a label 
+
+```{r}
+plot
+```
+
+<!-- ## geom_text() and geom_label() -->
+
+<!-- - The text can be added either from the data frame or a single text character. -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- #| code-line-numbers: "|2|3|4" -->
+
+<!-- ggplot(data = mtcars) + -->
+<!--   geom_text(aes(x = wt, y = mpg, label = rownames(mtcars)), color = "red") + -->
+<!--   geom_text(aes(x = 4, y = 30, label = "This is a single text"), color = "blue", size = 6) + -->
+<!--   geom_label(aes(x = 5, y = 30, label = "This is geom_label"), fill = "green", size = 2) -->
+<!-- ``` -->
+
+## annotate()
+
+:::{.incremental}
+
+:::{.callout-note}
+
+-   The `annotate()` function is useful for adding small annotations (such as text labels)
+-   There are **many geoms** you can use with this function, for example:
+    - text: adding text
+    - segment: drawing a line
+    - rect: drawing a rectangle
+    - point: highlighting a point
+
+Go to this [link](https://ggplot2-book.org/annotations) for more information.
+
+:::
+
+:::
+
+
+## annotate
+
+```{r}
+#| echo: true
+#| code-line-numbers: "1|2|3|4|5|6|7"
+
+mtcars |> 
+  ggplot(aes(x = wt, y = mpg)) +
+  annotate("point", x = 2.2, y = 32.45, color = "orange", size = 10) +
+  geom_point() +
+  annotate("segment", xend = 2.25, yend = 32.5, x = 3, y = 32.5, color = "orange", arrow = arrow(length = unit(3, "mm")), size = 2.5) +
+  annotate("rect", xmin = 3.1, xmax = 4, ymin = 31, ymax = 34, fill = "blue") +
+  annotate("text", x = 3.55, y = 32.5, label = "Here is some text", color = "white", size = 5)
+```
+
+## An example to recreate
+
+```{r}
+stock <- read_csv("data/big-tech-stock-price.csv") |> 
+  mutate(date = ymd(date)) |>
+  filter(stock_symbol == "AAPL",
+         year(date) > 2016) 
+
+ggplot(stock, aes(x = date, y = close)) +
+  geom_line() +
+  geom_vline(xintercept = as.numeric(as.Date("2020-01-01")), linetype = 2, color = "red", alpha = 0.4) +
+  geom_vline(xintercept = as.numeric(as.Date("2020-03-18")), linetype = 2, color = "blue", alpha = 0.4) +
+  geom_vline(xintercept = as.numeric(as.Date("2020-11-10")), linetype = 2, color = "blue", alpha = 0.4) +
+  # spring
+  annotate("rect", xmin = as.Date("2021-02-01"), xmax = as.Date("2022-12-01"), ymin = 20, ymax = 38, fill = "blue") +
+  annotate("segment", x = as.Date("2020-03-30"), xend = as.Date("2021-03-01"), y = 40, yend = 30, color = "blue") +
+  annotate("text", x = as.Date("2022-01-01"), y = 30, label = "Apple spring 2020 event", color = "white") +
+  # m1
+  annotate("rect", xmin = as.Date("2021-07-01"), xmax = as.Date("2023-01-01"), ymin = 70, ymax = 88, fill = "blue") +
+  annotate("segment", x = as.Date("2020-11-30"), xend = as.Date("2021-08-01"), y = 90, yend = 80, color = "blue") +
+  annotate("text", x = as.Date("2022-04-01"), y = 80, label = "M1 announcement", color = "white") +
+  # covid
+  annotate("rect", xmin = as.Date("2017-03-01"), xmax = as.Date("2018-11-01"), ymin = 140, ymax = 158, fill = "red") +
+  annotate("segment", x = as.Date("2018-01-01"), xend = as.Date("2019-12-01"), y = 140, yend = 100, color = "red") +
+  annotate("text", x = as.Date("2018-01-01"), y = 150, label = "COVID-19 Pandemic", color = "white") +
+  labs(x = "Date", y = "Closing price USD", title = "Apple Inc stock price during the pandemic") +
+  theme_bw() +
+  theme(aspect.ratio = 0.5,
+        plot.title = element_text(size = 16, face = "bold", hjust = 0.5)
+        )
+```
+
+## Code
+
+```{r}
+#| echo: true
+#| eval: false
+
+stock <- read_csv("data/big-tech-stock-price.csv") |> 
+  mutate(date = ymd(date)) |>
+  filter(stock_symbol == "AAPL",
+         year(date) > 2016) 
+
+ggplot(stock) +
+  geom_line(aes(x = date, y = close)) +
+  geom_vline(xintercept = as.numeric(as.Date("2020-01-01")), linetype = "dashed", 
+             color = "red", alpha = 0.4) +
+  annotate("segment", x = as_date("2018-01-01"), xend = as_date("2019-12-01"), 
+           y = 140, yend = 100, color = "red") +
+  annotate("label", x = as.Date("2018-01-01"), y = 150, 
+           label = "COVID-19 Pandemic", color = "white", fill = "red") +
+  labs(x = "Date", y = "Closing price", 
+       title = "Apple Inc stock price during the pandemic") +
+  theme_bw() +
+  theme(
+    aspect.ratio = 0.5,
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5)
+    )
+```
+
+## Your turn
+
+:::{.callout-caution}
+
+## Your turn
+
+* Copy the code provided. 
+
+* Run each line to see what it does - check you understand. 
+
+* Try it yourself: Add a vertical dashed line, label and segment for the other important events.
+
+  + The Apple spring 2022 event on 2020-03-18
+
+  + The M1 Chip announcement on 2020-11-10
+
+:::
+
+
+
+# Visualising Uncertainty {background-color="#006DAE"}
+
+## Linda Problem
+
+:::{.callout-tip}
+## Question: 
+
+**Background:** Lucy was a math major in college and got top marks on all her exams in probability and statistics. Which do you think is more likely:
+
+1. That Lucy is a portrait artist? or
+
+2. That Lucy is a portrait artist who plays poker. 
+
+:::
+
+## 
+
+{{< video https://www.youtube.com/watch?v=Ghbkv0MKV-w width="1020" height="632" >}}
+
+## Waffle Plot
+
+```{r}
+people_data = data.frame(Person = c("Maths", "Math Artists", "Math Artists that Play Poker"), count = c(20*20 - 10, 7, 3))
+
+ggplot(people_data) + 
+  geom_waffle(aes(fill = Person, values = count),
+    n_rows = 20,
+    size = 0.5, 
+    colour = "white"
+  ) + 
+  scale_fill_colorblind() +
+  coord_fixed() + 
+  theme_minimal() + 
+  labs(title = "One Million Majors in Maths") + 
+  theme(axis.text = element_blank(),
+        legend.position = "bottom",
+        plot.title = element_text(size = 20),
+        legend.text = element_text(size = 10)) + 
+  geom_label(x = 30, y = 18, 
+            label = "The number of maths majors \n who are just artists \n is greater than the number \n  that are artists and play poker!", 
+            color = "black", 
+            size = 4)  +
+  xlim(c(0,40))
+```
+
+## Waffle Plot Code 
+
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+#| code-line-numbers: "1|2-5|7|8|9|11|12|13|14|15-18|19-21|22"
+library(waffle)
+
+people_data = data.frame(
+  Person = c("Maths", "Math Artists", "Math Artists that Play Poker"), 
+  count = c(20*20 - 10, 7, 3))
+
+ggplot(people_data) + 
+  geom_waffle(aes(fill = Person, values = count),
+    n_rows = 20, size = 0.5, colour = "white"
+  ) + 
+  scale_fill_colorblind() +
+  coord_fixed() + 
+  theme_minimal() + 
+  labs(title = "One Million Majors in Maths") + 
+  theme(axis.text = element_blank(),
+        legend.position = "bottom",
+        plot.title = element_text(size = 20),
+        legend.text = element_text(size = 10)) + 
+  geom_label(x = 30, y = 18, 
+            label = "The number of maths majors \n who are just artists \n is greater than the number \n  that are artists and play poker!", 
+            color = "black", size = 4)  +
+  xlim(c(0,40))
+```
+
+## Conjunction Fallacy 
+
+:::callout-important
+## Explaining Frequencies
+
+:::incremental 
+
+* Presenting the problem as before -   
+People get the answer wrong 80% of the time.  
+
+* However, if asked the same question in terms of frequencies this is reversed. 
+
+* For example: Estimate out of 100 math majors how many are:
+
+1. Artists: ___ in 100
+2. Artists who play poker: ___ in 100
+
+* Visualising the problem also helps people get the answer correct much more often! 
+:::
+
+:::
+
+Read more about the [Conjunctive Fallacy and Linda Problem here](https://en.wikipedia.org/wiki/Conjunction_fallacy).
+
+
+## People and probabilities
+
+:::{.callout-important}
+
+:::incremental 
+
+- People often prefer certainty and struggle with probabilistic reasoning, preferring definitive answers instead of ranges or likelihoods.
+
+- People commonly overestimate rare events (e.g., plane crashes) and underestimate common ones (e.g., car accidents).
+
+- How information is presented (e.g., "10% failure" vs. "90% success") influences interpretation and decision-making.
+
+- Understanding probabilities requires numerical literacy, which varies widely among the public.
+
+- Probabilities and uncertainties when given as numbers alone often are abstract.
+
+:::
+
+:::
+
+<!-- :::{style="font-size: 90%;"} -->
+
+<!-- [Source](https://pmc.ncbi.nlm.nih.gov/articles/PMC4658440/) -->
+
+<!-- ::: -->
+
+
+## Why waffles work? 
+
+:::callout-note
+
+:::incremental 
+
+* Like a pie chart you see the data as part of a whole 
+
+* Like a bar chart you are also able to effectively compare the size of categories 
+
+* **Key difference:** Bigger parts are broken down into the number of individual components instead of being shown in a solid colour.
+
+* This [blogpost](https://rud.is/b/2019/07/12/quick-hit-waffle-1-0-font-awesome-5-pictograms-and-more/) is a great resource for more details and examples.
+
+* You can also look at the Waffle plots on [data-to-viz](https://r-graph-gallery.com/waffle.html).
+
+:::
+
+:::
+
+## Uncertainty 
+
+:::callout-note 
+## Uncertainty 
+
+:::incremental 
+* Waffle plots are great for visualising uncertainty 
+
+* For example, 1 in 10 chance can be easily shown
+
+* This is one of the reasons they are so commonly used in infographics
+
+:::
+
+::: 
+
+## Pictograms 
+
+:::callout-note 
+## Waffles with Pictures
+
+:::incremental 
+
+* You can also make waffle plots using picture icons in R using `geom_pictogram`
+
+* However it requires [installing additional icons](https://www.listendata.com/2019/06/create-infographics-with-r.html) which is tricky. 
+
+* This is quite advanced for this unit.
+
+:::
+
+:::
+
+![](images/lecture-10/pictorgram_example.png){fig-align="center"}
+
+## Waffle edits
+
+```{r}
+#| echo: FALSE
+#| eval: TRUE
+
+library(waffle)
+library(ggthemes)
+
+people_data = data.frame(
+  Person = c("Maths", "Math Artists", "Math Artists that Play Poker"), 
+  count = c(20*20 - 10, 7, 3))
+
+ggplot(people_data) + 
+  geom_waffle(aes(fill = Person, values = count),
+    n_rows = 10, size = 1, colour = "gray90"
+  ) + 
+  scale_fill_colorblind() +
+  coord_fixed() + 
+  geom_rect(
+    aes(xmin = 39.5, xmax = 40.5),
+    col = "black", fill = NULL,
+    ymin = 0.5, ymax = 10.5, alpha = 0
+  ) +
+  geom_label(x = 50, y = 7, 
+            label = "The maths majors \n who are artists and play poker \n are also just \n maths majors who are artists", 
+             size = 4)  +
+  theme_void() + 
+  labs(title = "        All the Maths Majors") +   theme(axis.text = element_blank(),
+        legend.position = "bottom",
+        plot.title = element_text(size = 20),
+        legend.text = element_text(size = 10)) + 
+  xlim(c(0,60))
+```
+
+<!-- ## An example to recreate -->
+
+<!-- ```{r} -->
+<!-- olympic <- read_csv("data/olympics.csv") -->
+
+<!-- aus_golds = olympic |> -->
+<!--   filter(team == "Australia", sex == "F") |> -->
+<!--   mutate(Gold = factor(ifelse(medal == "Gold", "Yes", "No"), levels = c("Yes", "No")), -->
+<!--          Gold = replace_na(Gold, "No")) |> -->
+<!--   count(Gold)  -->
+
+<!-- ggplot(aus_golds, aes(fill = Gold, values = n)) + -->
+<!--   geom_waffle( -->
+<!--     n_rows = 40, -->
+<!--     size = 0.33, -->
+<!--     colour = "white" -->
+<!--   ) + -->
+<!--   scale_fill_manual( -->
+<!--     name = NULL, -->
+<!--     values = c("green", "grey")) + -->
+<!--   coord_equal() + -->
+<!--   theme_enhance_waffle() + -->
+<!--   ggtitle("How many Aussie female athletes win Gold?") -->
+<!-- ``` -->
+
+<!-- ## Some code to start with -->
+
+<!-- ```{r echo = TRUE, eval = FALSE} -->
+<!-- olympic <- read_csv("data/olympics.csv") -->
+
+<!-- aus_golds = olympic |> -->
+<!--   filter(team == "Australia", sex == "F") |> -->
+<!--   mutate(Gold = factor(ifelse(medal == "Gold", "Yes", "No"), levels = c("Yes", "No")), -->
+<!--          Gold = replace_na(Gold, "No")) |> -->
+<!--   count(Gold) |> -->
+
+<!-- ggplot(data = aus_golds) + -->
+<!--   geom_waffle( ??? ) + -->
+<!--   scale_fill_manual(name = NULL, -->
+<!--     values = c("green", "grey")) + -->
+<!--   coord_???() + -->
+<!--   theme_enhance_waffle() + -->
+<!--   ggtitle("How many Aussie female athletes win Gold?") -->
+<!-- ``` -->
+
+
+## Your turn
+
+:::{.callout-caution}
+
+## Your turn
+
+* Try to recreate my waffle edits
+
+* Change the number of rows in the waffle to 10
+
+* Change the waffle background colour to "gray90"
+
+* Make the waffle size 1
+
+* Add a rectangle to show the math majors who are artists
+
+* Edit the label text 
+
+:::
+
+
+# Missingness {background-color="#006DAE"}
+
+## Example: Survivorship Bias
+
+:::{.columns} 
+
+:::{.column width="50%"}
+
+![](images/lecture-10/survivor-bias.png){fig-align="center"}
+
+Visualisation from WWII by statistician Abraham Wald  [Source](https://en.wikipedia.org/wiki/Survivorship_bias)
+
+:::
+
+:::{.column width="50%"}
+
+:::incremental 
+
+This visualisations shows bullet holes 
+
+:::incremental 
+
+* The pattern of damage shows locations where planes can sustain damage and still return home. 
+
+* The missing areas show where the plane should be reinforced
+
+:::
+
+:::
+
+:::
+
+:::
+
+## Missingness
+
+:::callout-important 
+
+- Understanding what data is not there and why is very important
+
+-   Missing data or incomplete data can lead to a wrong conclusion
+
+-   You should always think consider the missing data
+
+- Visualising what is missing is important
+
+:::
+
+
+## Missing data points
+
+For small datasets you can visual missing data using the [R package naniar](https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html).
+
+```{r echo = TRUE}
+library(naniar)
+ggplot(data = airquality,
+       aes(x = Ozone,
+           y = Solar.R)) +
+  geom_miss_point()
+```
+
+
+## Missingness types
+
+:::{.callout-note}
+## Type 1: Missing completely at random (MCAR)
+
+:::incremental 
+
+* The cause of missingness is unrelated to both the independent variables and the dependent variables.
+
+* Example: A students car breaks down and they miss their exam.
+
+* Reason: The missingness (the student missing the exam) is due to an unpredictable, unrelated external event (a car breakdown). It is not related to any of the independent variables (like the student’s academic history) or the dependent variable (their potential exam score).
+
+* This is the easiest type to deal with: You can ignore the missing values or interpolate them.
+
+:::
+
+:::
+
+## Missingness types
+
+:::{.callout-note}
+## Type 2: Missing at random (MAR)
+
+:::incremental 
+
+* The missingness can be explained by a variable in the dataset. 
+
+* However, the missingness is not related to the dependent variables.
+
+* Example: Students in a group all catch COVID and miss the exam. 
+
+* Reason: The missingness (students missing the exam) is related to an observed variable (belonging to a specific group). However, it is not directly related to the unobserved variable (their exam scores).
+
+* Here we are assuming the groups are not related to academic performance.
+
+* Depending on the data this may require more sophisticed techniques to deal with. 
+
+:::
+
+:::
+
+## Missingness types
+
+:::{.callout-note}
+## Type 3: Missing Not At Random
+
+:::incremental 
+
+* This missingness should not be ignored
+
+* The cause missing data is related to the underlying variables.
+
+* Example: Students who fail the assignments are more likely to skip the exam.
+
+* Reason: The missingness (students who miss the exam) is directly related to the value of the missing data (their exam scores). 
+
+* The missing data, the exam scores, is more likely becasue of the failed assignment grades.
+
+:::
+
+:::
+
+## Your turn
+
+:::{.callout-caution}
+
+## Your turn
+
+What type of missingness is each of the following: 
+
+In a tobacco study: 
+
+* Younger participants report their values less often (regardless of how much they smoke).
+
+* A survey participant unintentionally skips a question.
+
+* Participants who smoke intentionally withhold details about their smoking habits.
+
+:::
+
+
+# Summary {background-color="#006DAE"}
+
+## Wrap Up
+
+:::callout-note
+### Summary 
+
+:::incremental 
+
+* Learnt about infographics
+
+* Know to combine text and other other narrative elements to improve the communication of the key messages 
+
+* Also learnt people aren't great at understanding probabilities and uncertainty
+
+* Uncertainty is challenge for visualisation and communication
+
+* Waffle plots are great a communicating chance 
+
+* Discussed the importance of visualising missing data
+
+:::
+:::
+
+## Solutions 
+
+```{r echo = TRUE, eval = FALSE}
+ggplot(stock, aes(x = date, y = close)) +
+  geom_line() +
+  geom_vline(xintercept = as.numeric(as.Date("2020-01-01")), linetype = 2, color = "red", alpha = 0.4) +
+  geom_vline(xintercept = as.numeric(as.Date("2020-03-18")), linetype = 2, color = "blue", alpha = 0.4) +
+  geom_vline(xintercept = as.numeric(as.Date("2020-11-10")), linetype = 2, color = "blue", alpha = 0.4) +
+  # spring
+  annotate("rect", xmin = as.Date("2021-02-01"), xmax = as.Date("2022-12-01"), ymin = 20, ymax = 38, fill = "blue") +
+  annotate("segment", x = as.Date("2020-03-30"), xend = as.Date("2021-03-01"), y = 40, yend = 30, color = "blue") +
+  annotate("text", x = as.Date("2022-01-01"), y = 30, label = "Apple spring 2020 event", color = "white") +
+  # m1
+  annotate("rect", xmin = as.Date("2021-07-01"), xmax = as.Date("2023-01-01"), ymin = 70, ymax = 88, fill = "blue") +
+  annotate("segment", x = as.Date("2020-11-30"), xend = as.Date("2021-08-01"), y = 90, yend = 80, color = "blue") +
+  annotate("text", x = as.Date("2022-04-01"), y = 80, label = "M1 announcement", color = "white") +
+  # covid
+  annotate("rect", xmin = as.Date("2017-03-01"), xmax = as.Date("2018-11-01"), ymin = 140, ymax = 158, fill = "red") +
+  annotate("segment", x = as.Date("2018-01-01"), xend = as.Date("2019-12-01"), y = 140, yend = 100, color = "red") +
+  annotate("text", x = as.Date("2018-01-01"), y = 150, label = "COVID-19 Pandemic", color = "white") +
+  labs(x = "Date", y = "Closing price USD", title = "Apple Inc stock price during the pandemic") +
+  theme_bw() +
+  theme(aspect.ratio = 0.5,
+        plot.title = element_text(size = 16, face = "bold", hjust = 0.5)
+        )
+```
+
+## Solutions 
+
+```{r fig.align = 'center'}
+ggplot(stock, aes(x = date, y = close)) +
+  geom_line() +
+  geom_vline(xintercept = as.numeric(as.Date("2020-01-01")), linetype = 2, color = "red", alpha = 0.4) +
+  geom_vline(xintercept = as.numeric(as.Date("2020-03-18")), linetype = 2, color = "blue", alpha = 0.4) +
+  geom_vline(xintercept = as.numeric(as.Date("2020-11-10")), linetype = 2, color = "blue", alpha = 0.4) +
+  # spring
+  annotate("rect", xmin = as.Date("2021-02-01"), xmax = as.Date("2022-12-01"), ymin = 20, ymax = 38, fill = "blue") +
+  annotate("segment", x = as.Date("2020-03-30"), xend = as.Date("2021-03-01"), y = 40, yend = 30, color = "blue") +
+  annotate("text", x = as.Date("2022-01-01"), y = 30, label = "Apple spring 2020 event", color = "white") +
+  # m1
+  annotate("rect", xmin = as.Date("2021-07-01"), xmax = as.Date("2023-01-01"), ymin = 70, ymax = 88, fill = "blue") +
+  annotate("segment", x = as.Date("2020-11-30"), xend = as.Date("2021-08-01"), y = 90, yend = 80, color = "blue") +
+  annotate("text", x = as.Date("2022-04-01"), y = 80, label = "M1 announcement", color = "white") +
+  # covid
+  annotate("rect", xmin = as.Date("2017-03-01"), xmax = as.Date("2018-11-01"), ymin = 140, ymax = 158, fill = "red") +
+  annotate("segment", x = as.Date("2018-01-01"), xend = as.Date("2019-12-01"), y = 140, yend = 100, color = "red") +
+  annotate("text", x = as.Date("2018-01-01"), y = 150, label = "COVID-19 Pandemic", color = "white") +
+  labs(x = "Date", y = "Closing price USD", title = "Apple Inc stock price during the pandemic") +
+  theme_bw() +
+  theme(aspect.ratio = 0.5,
+        plot.title = element_text(size = 16, face = "bold", hjust = 0.5)
+        )
+```
+
+## Solutions 
+
+```{r}
+#| echo: TRUE
+#| eval: FALSE
+
+library(waffle)
+library(ggthemes)
+
+people_data = data.frame(
+  Person = c("Maths", "Math Artists", "Math Artists that Play Poker"), 
+  count = c(20*20 - 10, 7, 3))
+
+ggplot(people_data) + 
+  geom_waffle(aes(fill = Person, values = count),
+    n_rows = 10, size = 1, colour = "gray90"
+  ) + 
+  scale_fill_colorblind() +
+  coord_fixed() + 
+  geom_rect(
+    aes(xmin = 39.5, xmax = 40.5),
+    col = "black", fill = NULL,
+    ymin = 0.5, ymax = 10.5, alpha = 0
+  ) +
+  geom_label(x = 50, y = 7, 
+            label = "The maths majors \n who are artists and play poker \n are also just \n maths majors who are artists", 
+             size = 4)  +
+  theme_void() + 
+  labs(title = "        All the Maths Majors") +   theme(axis.text = element_blank(),
+        legend.position = "bottom",
+        plot.title = element_text(size = 20),
+        legend.text = element_text(size = 10)) + 
+  xlim(c(0,60))
+```
+
+## Solutions
+
+```{r}
+#| echo: FALSE
+#| eval: TRUE
+
+library(waffle)
+library(ggthemes)
+
+people_data = data.frame(
+  Person = c("Maths", "Math Artists", "Math Artists that Play Poker"), 
+  count = c(20*20 - 10, 7, 3))
+
+ggplot(people_data) + 
+  geom_waffle(aes(fill = Person, values = count),
+    n_rows = 10, size = 1, colour = "gray90"
+  ) + 
+  scale_fill_colorblind() +
+  coord_fixed() + 
+  geom_rect(
+    aes(xmin = 39.5, xmax = 40.5),
+    col = "black", fill = NULL,
+    ymin = 0.5, ymax = 10.5, alpha = 0
+  ) +
+  geom_label(x = 50, y = 7, 
+            label = "The maths majors \n who are artists and play poker \n are also just \n maths majors who are artists", 
+             size = 4)  +
+  theme_void() + 
+  labs(title = "        All the Maths Majors") +   theme(axis.text = element_blank(),
+        legend.position = "bottom",
+        plot.title = element_text(size = 20),
+        legend.text = element_text(size = 10)) + 
+  xlim(c(0,60))
+```
+
+<!-- ## Solutions  -->
+
+<!-- ```{r echo = TRUE, eval = FALSE} -->
+<!-- ggplot(aus_golds, aes(fill = Gold, values = n)) + -->
+<!--   geom_waffle( -->
+<!--     n_rows = 40, -->
+<!--     size = 0.33, -->
+<!--     colour = "white" -->
+<!--   ) + -->
+<!--   scale_fill_manual( -->
+<!--     name = NULL, -->
+<!--     values = c("green", "grey")) + -->
+<!--   coord_equal() + -->
+<!--   theme_enhance_waffle() + -->
+<!--   ggtitle("How many Aussie female athletes win Gold?") -->
+<!-- ``` -->
+
+<!-- ## Solutions  -->
+
+<!-- ```{r echo = FALSE, eval = TRUE} -->
+<!-- ggplot(aus_golds, aes(fill = Gold, values = n)) + -->
+<!--   geom_waffle( -->
+<!--     n_rows = 40, -->
+<!--     size = 0.33, -->
+<!--     colour = "white" -->
+<!--   ) + -->
+<!--   scale_fill_manual( -->
+<!--     name = NULL, -->
+<!--     values = c("green", "grey")) + -->
+<!--   coord_equal() + -->
+<!--   theme_enhance_waffle() + -->
+<!--   ggtitle("How many Aussie female athletes win Gold?") -->
+<!-- ``` -->
+
+## Solutions 
+
+:::callout-note
+
+* (MAR) In a tobacco study, younger participants report their values less often (regardless of how much they smoke).
+
+* (MCAR) A survey participant unintentionally skips a question.
+
+* (MNAR) In a tobacco study, participants who smoke intentionally withhold details about their smoking habits.
+
+:::
+
+[The other missingness examples can be found here](https://ydata.ai/resources/understanding-missing-data-mechanisms)
