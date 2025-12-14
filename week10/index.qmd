@@ -621,7 +621,10 @@ ggplot(people_data) +
 ```{r}
 #| echo: TRUE
 #| eval: FALSE
-#| code-line-numbers: "1|2-5|7|8|9|11|12|13|14|15-18|19-21|22"
+#| code-line-numbers: "1-5|6-9|10|11-13|14-15|16-18|19-25"
+if(!require(waffle))
+  remotes::install_github("hrbrmstr/waffle")
+
 library(waffle)
 
 people_data = data.frame(
@@ -634,15 +637,15 @@ ggplot(people_data) +
   ) + 
   scale_fill_colorblind() +
   coord_fixed() + 
+  geom_label(x = 30, y = 18, 
+            label = "The number of maths majors \n who are just artists \n is greater than the number \n  that are artists and play poker!", 
+            color = "black", size = 4)  +
   theme_minimal() + 
   labs(title = "One Million Majors in Maths") + 
   theme(axis.text = element_blank(),
         legend.position = "bottom",
         plot.title = element_text(size = 20),
         legend.text = element_text(size = 10)) + 
-  geom_label(x = 30, y = 18, 
-            label = "The number of maths majors \n who are just artists \n is greater than the number \n  that are artists and play poker!", 
-            color = "black", size = 4)  +
   xlim(c(0,40))
 ```
 
