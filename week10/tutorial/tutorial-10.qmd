@@ -1,0 +1,231 @@
+---
+title: "Tutorial-10"
+author: Dr. Kate Saunders
+format: 
+  html:
+    toc: true
+    css: tutorial.css
+    embed-resources: true
+  pdf:
+    toc: true
+editor: visual
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, fig.align = 'center')
+show_solutions = FALSE
+
+library(tidyverse)
+library(colorblindr)
+library(here) 
+
+```
+
+## Creating Infographics
+
+### Learning Objectives
+
+- Practice iterating and polishing your visualisations
+
+- Practice adding additional additive elements to enhance your data narrative
+
+### Motivation
+
+:::callout-note 
+## Motivation 
+
+Effective communication sometimes requries extending you visualisation by adding narrative elements to guide your audience. This includes elements such as text, highlighting, arrows and labels.
+
+In this tutorial, we'll practice adding narrative elements to our visualisation, so we can better deliver the key messages to the audience.
+
+:::
+
+
+### Question 1
+
+The following is a basic example from the [ggplot2 book](https://ggplot2-book.org/annotations) from the section on annotations.
+
+```{r}
+ggplot(economics, aes(date, unemploy)) + 
+  geom_line()
+```
+
+That shows how plots can benefit from additional narrative elements. 
+
+```{r}
+presidential <- subset(presidential, start > economics$date[1])
+
+ggplot(economics) + 
+  geom_rect(
+    aes(xmin = start, xmax = end, fill = party), 
+    ymin = -Inf, ymax = Inf, alpha = 0.2, 
+    data = presidential
+  ) + 
+  geom_vline(
+    aes(xintercept = as.numeric(start)), 
+    data = presidential,
+    colour = "grey50", alpha = 0.5
+  ) + 
+  geom_text(
+    aes(x = start, y = 2500, label = name), 
+    data = presidential, 
+    size = 3, vjust = 0, hjust = 0, nudge_x = 50
+  ) + 
+  geom_line(aes(date, unemploy)) + 
+  scale_fill_manual(values = c("blue", "red")) +
+  xlab("date") + 
+  ylab("unemployment")
+```
+
+(i) Using this code to start. Try adding the text layer to the plot.
+
+```{r}
+#| eval: false
+#| echo: true
+
+presidential <- subset(presidential, start > economics$date[1])
+
+ggplot(economics) + 
+  geom_rect(
+    data = presidential,
+    aes(xmin = start, xmax = end, fill = party), 
+    ymin = -Inf, ymax = Inf, alpha = 0.2, 
+  )  + 
+  geom_line(aes(date, unemploy)) 
+```
+(ii) Fix the colour scale so it appropriately reflects party colours.
+
+(iii) Add vertical lines to better distinguish between the different presidencies.
+
+(iv) Polish the title, axis labels and legends. Use `?economics` to check what units to use.
+
+
+<!-- The plot can be further polished still. Here are some [prompts](https://chatgpt.com/share/693e5967-8574-8011-b36a-bc9920ffb1b3) I used to help me. -->
+
+<!-- ```{r} -->
+<!-- #| echo: false  -->
+
+<!-- min_date = min(economics$date) -->
+<!-- ggplot(economics) +  -->
+<!--   geom_rect( -->
+<!--     aes(xmin = start, xmax = end, fill = party),  -->
+<!--     ymin = -Inf, ymax = Inf, alpha = 0.2,  -->
+<!--     data = presidential -->
+<!--   ) +  -->
+<!--   geom_vline( -->
+<!--     aes(xintercept = as.numeric(start)),  -->
+<!--     data = presidential, -->
+<!--     colour = "gray50", alpha = 0.5, linetype = "dashed" -->
+<!--   ) +  -->
+<!--   geom_text( -->
+<!--     aes(x = start, y = 2500, label = name),  -->
+<!--     data = presidential,  -->
+<!--     size = 2.5, vjust = 0, hjust = 0, nudge_x = 50 -->
+<!--   ) +  -->
+<!--   geom_line(aes(date, unemploy)) +  -->
+<!--   scale_fill_manual(values = c("blue", "red")) + -->
+<!--   xlab("Date") +  -->
+<!--   ylab("Unemployed (in 1000s)") +  -->
+<!--   ggtitle("How does unemployment vary by Presidency?") +  -->
+<!--   theme_bw() +  -->
+<!--   theme( -->
+<!--     legend.position = c(0.2, 0.9), -->
+<!--     legend.direction = "horizontal", -->
+<!--     legend.title = element_blank(), -->
+<!--     legend.background = element_rect( -->
+<!--       fill = "white", -->
+<!--       colour = "grey80", -->
+<!--       linewidth = 0.5 -->
+<!--     ), -->
+<!--     legend.text = element_text(size = 8), -->
+<!--     legend.key.size = unit(0.6, "lines"), -->
+<!--     legend.spacing.x = unit(0.3, "lines") -->
+<!--   ) -->
+
+<!-- ``` -->
+
+
+### Question 2
+
+There are other useful ways to add annotations to your plot such as using the `gghighlight` package. 
+
+```{r}
+#| echo: true
+#| eval: true
+
+if(!require(gghighlight))
+  install.packages("gghighlight")
+
+library(gghighlight)
+```
+
+Take a look at the [examples here](https://github.com/yutannihilation/gghighlight) and [examples here]() 
+
+(i) Use this code to generate a basic plot to start - Warning: It's not good. 
+
+```{r}
+#| echo: false
+big_tech_data = read_csv("../data/big-tech-stock-price.csv")
+```
+
+```{r}
+#| echo: true
+#| eval: false
+big_tech_data = read_csv("week10/data/big-tech-stock-price.csv")
+```
+
+```{r}
+#| echo: true
+ggplot(big_tech_data) +
+    geom_line(aes(x= date, y = high, colour = stock_symbol))
+```
+
+(ii) Use `gghighlight` to show stocks with a `high > 600`. Try looking at `?gghighlight` to get started.
+
+```{r}
+#| echo: false
+
+## Highlight top stocks 
+p <- ggplot(big_tech_data) +
+  geom_line(aes(x= date, y = high, colour = stock_symbol)) + 
+  gghighlight(max(high) > 600)
+
+p
+```
+
+(iii) Try this slight variation as well using `facet_wrap()`
+
+```{r}
+#| echo: false
+
+## Facet warp
+p + 
+  theme_bw() + 
+  facet_wrap(~ stock_symbol)
+```
+
+### Finishing Up
+
+-   Make sure you understand how to position text or a label on your plot by changing the x and y coordinates.
+
+<!-- -   Makes sure you understand how to add a line segment with an arrow. -->
+
+-   Think how you use colour to highlight your messages.
+
+-   Lastly, and most importantly, remember don't always go adding additional elements if they serve your data narrative.
+
+<!-- ::: callout-important -->
+<!-- ## Assignment 2 -->
+
+<!-- Notice the Monash Crime plot is polished: -->
+
+<!-- -   The title, axes labels and legends have all been editted to be more interpretable. -->
+
+<!-- -   The text is appropriately sized. -->
+
+<!-- -   The colour scale is appropriate -->
+
+<!-- **We expect this level of polish from you on Assignment 2.** -->
+<!-- ::: -->
+
+
