@@ -79,37 +79,33 @@ The key message that the plot is conveying is the number of illegal immigrants i
 ::: {.callout-note collapse="true" title="Solutions" icon="false"}
 There many secondary messages. Some of these include:
 
-* The change in the number of illegal immigrants who are minors, single adults and family groups. 
+-   The change in the number of illegal immigrants who are minors, single adults and family groups.
 
-* How different policies have influenced the rate of immigration.
-
+-   How different policies have influenced the rate of immigration.
 :::
 
 (iv) Are the key messages clear and easy to identify?
 
 ::: {.callout-note collapse="true" title="Solutions" icon="false"}
-
 This plot is cognitively overwhelming. While the key message can be identified, it takes time to read and understand.
 
 The secondary messages are confused.
 
 There is much that could be done to improve the communication of the key messages.
-
 :::
 
 (v) Think about the rheteoric situation - If this plot was shown as evidence at a democratic rally would this communication of the key messages be the received the same?
 
 ::: {.callout-note collapse="true" title="Solutions" icon="false"}
-The three aspects of rheteoric situation to be considered are: 
+The three aspects of rheteoric situation to be considered are:
 
-* ethos: The audience at the rally are Trump supporters, so there is implicit trust and credibility when presented with this visualisation. 
+-   ethos: The audience at the rally are Trump supporters, so there is implicit trust and credibility when presented with this visualisation.
 
-* logos: The plot provides evidence that illegal immigration has  increased under the Biden administrative. In many ways as the plot doesn't adhere to the principles of graphical excellence it is misleading. However, as this is a political rally, the point the visualisation is less about creating something that adheres to the principles of graphical excellence and more about having something to point to.
+-   logos: The plot provides evidence that illegal immigration has increased under the Biden administrative. In many ways as the plot doesn't adhere to the principles of graphical excellence it is misleading. However, as this is a political rally, the point the visualisation is less about creating something that adheres to the principles of graphical excellence and more about having something to point to.
 
-* pathos: The motivation behind the visualisation is to energise the voter base and encourage policy support.
+-   pathos: The motivation behind the visualisation is to energise the voter base and encourage policy support.
 
 If the audience was democratic supporters the ethos would not be the same democratic voters are unlikely to trust material provided by the Trump team. The audience also would be less accepting of the bad visualisation and so the logos would also change. And as the voter base would be different, the percieved motivation behind the visualisation would be different. This same communication would therefore not be effective at a democratic rally.
-
 :::
 
 ### Exercise 2
@@ -119,35 +115,29 @@ Discuss in your group's the immigration plots shown by the Washington Post.
 i.  Who is the **audience** for these plots?
 
 ::: {.callout-note collapse="true" title="Solutions" icon="false"}
-
-The audience is readers of the Washington Post, but not just any readers, likely those interested in politics. 
+The audience is readers of the Washington Post, but not just any readers, likely those interested in politics.
 
 Readers of the Washington Post also include more than just US Citizens.
-
 :::
 
 ii. What is the **key** message for each of the below plots?
 
 ::: {.callout-note collapse="true" title="Solutions" icon="false"}
-
 The key messages for each of the below plots are clear. Each of these plots tackle only one aspect of immigration.
 
-In the previous plot, there was too much information. 
+In the previous plot, there was too much information.
 
 Sometimes, you can not display all the information on one plot and you must choice the important messages to tell.
-
 :::
 
 iii. Does voter preference influence how the key messages are communicated and understood for these plots?
 
 ::: {.callout-note collapse="true" title="Solutions" icon="false"}
+These plots are much clearer and present a much more balanced picture of the data and the full story behind the complex issue of illegal immigration in the USA.
 
-These plots are much clearer and present a much more balanced picture of the data and the full story behind the complex issue of illegal immigration in the USA. 
-
-However, it is well understand that news agencies have their own biases. Depending on your voter preference voters perceive different news providers with more or less bias. (This article is a little old but shows the general picture [Business Insider](https://www.businessinsider.com/most-and-least-biased-news-outlets-in-america-2018-6)). 
+However, it is well understand that news agencies have their own biases. Depending on your voter preference voters perceive different news providers with more or less bias. (This article is a little old but shows the general picture [Business Insider](https://www.businessinsider.com/most-and-least-biased-news-outlets-in-america-2018-6)).
 
 The Washington Post is viewed as a news source that is more trusted by democratic voters than republican voters. This means institutional trust will be different and the perceived motives behind the visualisation will be considered differently by each of the different voter bases.
-
 :::
 
 #### Plot 1
@@ -182,14 +172,12 @@ This example shows that sometimes your data will be too complex for one plot! To
 
 This example also shows if you obscure or ignore important variables that are important for understanding patterns in the data, that this is another way to create misleading visualisations.
 
-::: {.callout-important}
-## One more point 
+<!-- ::: callout-important -->
+<!-- ## One more point -->
 
-Another important lesson from considering these visual communication is that people's evidence based reasoning can be overridden when dealing with powerful emotions.
-
-:::
+<!-- Another important lesson from considering these visual communication is that people's evidence based reasoning can be overridden when dealing with powerful emotions. -->
+<!-- ::: -->
 
 ### Note
 
 In Assignment 2, you will combine your own set of plots to tell a data story and share key messages.
-
