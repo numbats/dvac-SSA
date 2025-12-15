@@ -98,85 +98,95 @@ ggplot(economics) +
 
 (iv) Polish the title, axis labels and legends. Use `?economics` to check what units to use.
 
-<!-- The plot can be further polished still. Here are some [prompts](https://chatgpt.com/share/693e5967-8574-8011-b36a-bc9920ffb1b3) I used to help me. -->
+::: {.callout-note collapse="true" title="Solutions" icon="false"}
+```{r}
+#| echo: true
+#| eval: false
 
-<!-- ```{r} -->
+presidential <- subset(presidential, start > economics$date[1])
 
-<!-- #| echo: false -->
+ggplot(economics) + 
+  geom_rect(
+    aes(xmin = start, xmax = end, fill = party), 
+    ymin = -Inf, ymax = Inf, alpha = 0.2, 
+    data = presidential
+  ) + 
+  geom_vline(
+    aes(xintercept = as.numeric(start)), 
+    data = presidential,
+    colour = "grey50", alpha = 0.5
+  ) + 
+  geom_text(
+    aes(x = start, y = 2500, label = name), 
+    data = presidential, 
+    size = 3, vjust = 0, hjust = 0, nudge_x = 50
+  ) + 
+  geom_line(aes(date, unemploy)) + 
+  scale_fill_manual(values = c("blue", "red")) +
+  xlab("Date") +
+  ylab("Unemployed (in 1000s)") +
+  ggtitle("How does unemployment vary by Presidency?")
+```
+:::
 
-<!-- min_date = min(economics$date) -->
+::: {.callout-important collapse="true" title="The plot can be further polished still " icon="false"}
 
-<!-- ggplot(economics) + -->
+To go from the starter version to my final polished verion it took me 34 small iterations. 
 
-<!--   geom_rect( -->
+Here are my core changes, which I tried multiple iterations of to get right: 
 
-<!--     aes(xmin = start, xmax = end, fill = party), -->
+* Updated the theme layer 
 
-<!--     ymin = -Inf, ymax = Inf, alpha = 0.2, -->
+* Moved the legend to improve the data-density of the plot 
 
-<!--     data = presidential -->
+* Changed the vertical line display to make them clearer, while still not being visually distracting 
 
-<!--   ) + -->
+Here are some [prompts](https://chatgpt.com/share/693e5967-8574-8011-b36a-bc9920ffb1b3) I used to help me.
 
-<!--   geom_vline( -->
+```{r}
+#| echo: true
 
-<!--     aes(xintercept = as.numeric(start)), -->
+min_date = min(economics$date)
 
-<!--     data = presidential, -->
+ggplot(economics) +
+  geom_rect(
+    data = presidential,
+    aes(xmin = start, xmax = end, fill = party),
+    ymin = -Inf, ymax = Inf, alpha = 0.2
+    ) +
+  geom_vline(
+    data = presidential,
+    aes(xintercept = as.numeric(start)),
+    colour = "gray50", alpha = 0.5, linetype = "dashed") +
+  geom_text(
+    data = presidential,
+    aes(x = start, y = 2500, label = name),
+    size = 2.5, vjust = 0, hjust = 0, nudge_x = 50
+  ) +
+  geom_line(aes(date, unemploy)) +
+  scale_fill_manual(values = c("blue", "red")) +
+  xlab("Date") +
+  ylab("Unemployed (in 1000s)") +
+  ggtitle("How does unemployment vary by Presidency?") +
+  theme_bw() +
+  theme(
+    legend.position = c(0.2, 0.9),
+    legend.direction = "horizontal",
+    legend.title = element_blank(),
+    legend.background = element_rect(
+    fill = "white",
+    colour = "grey80",
+    linewidth = 0.5
+  ),
+  legend.text = element_text(size = 8),
+  legend.key.size = unit(0.6, "lines"),
+  legend.spacing.x = unit(0.3, "lines")
+)
 
-<!--     colour = "gray50", alpha = 0.5, linetype = "dashed" -->
+```
 
-<!--   ) + -->
+:::
 
-<!--   geom_text( -->
-
-<!--     aes(x = start, y = 2500, label = name), -->
-
-<!--     data = presidential, -->
-
-<!--     size = 2.5, vjust = 0, hjust = 0, nudge_x = 50 -->
-
-<!--   ) + -->
-
-<!--   geom_line(aes(date, unemploy)) + -->
-
-<!--   scale_fill_manual(values = c("blue", "red")) + -->
-
-<!--   xlab("Date") + -->
-
-<!--   ylab("Unemployed (in 1000s)") + -->
-
-<!--   ggtitle("How does unemployment vary by Presidency?") + -->
-
-<!--   theme_bw() + -->
-
-<!--   theme( -->
-
-<!--     legend.position = c(0.2, 0.9), -->
-
-<!--     legend.direction = "horizontal", -->
-
-<!--     legend.title = element_blank(), -->
-
-<!--     legend.background = element_rect( -->
-
-<!--       fill = "white", -->
-
-<!--       colour = "grey80", -->
-
-<!--       linewidth = 0.5 -->
-
-<!--     ), -->
-
-<!--     legend.text = element_text(size = 8), -->
-
-<!--     legend.key.size = unit(0.6, "lines"), -->
-
-<!--     legend.spacing.x = unit(0.3, "lines") -->
-
-<!--   ) -->
-
-<!-- ``` -->
 
 ### Question 2
 
@@ -218,24 +228,50 @@ ggplot(big_tech_data) +
 ```{r}
 #| echo: false
 
-## Highlight top stocks 
 p <- ggplot(big_tech_data) +
   geom_line(aes(x= date, y = high, colour = stock_symbol)) + 
-  gghighlight(max(high) > 600)
+  gghighlight(max(high) > 600) ## Highlight top stocks 
 
 p
 ```
+
+::: {.callout-note collapse="true" title="Solutions" icon="false"}
+
+```{r}
+#| echo: true
+#| eval: false
+
+p <- ggplot(big_tech_data) +
+  geom_line(aes(x= date, y = high, colour = stock_symbol)) + 
+  gghighlight(max(high) > 600) ## Highlight top stocks 
+
+p
+```
+:::
 
 (iii) Try this slight variation as well using `facet_wrap()`
 
 ```{r}
 #| echo: false
 
-## Facet warp
 p + 
   theme_bw() + 
-  facet_wrap(~ stock_symbol)
+  facet_wrap(~ stock_symbol) ## Create small multiples
 ```
+
+
+::: {.callout-note collapse="true" title="Solutions" icon="false"}
+
+```{r}
+#| echo: true
+#| eval: false
+
+p + 
+  theme_bw() + 
+  facet_wrap(~ stock_symbol) ## Create small multiples
+```
+
+:::
 
 ### Finishing Up
 
