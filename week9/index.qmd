@@ -185,7 +185,7 @@ We can only absorb so much information at a time.
 ## Contract
 
 ::: incremental
--   As a speaker your job is try to communicate your reserach
+-   As a speaker your job is try to communicate your work
 
 -   As an audience member your job is to listen
 
@@ -425,6 +425,9 @@ key messages in a presentation?
 -   Combines plain text & code (R, Python, Julia).
 
 -   All our unit slides are made in Quarto!
+
+- [Here is cheat sheet](https://rstudio.github.io/cheatsheets/html/quarto.html) for how to use Quarto
+
 :::
 
 . . .
@@ -470,6 +473,12 @@ Let's look at an example : File \> New File \> Quarto Document
 
 You can swap between the code version and visual view 
 
+:::
+
+. . . 
+
+:::callout-important
+And don't forget to **Render** your document to generate the output file
 :::
 
 ## Code chunks
@@ -573,7 +582,7 @@ Closeread has two components: stickies and triggers.
 
 * We need to give them a reference ID (sort of like naming a variable)
 
-* The structure of the ID needs to start with a `#cr-`.
+* The structure of the ID needs to start with a `#cr-` (e.g. `#cr-plot`, `#cr-image`)
 
 ::: 
 
@@ -675,20 +684,20 @@ Live Demo time!
 
 -   Only enough time to make one clear point with a short example
 
-**10 minutes** 1–2 key messages
+**10 minutes** 1–3 key messages
 
 -   Preferably 1 strong message with 2–3 supporting points
 
-**30 minutes** 2–3 key messages
+**30 minutes** 2–4 key messages
 
 -   Enough time to explore each message with evidence and examples
 
-**60 minutes** 3–4 key messages
+**60 minutes** 4–6 key messages
 
 -   Longer duration allows depth, not more messages\
 -   Avoid overloading—audiences retain only a few core ideas.
 
-*Advice - will change a little with situation and context, but broadly
+*This advice will change a little with situation and context, but broadly
 will stay the same*
 :::
 
