@@ -1,0 +1,816 @@
+---
+pagetitle: "ETX2250/ETF5922"
+subtitle: "Interactivity and Animation"
+author: Kate Saunders
+email: "etx2250-etf5922.caulfield-x@monash.edu"
+date: "Lecture 11"
+department: "Department of Econometrics and Business Statistics"
+unit-url: "dvac.ss.numbat.space"
+footer: "ETX2250/ETF5922"
+format: 
+  revealjs: 
+    logo: images/monash-one-line-black-rgb.png
+    slide-number: c
+    multiplex: false
+    theme: ../assets/monash.scss
+    show-slide-number: all
+    show-notes: false
+    controls: true
+    width: 1280
+    height: 720
+    css: [../assets/custom.css, ../assets/lecture-01.css]
+    include-after-body: "../assets/after-body.html"
+    #   boardmarker-width: 5
+    #   buttons: true
+    embed-resources: true
+---
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+
+if(!require(tidyverse))
+  install.packages("tidyverse")
+
+if(!require(ggthemes))
+  install.packages("ggthemes")
+
+if(!require(plotly))
+  install.packages("plotly")
+
+if(!require(gapminder))
+  install.packages("gapminder")
+
+# if(!require(gganimate))
+#   install.packages("gganimate")
+
+library(tidyverse)
+library(ggthemes)
+library(plotly)
+library(gapminder)
+# library(gganimate)
+```
+
+## <br>[`r rmarkdown::metadata$pagetitle`]{.monash-blue} {#etx2250-etf5922-title background-image="images/bg-01.png"}
+
+### `r rmarkdown::metadata$subtitle`
+
+Lecturer: *`r rmarkdown::metadata$author`*
+
+`r rmarkdown::metadata$department`
+
+::: tl
+<br>
+
+<ul class="fa-ul">
+
+<li><i class="fas fa-envelope"></i>`r rmarkdown::metadata$email`</li>
+
+<li><i class="fas fa-calendar-alt"></i> `r rmarkdown::metadata$date`</li>
+
+<li><i class="fa-solid fa-globe"></i><a href="`r rmarkdown::metadata[["unit-url"]]`">`r rmarkdown::metadata[["unit-url"]]`</a> </li>
+
+</ul>
+
+<br>
+:::
+
+## Learning Objectives
+
+We've covered the basics of static visualisations.
+
+It's time to learn about interactive and animated visualisations.
+
+::: {.callout-note}
+
+## Today's class
+
+* Discover the graphical principles behind interactive visualisations
+
+* Learn how to take a ggplot and make it interactive with a few simple lines of code 
+
+* Learn about the grammar of animated graphics 
+
+* Learn how to create our own animated visualisations in R
+
+:::
+
+
+# Interactive Visualisation {background-color="#006DAE"}
+
+
+## Interactive Visualisation
+
+:::{.callout-note}
+
+## Definition
+
+Data visualisation that is directly manipulated and explored through user input.
+
+:::
+
+
+:::{.callout-note}
+
+## Why
+
+:::incremental 
+
+-   Better connect people and data - *Tailor the messages*
+
+-   Make the system playful - *Help people explore the data*
+
+-   Prompt self-reflection - *If I do this, then that happens*
+
+-   Personalise the view - *Audience can chose how they interact with the visual*
+
+-   Reduce cognitive load - *Allows for different display of complex data*
+
+:::
+
+:::
+
+
+## Human Computer Interaction
+
+
+:::{.callout-note}
+
+## What?
+
+Open-ended dialogue between the user and the computer
+
+Enabling the audience to co-author the narrative, i.e. decide what to display.
+
+The shared narrative is created through through user interactions and user inputs 
+
+:::
+
+    
+## User Interactions
+
+![](images/lecture-11/actions.png)
+
+Image from Spencer (2022, Feb. 17). Data in Wonderland. Retrieved from https://ssp3nc3r.github.io/data_in_wonderland
+
+
+## User Inputs
+
+![](images/lecture-11/widgets.png)
+
+Image from Spencer (2022, Feb. 17). Data in Wonderland. Retrieved from https://ssp3nc3r.github.io/data_in_wonderland
+
+
+## Quality Criteria 
+
+::: fragment
+::: callout-note
+## Expressiveness [(Mandatory Condition)]{.monash-gray50}
+
+An interactive visual representation is expressive if it allows the user to carry out the actions needed to acquire the desired information in the data.
+
+:::
+:::
+
+::: fragment
+::: callout-note
+
+## Effectiveness [(Goal-Oriented Condition)]{.monash-gray50}
+
+A measure of how well the user can convey an interaction intent to the computer.
+
+:::
+:::
+
+
+::: fragment
+::: callout-note
+
+## Efficiency [(Desired Condition)]{.monash-gray50}
+
+The balance between benefits and costs of using interactive visualisation. 
+
+:::
+:::
+
+
+## Example: Global Temperature
+
+[https://climate.nasa.gov/vital-signs/global-temperature/](https://climate.nasa.gov/vital-signs/global-temperature/)
+
+<center>
+![](images/lecture-11/global-temperature.png)
+</center>
+
+## Your turn 
+
+:::callout-caution 
+## Your turn 
+
+Follow the link on the previous slide to the interaction visualisation.
+
+* What sort of user interactions are available?
+
+* Can you interact with the visualisation in the way you want?
+
+* Do the interactive elements work effectively?
+
+* Does adding the interactivity help you to understand this visualisation better?
+
+:::
+
+# How do we create one? {background-color="#006DAE"}
+
+## What is plotly?
+
+:::{.callout-note}
+
+## Plotly
+
+* `ploty` is an R library you can use to make interactive, publication-quality graphs. 
+
+* It is free and open source.
+
+:::
+
+. . .
+
+::: fragment
+
+Let's start by installing the *plotly* package.
+
+```{r eval=FALSE, echo=TRUE}
+install.packages("plotly")
+```
+
+:::
+
+## How to create interactive visualisation?
+
+-   First, we need the `ggplot` object
+-   Then using `ggplotly()` function we can convert the  `ggplot` object into interactive graphic
+
+. . . 
+
+:::{.callout-note}
+
+## User inputs to ggplotly()
+
+See `?ggplotly`
+
+-   **p**: a ggplot object
+-   **tooltip**: A character vector specifying which aesthetic mappings to show in the tooltip.
+
+:::
+
+## Example
+
+:::{.callout-caution}
+
+## First
+
+Create a **ggplot** object
+
+:::
+
+```{r echo=TRUE, eval=FALSE}
+library(gapminder)
+
+options(scipen = 999)
+
+gapminder_plot <- gapminder |>
+  filter(year == 2007) |> 
+  ggplot(aes(x = gdpPercap, y = lifeExp, color = continent)) +
+  geom_point() +
+  scale_x_log10() +
+  labs(title = "Life expectency vs GDP per capita by continent in 2007",
+       x = "GDP per capita",
+       y = "Life expectency") +
+  theme_bw() +
+  theme(legend.title = element_blank()) +
+  colorblindr::scale_color_OkabeIto()
+
+gapminder_plot
+```
+
+## Static Plot
+
+```{r}
+options(scipen = 999)
+
+gapminder_plot <- gapminder |>
+  filter(year == 2007) |> 
+  ggplot(aes(x = gdpPercap, y = lifeExp, color = continent)) +
+  geom_point() +
+  scale_x_log10() +
+  labs(title = "Life expectency vs GDP per capita by continent in 2007",
+       x = "GDP per capita",
+       y = "Life expectency") +
+  theme_bw() +
+  theme(legend.title = element_blank()) +
+  colorblindr::scale_color_OkabeIto()
+
+gapminder_plot
+```
+
+## Let's make it interactive
+
+:::{.callout-caution}
+
+## Next
+
+Put the `ggplot` object inside the `ggplotly` function.
+
+:::
+
+```{r echo=TRUE, eval=FALSE}
+ggplotly(gapminder_plot,
+         tooltip = "all")
+```
+
+
+## Interactive Plot
+
+```{r}
+ggplotly(gapminder_plot,
+         tooltip = "all")
+```
+
+
+
+## Tooltip
+
+:::{.callout-note}
+
+## Tooltip
+
+-   A **tooltip** is an element that displays information when we hover over the data.
+
+-  Also known as an info tip 
+
+-   By default, all `aes` mapping variables are shown.
+
+-   What if we want to only display some of the mappings?
+
+:::
+
+```{r echo=TRUE, eval=FALSE}
+# One variable
+ggplotly(gapminder_plot,
+         tooltip = "x")
+
+# More than one variable
+ggplotly(gapminder_plot,
+         tooltip = c("x", "y"))
+```
+
+
+## Tooltip
+
+::: incremental
+
+:::{.callout-note}
+
+## Extra information
+
+-   What if the user is interested in information like country?
+
+-   Remember, the tooltip displays information from the mapping argument
+
+:::
+
+:::
+
+
+## Tooltip
+
+```{r}
+#| code-line-numbers: "3,4,14,15"
+#| echo: true
+#| eval: false
+
+gapminder_plot2 <- gapminder |>
+  filter(year == 2007) |> 
+  ggplot(aes(x = gdpPercap, y = lifeExp, color = continent, 
+             country = country)) +
+  geom_point() +
+  scale_x_log10() +
+  labs(title = "Life expectency vs GDP per capita by continent in 2007",
+       x = "GDP per capita",
+       y = "Life expectency") +
+  theme_bw() +
+  theme(legend.title = element_blank()) +
+  colorblindr::scale_color_OkabeIto()
+
+ggplotly(gapminder_plot2,
+         tooltip = "country")
+```
+
+
+## Tooltip
+
+```{r}
+gapminder_plot2 <- gapminder |>
+  filter(year == 2007) |> 
+  ggplot(aes(x = gdpPercap, y = lifeExp, color = continent, 
+             country = country)) +
+  geom_point() +
+  scale_x_log10() +
+  labs(title = "Life expectency vs GDP per capita by continent in 2007",
+       x = "GDP per capita",
+       y = "Life expectency") +
+  theme_bw() +
+  theme(legend.title = element_blank()) +
+  colorblindr::scale_color_OkabeIto()
+
+ggplotly(gapminder_plot2,
+         tooltip = "country")
+```
+
+
+## Your turn
+
+:::{.callout-caution}
+
+## Your turn
+
+-   Load in the gapminder data.
+-   Create an interactive line plot showing how the European GDP changes over time.
+-   Have the tooltip display country, year, and gdpPercap information.
+
+:::
+
+
+
+# Animation {background-color="#006DAE"}
+
+## Animation
+
+:::{.incremental}
+
+:::{.callout-note}
+
+## Why?
+
+-   Add another dimension.
+-   Provides a more compact delivery of information.
+-   Allows for guided exploration of data, great for talks.
+-   Capture the audience's attention.
+
+:::
+
+:::
+
+
+## Animation
+
+::: fragment
+
+Considerations for making an effective animation.
+
+:::
+
+::: fragment
+
+:::{.callout-note}
+
+## Principles
+
+::: incremental
+
+-   **Pace**: speed of animation
+    -   Quick animations may be hard to follow. Slow animations are boring and tedious.
+
+-   **Perplexity**: amount of information
+    -   It is easy for animations to be overwhelming and confusing. Multiple simple animations can be easier to digest.
+
+-   **Purpose**: Usefulness of using animation
+    -   Is animation needed? Does it provide additional value?
+
+:::
+
+:::
+
+:::
+
+
+## Example
+
+```{r}
+knitr::include_url("https://www.youtube.com/embed/jbkSRLYSojo", height = "570px")
+```
+
+
+## How do we create animated plot?
+
+:::{.callout-note}
+
+## gganimate
+
+-   An extension to the ggplot2 package, designed to create animation and interactive visualisation.
+-   It works by adding **animation-specific layers**
+
+:::
+
+. . .
+
+Let's start by installing a *gganimate* package
+
+```{r eval=FALSE, echo=TRUE}
+install.packages("gganimate")
+```
+
+
+## gganimate
+
+Just like in `ggplot` where there is a grammar of graphics.
+
+In `gganimate` there is a grammar of animation.
+
+This grammar controls movement with:
+
+-   **Transitions (main focus for today)**
+-   Views
+-   Shadows
+-   Entrances/Exits
+-   Easing
+
+You can see more [here](https://gganimate.com/reference/index.html).
+
+## Transitions
+
+Specify how the data changes through the animation
+
+:::{.callout-note}
+## Transition functions
+
+:::{.incremental}
+
+-   `transition_time()`
+    -   Transition the plot through time
+
+-   `transition_reveal()`
+    -   Gradually extend the data used to reveal more information.
+
+-   `transition_layers()`
+    -   Animate the addition of layers to the plot. Can also remove layers.
+
+:::
+
+:::
+
+. . . 
+
+Let's see these in action.
+
+## transition_time()
+
+```{r}
+#| echo: true
+#| eval: false
+
+ggplot(gapminder) +
+  geom_point(aes(x = gdpPercap, y = lifeExp, size = pop,
+                 color = continent)) +
+  scale_x_log10() +
+  theme_bw() +
+  transition_time(year)
+```
+
+
+## transition_reveal()
+
+```{r}
+#| echo: true
+#| eval: false
+
+gapminder |>
+  filter(country == "Australia") |>
+  ggplot(aes(x = year, y = gdpPercap)) +
+  geom_line() +
+  geom_point() +
+  theme_bw() +
+  transition_reveal(year)
+```
+
+## transition_layers()
+
+```{r}
+#| echo: true
+#| eval: false
+
+ggplot(data = gapminder,
+         aes(x = gdpPercap, y = lifeExp)) +
+  geom_point() +
+  geom_smooth() +
+  scale_x_log10() +
+  transition_layers() +
+  enter_fade() 
+```
+
+## Our Waffle: Example
+
+```{r}
+#| echo: true
+#| eval: false
+
+library(ggthemes)
+library(waffle)
+
+people_data_1 = data.frame(
+  Person = c("Maths", "Math Artists", "Math Artists that Play Poker"),
+  count = c(20*20, 0, 0))
+
+people_data_2 = data.frame(
+  Person = c("Maths", "Math Artists", "Math Artists that Play Poker"),
+  count = c(20*20 - 10, 10, 0))
+
+people_data_3 = data.frame(
+  Person = c("Maths", "Math Artists", "Math Artists that Play Poker"),
+  count = c(20*20 - 10, 7, 3))
+
+ggplot() +
+  geom_waffle(data = people_data_1, aes(fill = Person, values = count),
+              n_rows = 20, size = 0.5, color = "white") +
+  geom_waffle(data = people_data_2, aes(fill = Person, values = count),
+              n_rows = 20, size = 0.5, color = "white") +
+  geom_waffle(data = people_data_3, aes(fill = Person, values = count),
+              n_rows = 20, size = 0.5, color = "white") +
+  scale_fill_colorblind() +
+  coord_fixed() +
+  theme_minimal() +
+  labs(title = "One Million Majors in Maths") +
+  theme(axis.text = element_blank(),
+        legend.position = "bottom",
+        plot.title = element_text(size = 20),
+        legend.text = element_text(size = 10)) +
+  transition_layers() +
+  enter_fade() +
+  enter_grow()
+```
+
+## Your turn
+
+:::{.callout-caution}
+
+## Your turn
+
+- Copy the code
+
+- Complete the code to create an animated  visualisation that reveals the line plot
+
+```{r}
+#| echo: true
+#| eval: false
+
+stock <- read_csv("data/big-tech-stock-price.csv") |>
+  mutate(date = ymd(date)) |>
+  filter(stock_symbol == "AAPL",
+         year(date) > 2016)
+
+ggplot(stock) +
+  geom_line(aes(x = date, y = close)) +
+  labs(x = "Date", y = "Closing price",
+       title = "Apple Inc stock price during the pandemic") +
+  theme_bw() +
+  theme(
+    aspect.ratio = 0.5,
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5)
+    ) +
+  ???
+```
+:::
+
+# Wrap Up {background-color="#006DAE"}
+
+## Summary
+
+:::callout-note
+## Summary
+
+* Interactivity and animation are great tools to turn your analysis into more effective, digital story telling.
+
+* Interactivity and animation are also a great way to provide additional detail
+
+* For interactivity remember: expressiveness, effectiveness and efficiency.
+
+* For both interactivity and animation you must always still consider your audience, message and medium
+:::
+
+## Promise
+
+:::callout-important
+## Promise
+
+**I solemnly swear that:**
+
+* I will only use interactive graphics when it is appropriate for audience, message and medium.
+
+* I promise that I won't just add them to everything just because they are cool!
+
+:::
+
+## Down the Rabbit Hole
+
+:::callout-tip
+## Other tools for interactive graphics
+
+If you'd like to continue your adventures in Wonderland:
+
+* `shiny` [interactive web apps](https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/)
+
+* `leaflet` [interactive maps](https://bookdown.org/nicohahn/making_maps_with_r5/docs/leaflet.html)
+
+* `r2d3` [javascript interactivity in R](https://rstudio.github.io/r2d3/)
+
+:::
+
+## A Comment on the Unit 
+
+It's not always obvious what goes on behind the scenes. 
+
+::: callout-tip 
+## What's been changing
+
+Last year I redeveloped this entire unit, and based on the feedback this is what I've worked on this year.
+
+::: incremental 
+
+* Improved and extended all the in class consolidation exercises - Your turns
+
+* Overhauled all the quizzes.  
+Now you get multiple attempts and they recap all the core concepts 
+
+* Updated the data in Workshop 6 and replaced the example 
+
+* Rewrote the Workshop 9 Material: Building the Data Narrative so we have a smooter introduction to Quarto and closeread  
+
+* Updated all the rubrics so they are clearer and added the learning objectives
+
+* Encouraged and expanded the use of AI in this unit
+
+:::
+ 
+:::
+
+# Solutions {background-color="#006DAE"}
+
+## Solution: plotly
+
+```{r}
+sol1 <- gapminder |>
+  filter(continent == "Europe") |>
+  ggplot(aes(x = year, y = gdpPercap, group = country, color = country)) +
+  geom_line() +
+  scale_color_manual(values = country_colors) +
+  theme_bw() +
+  labs(x = "Year", y = "GDP per capita", title = "Europe GDP per capita over time") + 
+  theme(legend.position = "none")
+
+ggplotly(sol1, tooltip = c("x", "y", "country"))
+```
+
+## Solution
+
+```{r}
+#| echo: true
+#| eval: false
+
+stock <- read_csv("data/big-tech-stock-price.csv") |>
+  mutate(date = ymd(date)) |>
+  filter(stock_symbol == "AAPL",
+         year(date) > 2016)
+
+ggplot(stock) +
+  geom_line(aes(x = date, y = close)) +
+  labs(x = "Date", y = "Closing price",
+       title = "Apple Inc stock price during the pandemic") +
+  theme_bw() +
+  theme(
+    aspect.ratio = 0.5,
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5)
+    ) +
+  transition_reveal(date)
+```
+
+<!-- ## Solution -->
+
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| eval: true -->
+
+<!-- stock <- read_csv("data/big-tech-stock-price.csv") |>  -->
+<!--   mutate(date = ymd(date)) |> -->
+<!--   filter(stock_symbol == "AAPL", -->
+<!--          year(date) > 2016)  -->
+
+<!-- ggplot(stock) + -->
+<!--   geom_line(aes(x = date, y = close)) + -->
+<!--   labs(x = "Date", y = "Closing price",  -->
+<!--        title = "Apple Inc stock price during the pandemic") + -->
+<!--   theme_bw() + -->
+<!--   theme( -->
+<!--     aspect.ratio = 0.5, -->
+<!--     plot.title = element_text(size = 16, face = "bold", hjust = 0.5) -->
+<!--     ) + -->
+<!--   transition_reveal(date) -->
+<!-- ``` -->
+
