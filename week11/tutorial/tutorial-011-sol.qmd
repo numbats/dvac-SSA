@@ -103,6 +103,7 @@ I decided to add the difference between the open and close price to my tooltip. 
 
 ```{r}
 #| echo: true
+#| eval: false
 #| message: false
 #| warning: false
 
@@ -137,6 +138,7 @@ Then using plotly I can make this an interactive plot.
 
 ```{r}
 #| echo: true
+#| eval: false
 #| message: false
 #| warning: false
 
