@@ -28,7 +28,7 @@ show_solutions = FALSE
 
 -   Load the `gapminder` package. We will be using this data.
 
--   Also download the big-tech-stock-price.csv data from Moodle
+-   Also download the big-tech-stock-price.csv data from Moodle.
 
 -   Be sure to have installed the `plotly` and `gganimate` packages
 
@@ -48,24 +48,21 @@ In this tutorial, we'll practice creating interactive and animated visualisation
 
 -   Change the tooltip, add new information or change the information shown.
 
-Here is the code to reproduce the Apple stock price plot:
+::: {.callout-note collapse="true" title="Code to reproduce the plot" icon="false"}
 
 ```{r}
 #| message: false
+#| echo: true
 
 library(tidyverse)
 
-```
-
-```{r}
-#| message: false
-
+# you may need to change your data directory
 stock <- read_csv("../data/big-tech-stock-price.csv") |> 
   mutate(date = ymd(date)) |>
   filter(stock_symbol == "AAPL",
          year(date) > 2016) 
 
-ggplot(stock, aes(x = date, y = close)) +
+apple_stock_plot <- ggplot(stock, aes(x = date, y = close)) +
   geom_line() +
   geom_vline(xintercept = as.numeric(as.Date("2020-01-01")), linetype = 2, color = "red", alpha = 0.4) +
   geom_vline(xintercept = as.numeric(as.Date("2020-03-18")), linetype = 2, color = "blue", alpha = 0.4) +
@@ -87,6 +84,13 @@ ggplot(stock, aes(x = date, y = close)) +
   theme(aspect.ratio = 0.5,
         plot.title = element_text(size = 16, face = "bold", hjust = 0.5)
         )
+```
+
+:::
+
+```{r}
+#| echo: false
+apple_stock_plot
 ```
 
 ### Exercise 2
