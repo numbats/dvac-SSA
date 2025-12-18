@@ -21,7 +21,7 @@ schedule <- tribble(
     9, "Building a Data Narrative", "", "",
     10, "Advanced Topics: Infographics, Uncertainty and Missingness", "", "", 
     11, "Advanced Topics: Animation and Interactivity", "", "",
-    12, "Revision", "", "", 
+    12, "Revision - Will be rescheduled closer to the exam. Date: TBC", "", "", 
 )
 
 # Assignment 1: Breaking down published articles
