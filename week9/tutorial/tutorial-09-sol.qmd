@@ -62,6 +62,12 @@ iv. Write about any of the secondary messages or other important details
 
 v.  Write about any important caveats
 
+:::callout-important
+
+A `.qmd` file you can download that provides a solution for this example is on the Moodle - Day 9 Wrap Up.
+
+:::
+
 ### Task 2
 
 Turn your Quarto into a scroll based story.
@@ -77,3 +83,12 @@ iv. Add the headers `:::{.cr-section}` for where you want the scrolling to start
 v.  Inside your scrolly section, add the trigger for when you want your plot to appear and make the messages scroll by one at a time
 
 vi. Advanced: Add in other plots to improve the telling of this data story
+
+:::callout-important
+
+A `.qmd` file you can download that provides a solution for this example is on the Moodle - Day 9 Wrap Up.
+ 
+
+Remember this file won't run unless you've correctly installed the `closeread` template in the same directory as your `.qmd` file.
+
+:::

@@ -1,0 +1,43 @@
+---
+title: "Tutorial 10 Solutions"
+author: "Kate Saunders"
+format: 
+  html:
+    embed-resources: true
+editor: visual
+---
+
+ii\. There is a clear relationship between the maximum temperature and electricity demand.
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| 
+library(tidyverse)
+library(here)
+
+# You many need to change your working directory 
+energy = read_csv("../data/energydata.csv")
+weather = read_csv("../data/weather.csv")
+
+energy_weather = full_join(energy, weather, by = c("Date", "State"))
+
+energy_weather |> 
+  mutate(
+    Day_type = if_else(Day %in% c("Sat", "Sun"),
+                       "Weekend", "Weekday")
+  ) |>
+  ggplot(aes(x = MaxTemp, y = Demand, group = Day_type, col = Day_type)) +
+  geom_point(alpha = 0.25) + 
+  geom_smooth() +
+  facet_wrap(vars(State), scales = "free")
+## Note this is not a polished plot!!!
+```
+
+iii\. In the scatter plot, the x-axis is maximum daily temperature (°C) and on the y-axis is the electricity demand. Each panel shows this relationship for a different state. The two trend lines in each panel show how the relationship between temperature and demand changes between weekdays and weekends. The points are coloured by weekday and weekend to help make this relationship clear.
+
+iv\. As temperatures get hotter, demand gets higher. Similarly, as temperatures get cooler, demand also increases. This is because of the increased needs for heating and cooling. This demand pattern creates a distinctive U Shape which is visible across all states, despite the differences in the temperature between states. Interestingly, the demand on weekdays is consistently higher than on the weekends for all states.
+
+v\. It is important to note that the trend line needs to be interpreted with caution at very high or very low temperatures where there are only a few observations. The extrapolation of the smoothed line in these areas in not reliable.
