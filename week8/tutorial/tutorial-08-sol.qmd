@@ -128,6 +128,26 @@ The key messages for each of the below plots are clear. Each of these plots tack
 In the previous plot, there was too much information.
 
 Sometimes, you can not display all the information on one plot and you must choice the important messages to tell.
+
+-   Key message 1: There has been an increase in illegal immigration under the Biden administration.
+
+    -   Secondary message: The number of illegal crossing reaching record levels in 2022.
+
+-   Key message 2: Illegal immigration has increased for single adults, families and unaccompanied minors.
+
+    -   Secondary message: The number of single adults has had the largest increase compared with the other categories.
+
+    -   Secondary message: The number of single adults arriving has been increasing over the entire period analysed.
+
+    -   Secondary message: For families and unaccompanied minors, the number of illegal immigrants also saw a spike in numbers in 2019.
+
+    -   The changes in immigration trends over this period are related to a number of factors, including changes in immigration policy and a change of presidency, but the full picture is complex. For example, COVID also likely impacted the trends in these figures.
+
+-   Key message 3: Migrants from Mexico, Guatemala and Honduras made up the majority of illegal immigrants during the first Trump administration, but that began to change in 2021. This change is likely unrelated to the change in presidency.
+
+-   Key message 4: Biden has deported, expelled or returned more illegal immigrants than the Trump presidency.
+
+    -   The total illegal immigration figures do not necessarily reflect other aspects of how the system works.
 :::
 
 iii. Does voter preference influence how the key messages are communicated and understood for these plots?
@@ -173,9 +193,11 @@ This example shows that sometimes your data will be too complex for one plot! To
 This example also shows if you obscure or ignore important variables that are important for understanding patterns in the data, that this is another way to create misleading visualisations.
 
 <!-- ::: callout-important -->
+
 <!-- ## One more point -->
 
 <!-- Another important lesson from considering these visual communication is that people's evidence based reasoning can be overridden when dealing with powerful emotions. -->
+
 <!-- ::: -->
 
 ### Note
