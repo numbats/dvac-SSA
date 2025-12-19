@@ -123,6 +123,7 @@ Readers of the Washington Post also include more than just US Citizens.
 ii. What is the **key** message for each of the below plots?
 
 ::: {.callout-note collapse="true" title="Solutions" icon="false"}
+
 The key messages for each of the below plots are clear. Each of these plots tackle only one aspect of immigration.
 
 In the previous plot, there was too much information.
