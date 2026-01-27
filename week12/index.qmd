@@ -815,6 +815,103 @@ There was a lot in this lecture!
 
 :::
 
+## Day 9: Building your Data Narrative
+
+:::callout-note 
+## Building your Data Narrative 
+
+* Learnt more about different modes of delivery (presentations, reports, blogs) 
+
+* Covered practical aspects of tailoring our communication:  
+  - For the audience (how to keep them engaged)
+  - For the medium (structure)
+  - For the length (how many keep messages)
+
+* This included how human perception can be used in slide design 
+
+:::
+
+. . . 
+
+:::callout-warning 
+## Your turn
+
+For a medium of a given (e.g. presentation, report):  
+
+* Do you know the basic structure?   
+* Do you know how many key messages are appropriate?
+
+:::
+
+## Day 9: Quarto and Reproducability
+
+:::callout-note 
+## Quarto
+
+* Covered the basics of reporting using Quarto 
+
+* Quarto provided a flexible and reproducible way to keep your analysis and reporting together. 
+
+* You can combine text, code and visuals in document
+
+* Can export your analysis to word, pdf, slides and html 
+
+:::
+
+. . . 
+
+:::callout-warning
+## Your turn 
+
+* Do you understand what a code chunk is? 
+
+* Can you change code chunk options so your code shows or is hidden? 
+
+* Can you combine text, code and visuals and export to word or pdf formats? 
+
+::: 
+
+## Day 9: Building a Data Narrative
+
+:::callout-note 
+## Building your Data Narrative
+
+* Important to effective communication is how you build the data story 
+
+* In it's most basic form its how you structure you slides or report, but good communicators do more than just this.
+
+* You must think about your key messages and the order you present them
+
+:::
+
+## Day 9: Scrollytelling
+
+:::callout-note 
+## Scrollytelling 
+
+* Scrollytelling is a way to create a layered data narrative
+
+* Build the details sequentially and alongside the audience's understanding
+
+* Great tool for controlling for cognitive load and the speed of the messaging
+
+* We learnt how to create a data narrative, specifically  scrollytelling, in R using the `closeread` package
+
+:::
+
+. . . 
+
+::: callout-warning
+
+## Your turn
+
+If you have a series of key messages:
+
+* Are you able to order them?
+* Can you layer the detail in a way that will make sense to your audience?
+
+:::
+
 # Week 4 {background-color="#006DAE"}
 
 ## Week 4
