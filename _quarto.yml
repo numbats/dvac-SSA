@@ -16,14 +16,15 @@ website:
       - href: index.qmd
         text: Home
         icon: house-fill
-      - text: Discussion
-        icon: chat-fill
-        href: "https://learning.monash.edu/course/view.php?id=24787&section=59"
+      # - text: Discussion
+      #   icon: chat-fill
+      #   href: "https://learning.monash.edu/course/view.php?id=24787&section=59"
       - text: Moodle
         icon: mortarboard-fill
-        href: "https://learning.monash.edu/course/view.php?id=38265"
-    right:
-      - icon: github
+        href: "https://learning.monash.edu/course/view.php?id=49841"
+    # right:
+      - text: Github
+        icon: github
         href: https://github.com/numbats/dvac-SSA
 
 date-format: "D MMMM YYYY"
