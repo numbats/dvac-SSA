@@ -8,21 +8,32 @@ format:
 
 ## Unit Summary
 
-This unit provides a comprehensive introduction to data visualisation. Students will learn how to interpret, evaluate and create visualisations using both Power BI and R. The course begins with the foundational principles of data visualisation, including what makes a visualisation effective and the core design elements. Students will be then introduced to the tools needed to create visualisations and will learn how to choose the right visualisations for different types of data. We will explore single-variable and multivariable plots. Students will develop data wrangling skills, which are essential for cleaning and preparing datasets, and will engage in iterative processes to refine and improve their visualisations. As the course progresses, we’ll cover visual storytelling and more advanced topics such as visualising uncertainty and missing data. Interactive and animated visualizations will also be covered. This unit emphasises hands-on practice and using real-world applications of data visualisation in business. At the end of the unit students will be equipped to effectively communicate data-driven insights using visualisation in their future careers.
+This unit provides a comprehensive introduction to data visualisation, developing critical thinking and problem-solving skills for interpreting, evaluating and creating visualisations using contemporary tools.  Topics include foundational design principles, choosing appropriate visualisations for different data types, single-variable and multivariable plots, and data wrangling for cleaning datasets. You will engage in iterative refinement, visual storytelling, and designing inclusive, accessible visualisations that consider diverse audiences. Advanced topics such as interactivity and animation are also covered. Combined with hands-on practice and real-world business applications, this equips you to communicate data-driven insights effectively in your future career.
 
 ## Learning outcomes
 
-1. Critically evaluate the quality of a data visualisation using the principles of graphical excellence
-2. Successfully create high-quality data visualisations for a given dataset using software, such as Power BI or R.
-3. Develop the skills to effectively use data visualisations to communicate insights to an audience
-4. Develop the skills to effectively use data visualisations to communicate in the appropriate medium, report writing, in presentations and digital storytelling.
-5. Apply advanced topics in data visualisation, such as using interactivity and animation to enhance communication.
+1. Critique data visualisations using principles of graphical excellence, sound design judgement, and statistical thinking
+
+2. Create data visualisations from complex data sets using contemporary technologies for business applications
+
+3. Communicate data-driven insights tailored for audience, message and medium
+
+4. Design interactive data visualisations and animations for data discovery and communication of complex dynamic patterns.
+
+5. Formulate research questions from a data set with exploratory data analysis.
+
+6. Design inclusive and accessible data visualisations for audiences with diverse perspectives, identities, skills and abilities
 
 ## Teaching Team
 
-* **Kate Saunders** - Lecturer and Chief Examiner
-* **Bets Ruscoe** - Instructor
-* **Minh Nguyen** - Instructor
+* **Kate Saunders** - Chief Examiner
+* **Fonti Kaur**
+
+## Teaching schedule
+
+* 3 hour workshop on Monday, Wednesday and Friday each week: 9 am - 12 pm
+
+* 2 hour revision session on Monday, Wednesday and Friday each week: 1 - 3 pm (optional)
 
 ```{r}
 #| label: load_packages
@@ -34,14 +45,8 @@ This unit provides a comprehensive introduction to data visualisation. Students 
 library(tidyverse)
 options(knitr.kable.NA = '')
 source(here::here("course_info.R"))
-week <- as.integer(1 + ((Sys.Date() - as_date(start_semester))/7))
+# week <- as.integer(1 + ((Sys.Date() - as_date(start_semester))/7))
 ```
-
-## Weekly schedule
-
-* 3 hour workshop on Monday, Wednesday and Friday each week: 9 am - 12 pm
-
-* 2 hour practice session and consultation on Monday, Wednesday and Friday each week: timing 1 - 3 pm
 
 ```{r}
 #| label: schedule2
@@ -49,9 +54,10 @@ week <- as.integer(1 + ((Sys.Date() - as_date(start_semester))/7))
 #| warning: false
 #| echo: false
 #| output: asis
+
 schedule |>
     transmute(
-        Week = if_else(Topic == "Mid-semester break", NA, Week, missing = Week),
+        Week = Lecture, 
         Date = format(Date, "%d %b"),
         Show = file.exists(glue::glue("./week{Week}/index.qmd")),
         Show_Tutorial = file.exists(glue::glue("./week{Week}/tutorial/tutorial-0{Week}.qmd")),
@@ -63,5 +69,7 @@ schedule |>
         # Assessments = if_else(is.na(Assignment), Assignment, glue::glue("[{Assignment}]({File})"))
     ) |>
     select(-Show, -Show_Tutorial, -Show_Solution) |>
+    rename(Lecture = Week) |>
     knitr::kable(format = "markdown")
+
 ```
