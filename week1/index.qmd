@@ -143,7 +143,7 @@ Monash University
 ::: {.column width="40%"}
 <center><img src="images/profile-pics/fonti-portrait.jpeg" width="300px"/></center>
 
-**Fonti Kaur**
+**Fonti Kar**
 
 Lecturer  
 Monash University  
@@ -156,17 +156,17 @@ Monash University
 :::{.callout-note}
 ## About Fonti
 
--   `r emoji("graduation")` PhD in ... 
+-   `r emoji("graduation")` PhD in Evolutionary Ecology
 
--   `r emoji("globe")` Home is ... 
+-   `r emoji("globe")` Home is New Zealand + Hong Kong 
 
--   `r emoji("coder")` Research / teaching ... 
+-   `r emoji("coder")` Teaching business stats, data vis and comms
 
--   `r emoji("coder")` R .... 
+-   `r emoji("coder")` R coder since 2010
 
--   `r emoji("coder")` Packages ... 
+-   `r emoji("coder")` Creator of `ohwhaley` and `austraits`
 
--   `r emoji("heart")` Hobby is 
+-   `r emoji("heart")` Hobby is thruhiking and freediving
 
 :::
 
