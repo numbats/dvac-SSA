@@ -197,7 +197,7 @@ You might like to ask each other:
 ::: {.column width="50%"}
 
 ![](https://commons.wikimedia.org/wiki/Special:FilePath/Coffee_and_Friends_%28Unsplash%29.jpg?width=1200)
-
+<span style="font-size: 0.5em; color: grey;"><a href="https://commons.wikimedia.org/wiki/File:Coffee_and_Friends_(Unsplash).jpg" style="color: grey;">Nathan Dumlao nate_dumlao</a>, CC0, via Wikimedia Commons</span>
 :::
 
 ::::
@@ -233,6 +233,36 @@ The material in this unit was mainly developed by Dr. Kate Saunders and Dr. Shan
 
 ## Why take this unit?
 
+:::: {.columns}
+
+<!--Data Visualisation is important! -->
+A picture says a 1000 words
+
+::: {.column width="45%"}
+::: {.callout-tip appearance="minimal"}
+## Visualisation ...
+
+::: incremental
+
+- Is a fundamental skill in quantitative analysis and reporting
+- Supports efficient and clear communication
+- Turns data into insights 
+- Shows patterns, trends, structure, irregularities, relationships among data
+
+:::
+:::
+:::
+
+::: {.column width="55%"}
+![](images/lecture-01/tree_image.png){fig-align="center"}
+
+<!--https://www.cleanpng.com/png-tree-swing-humor-customer-vs-expert-perspectives-tvmebg/download-png.html-->
+:::
+
+::::
+
+## Why take this unit?
+
 <br>
 
 :::: callout-tip
@@ -249,12 +279,10 @@ The material in this unit was mainly developed by Dr. Kate Saunders and Dr. Shan
 :::
 ::::
 
-## About the unit
+## Disclaimer: SSA is an [**INTENSIVE**]{style="color:red;"} unit!
 
 :::: callout-important
-## Summer Semester is an [**INTENSIVE**]{style="color:red;"} unit!
-
-What that means:
+## What that means:
 
 ::: incremental
 -   We will cover 12 weeks of material in 4 weeks
@@ -289,6 +317,17 @@ What that means:
 :::
 ::::
 
+. . . 
+
+:::: callout-note
+## Where to find materials 
+
+[Unit Website](https://dvac.ss.numbat.space/): Lectures, tutorials, solutions
+
+[Moodle](https://learning.monash.edu/course/view.php?id=49841): Quizzes, assignments, assignment submission portal, data sets, zoom links
+
+:::
+
 ## Learning Objectives
 
 :::: callout-note
@@ -310,10 +349,10 @@ What that means:
 :::
 ::::
 
-## Overview of the unit
+## Overview of the unit: Part 1
 
 ::: callout-tip
-## Part 1: Introduction to Data Visualisation
+## Introduction to Data Visualisation
 
 -   Workshop 1: Getting Started with Data Visualisation
 
@@ -324,10 +363,10 @@ What that means:
 
 Note: There are group exercises in workshop 2 and 3 that you need to complete to do your 1st assignment.
 
-## Overview of the unit
+## Overview of the unit: Part 2 
 
 ::: callout-tip
-## Part 2: Visualisation in R
+## Visualisation in R
 
 -   Workshop 4: Visualisation in R: Plots of 1 - 2 Variables
 
@@ -337,10 +376,10 @@ Note: There are group exercises in workshop 2 and 3 that you need to complete to
 
 :::
 
-## Overview of the unit
+## Overview of the unit: Part 3
 
 ::: callout-tip
-## Part 3: Language of Visual Communication
+## Language of Visual Communication
 
 -   Workshop 7: Iterating your Visualisation
 
@@ -350,10 +389,10 @@ Note: There are group exercises in workshop 2 and 3 that you need to complete to
 
 :::
 
-## Overview of the unit
+## Overview of the unit: Part 4
 
 ::: callout-tip
-## Part 4: Advanced Topics in Visualisation
+## Advanced Topics in Visualisation
 
 -   Workshop 10: Infographics (Uncertainty and Missing Data)
 
@@ -499,7 +538,7 @@ Note: There are group exercises in workshop 2 and 3 that you need to complete to
 
 ::: {.callout-caution minimal="true"}
 
-## Discuss: Are these okay? Yay, nay or maybe?
+## Break-out Activity: Are these okay? Yeah, nah or maybe?
 
 * I use AI to complete my weekly quizzes 
 
@@ -524,7 +563,7 @@ What happens if I breach academic integrity? [Click here](https://www.monash.edu
 
 :::
 
-
+<!--
 # Getting Help {background-color="#006DAE"}
 
 ## Where to go if you need help
@@ -589,7 +628,100 @@ What happens if I breach academic integrity? [Click here](https://www.monash.edu
 
 -   [**Do not**]{style="color:red;"} direct emails to my staff account, I receive a high volume of high volume of emails and they risk going into a black hole and never being seen again!
 :::
+::::-->
+
+## Where to go if you need help
+
+<style>
+.help-card {
+  background: #f2f2f2;
+  border-left: 6px solid #0d6efd;
+  border-radius: 6px;
+  padding: 0.6em 0.8em;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+.help-card:hover { background: #e3eeff; }
+.help-card h3 { margin: 0; font-size: 0.9em; }
+.help-card .help-detail {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  font-size: 0.5em;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+.help-card:hover .help-detail {
+  max-height: 600px;
+  opacity: 1;
+}
+</style>
+
+::::: {.columns}
+
+:::: {.column width="35%" .help-card}
+### 1. Mates & Moodle forum 💬
+
+::: {.help-detail}
+**Suitable for:**
+
+- Ask a friend first 
+- General questions about the unit materials, tutorials, or assignment $\rightarrow$ forum
+-   Any emails about general questions will be redirected to the forum.
+-   Sharing helps you learn from each other!
+-   There is no point answering the same question twice (three times, four times etc.)
+-   [**Careful**]{style="color:red;"} not to post code from your assignments or hints. I may deduct marks.
+:::
 ::::
+
+:::: {.column width="35%" .help-card}
+### 2. Practice Session 🙋
+
+::: {.help-detail}
+**Suitable for:**
+
+-   Can work through problems with support
+-   One-on-one help
+-   Get a head start on your assignments
+-   Debug code / fix major issues
+-   Ask detailed questions 
+-   Getting additional feedback
+-   Being really nerdy about the unit!
+:::
+::::
+
+:::: {.column width="35%" .help-card}
+### 3. Unit email ✉️
+
+::: {.help-detail}
+**For personal and urgent enquiries:**
+
+-   Email etx2250-etf5922.caulfield-x\@monash.edu.
+-   Response times are 1 - 2 days but may vary during busy periods.
+-   Email if you notice issues with assessments or Moodle.
+-   For remarking, get feedback from your tutor first. If this doesn't provide clarity, email within 10 days of the due date.
+-   [**Do not**]{style="color:red;"} email my staff account. I receive a high volume of emails and they risk going into a black hole and never being seen again!
+:::
+::::
+
+:::: {.column width="35%" .help-card}
+### 4. AI assistants 🤖
+
+::: {.help-detail}
+**Suitable for:**
+
+-   Explaining concepts in different words
+-   Help understanding R error messages
+-   Brainstorming ideas and checking your understanding
+
+**Be careful:**
+
+-   AI can be confidently wrong, so check against the unit materials.
+-   [**Do not**]{style="color:red;"} paste assessment questions directly into AI (Academic Integrity Breach)
+-   You are responsible for what you submit.
+:::
+::::
+
+:::::
 
 # Time to get started
 
