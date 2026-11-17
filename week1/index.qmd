@@ -261,24 +261,6 @@ A picture says a 1000 words
 
 ::::
 
-## Why take this unit?
-
-<br>
-
-:::: callout-tip
-## Importance of Data Visualisation and Communication
-
-::: incremental
--   Data visualisation is at the core of every Business Analytics Project.
-
--   A picture says a 1000 words: We can turn data into insights using visualisation
-
--   Search and show patterns, trends, structure, irregularities, relationships among data
-
--   Integral for communicating results from an analysis with clarity and efficiency
-:::
-::::
-
 ## Disclaimer: SSA is an [**INTENSIVE**]{style="color:red;"} unit!
 
 :::: callout-important
