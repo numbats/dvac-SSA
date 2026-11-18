@@ -236,9 +236,11 @@ The material in this unit was mainly developed by Dr. Kate Saunders and Dr. Shan
 :::: {.columns}
 
 <!--Data Visualisation is important! -->
-A picture says a 1000 words
 
 ::: {.column width="45%"}
+
+A picture says a 1000 words
+
 ::: {.callout-tip appearance="minimal"}
 ## Visualisation ...
 
@@ -711,161 +713,273 @@ Let's develop some intuition for why data visualisations are important!
 
 # Famous Historical Visualisations {background-color="#006DAE"}
 
-## A history lesson
+```{css echo=FALSE}
+.zoom, img.zoom, .zoom img {
+  transition: transform 0.3s ease;
+}
+.zoom:hover, img.zoom:hover, .zoom img:hover {
+  transform: scale(1.8);
+  position: relative;
+  z-index: 100;
+  cursor: zoom-in;
+}
+```
 
-:::: callout-note
-## Cholera
+## Cholera 
 
-::: incremental
--   In 1854 there was a breakout of the cholera disease in London killing 616 people.
+:::: {.columns}
 
--   At the time it was speculated that the disease was carried in the air.
+::: {.column width="40%"}
+::: {.callout-note appearance="minimal"}
+## What was happening ...
 
--   A physician called John Snow was skeptical and began to collect data...
+::: incremental 
+-   In 1864, 616 people died in London due to a cholera outbreak 
+
+-   The common theory: the disease was **carried in the air**.
+
+-   Physician **John Snow** was skeptical, so he began to collect **data**...
 :::
+
+:::
+:::
+
+::: {.column width="60%"}
+![Snow's original map](images/lecture-01/Cholera_Og_Updated.jpg){.zoom fig-align="center"}
+:::
+
 ::::
 
-## Original Map
+## Showing the data 
 
-```{r,chlorera_org, echo = FALSE, out.width = "50%", fig.align='center'}
-knitr::include_graphics("images/lecture-01/Cholera_Og_Updated.jpg")
-```
+:::: {.columns}
 
-## Close Up
+::: {.column width="40%"}
 
-```{r,chlorera_new, echo = FALSE, out.width = "70%", fig.align='center'}
-knitr::include_graphics("images/lecture-01/cholera.jpg")
-```
+::: {.callout-note appearance="minimal"}
+## Using data visualisation
 
-## Consequences
+:::incremental 
 
-:::: callout-note
-## Map of outbreaks
-
-::: incremental
--   The map showed the cholera was more prevalent around a water pump on Broad Street.
+-  Snow mapped the outbreaks showing deaths **clustered around a water pump** on Broad Street.
 
 -   The pump was closed down.
 
--   Eventually it was established that cholera is a water-borne disease.
+-   Cholera was eventually established as a **water-borne disease**.
 
--   Data visualisation saves lives!
 :::
+
+:::
+
+::: 
+
+::: {.column width="60%"}
+![Close up of the Broad Street area](images/lecture-01/cholera.jpg){.zoom fig-align="center"}
+:::
+
 ::::
 
-## Crimean War
+## Crimean War: Florence Nightingale `r emoji("heart")`
 
-:::: callout-note
-## Florence Nightingale `r emoji("heart")`
+:::: {.columns}
+
+::: {.column width="40%"}
+::: {.callout-note appearance="minimal"}
+## What was happening ...
 
 ::: incremental
--   At the same time Great Britain was at war against Russia in the Crimean peninsula.
+-   Britain was at war with Russia in Crimean peninsula.
 
--   Florence Nightingale is famous as a nurse who treated the wounded soldiers.
+-   Florence Nightingale was a nurse treating wounded soldiers.
 
--   She also advocated to the British Parliament for more sanitary conditions in military hospitals.
+-   She knew the power of data visualisation!
 
--   She knew the power of using data visualisation.
+-   She advocated to Parliament for **more sanitary conditions** in military hospitals.
+
+
 :::
+:::
+:::
+
+::: {.column width="60%"}
+![Nightingale's original rose chart](images/lecture-01/Rose-chart.jpg){.zoom fig-align="center"}
+:::
+
 ::::
 
-## Original Rose Chart
+## The rose chart
 
-```{r, rose_chart, echo = FALSE, out.width = "70%", fig.align='center'}
-knitr::include_graphics("images/lecture-01/Rose-chart.jpg")
-```
+:::: {.columns}
 
-## Recreation of Nightingale's Rose chart
-
-```{r,rose_chart_modern, echo = FALSE, out.width = "50%", fig.align='center'}
-knitr::include_graphics("images/lecture-01/rose-chart-modern.png")
-```
-
--   Blue areas: Preventable deaths
--   Red areas: Deaths from battle wounds
--   Black areas: Other causes
-
-## Aftermath
-
-:::: callout-note
-## Rose chart
+::: {.column width="40%"}
+::: {.callout-note appearance="minimal"}
+## Using data visualisation
 
 ::: incremental
--   The improved sanitation at military hospitals was eventually implemented in civilian hospitals.
+-   Sanitation in military hospitals was improved  
 
--   Data visualisation saves lives.
+- Eventually improved sanitation conditions were also adopted in civilian hospitals
 
--   Florence Nightingale became the first female member of the Royal Statistical Society.
+-   Nightingale became the **first female member of the Royal Statistical Society**
+
 :::
+
+:::
+:::
+
+::: {.column width="60%"}
+
+![](images/lecture-01/rose-chart-modern.png){.zoom fig-align="center"}
+
+[Preventable deaths]{style="color: #87CEEB;"}
+
+[Deaths from battle wounds]{style="color: #FFD1DC;"}
+
+[Other causes]{style="color: #808080;"}
+
+:::
+
 ::::
 
-## Napoleon
+## Minard's plot
 
-:::: callout-note
-## Background
+:::: {.columns}
+
+::: {.column width="60%"}
+![Minard's plot](images/lecture-01/napoleon.png){.zoom fig-align="center"}
+:::
+
+::: {.column width="40%"}
+
+::: {.callout-note appearance="minimal"}
+## What was happening
 
 ::: incremental
 -   In 1812 Napoleon thought it was a good idea to invade Russia.
 
--   This campaign was a disaster for the French.
+-   The campaign was a **disaster** for the French.
 
--   Engineer Charles Joseph Minard captured the extent of this catastrophe using visualisation.
+-   Engineer **Charles Joseph Minard** captured the extent of the catastrophe using visualisation.
 :::
+
+:::
+
+:::
+
 ::::
 
-## Minard's Plot
+## Six variables, one chart
 
-```{r,napoleon, echo = FALSE, out.width = "100%", fig.align='center'}
-knitr::include_graphics("images/lecture-01/napoleon.png")
-```
+:::: {.columns}
 
-## Minard's plot
+::: {.column width="60%"}
+![Minard's plot](images/lecture-01/napoleon.png){.zoom fig-align="center"}
+:::
 
-:::: callout-note
+::: {.column width="40%"}
+
+::: {.callout-note appearance="minimal"}
 ## Infographic
 
-::: incremental
-This visualisation provides information on [6 variables in one chart](https://closeread.dev/gallery/examples/minards-map/).
+Minard's [chart](https://closeread.dev/gallery/examples/minards-map/) shows:
 
+::: incremental
 -   Number of troops
 
--   Whether troops advance or retreat
+-   Advance or retreat
 
 -   Temperature and time
 
 -   Longitude and latitude
 
-Despite the clear message that invading Russia in winter is a bad idea, some people did not learn this lesson.
 :::
+:::
+:::
+
 ::::
 
 ## A bit more on Minard
 
-<iframe width="1120" height="500" src="https://www.youtube.com/embed/sQdpQkDGCAU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+<iframe width="1120" height="500" src="https://www.youtube.com/embed/sQdpQkDGCAU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-</iframe>
+::: aside
+Source: <https://infowetrust.com/finding-minard>. Minard was so well regarded that all French Ministers of Public Works had his creations in the background of their portraits from 1850-1860.
+:::
 
-[^1]
+## Common theme 
 
-[^1]: Source: https://infowetrust.com/finding-minard\] Minard was so well regarded that all Ministers of Public Works in France had his creations in the background of their portraits from 1850-1860.
+::: {style="width: 60%; margin: 0 auto;"}
+::: {.callout-note appearance="minimal"}
+## We learn ...
 
-## What about Modern Visualisations? 
+Data visualisation is a very important tool for communicating with people and supporting them to make decisions.   
 
-<br><br><br>
+It's lead to some very important changes!
 
-:::callout-note
-## Break-out discussion
+::: 
+:::
 
-Take some time to discuss in groups where you encounter data visualisation in your everyday life?
+. . . 
 
+::: {style="width: 60%; margin: 0 auto;"}
+::: {.callout-note appearance="minimal"}
+## Also learn ...
+
+Data visualisation is a very valuable tool for evaluating decisions in hindsight. 
+
+In some cases, communicating what not to do next time!
+
+:::
 :::
 
 # High Profile Data Visualisations {background-color="#006DAE"}
 
+## What about Modern Visualisations? 
+
+<br><br>
+<center>
+::: {style="width: 80%; margin: 0 auto;"}
+:::callout-caution
+## Break-out discussion
+
+Where you encounter data visualisation in your everyday life?
+
+Do you use any data visualisations to make decisions?
+
+Take some time to discuss in groups
+
+:::
+:::
+</center>
+
+## Three Examples
+
+:::: {.columns}
+
+::: {.column width="33%"}
+
+<br><br>
+
+![Covid](images/lecture-01/flattenthecurve_static.png){fig-align="center"}
+:::
+
+::: {.column width="33%"}
+
+<br><br>
+
+![Climate Change](images/lecture-01/Warming_Stripes_Past_And_Future.png){fig-align="center"}
+:::
+
+::: {.column width="33%"}
+![Politics](images/lecture-01/auselectionresults_2025.png){fig-align="center"}
+:::
+
+::::
+
 ## COVID19 Pandemic
 
 :::: callout-note
-## Background
+## What was happening ...
 
 ::: incremental
 -   In the early stages of the COVID19 pandemic, hospital capacity was not able to cope with the amount of cases.
@@ -890,19 +1004,17 @@ A visualisation showing the importance of social distancing ([Source](https://en
 
 ![](images/lecture-01/Katapult_importance_social_distancing.gif){fig-align="center"}
 
-## Communicating Climate Change
+## Climate Change
 
 :::: callout-note
-## Background
+## Communication
 
 ::: incremental
 -   Climate Change is leading to more frequent and more severe weather
 
 -   There are severe socio-economic consequences as a result of more weather and climate extremes.
 
--   It is important to communicate with people that our climate is changing.
-
--   It is also important to communicate that if we reduce our emissions and take rapid action we can slow down the impacts of climate change.
+-   It is important to communicate with people that our climate is changing and to take actions to reduce emissions
 
 -   Professor Ed Hawkins (University of Reading, UK) [created data visualisations](https://ed-hawkins.github.io/climate-visuals/stripes-future.html) to help with this!
 :::
@@ -948,11 +1060,13 @@ A visualisation showing that our choices today will impact our rate of future wa
 
 [Tessalated Hexabin Maps](https://www.abc.net.au/news/elections/federal/2025/results?sortBy=latest&filter=all&selectedRegion=all&selectedParty=all&partyWonBy=all&partyHeldBy=all): Show election result by district on a map
 
-## 2024 US Elections: Demographics
+## 2026 US Senate Elections: Demographics
 
-![](images/lecture-01/exit_polling.png){fig-align="center" width="1700"}
+![](images/lecture-01/us_election_age.png){fig-align="center"}
 
-From [an article on 2024 US election results.](https://www.bbc.com/news/articles/c0lp48ldgyeo)
+From [an article on 2026 US election results.](https://www.npr.org/2026/11/04/nx-s1-6028080/voter-polls-midterms-demographics)
+
+<!--2024: https://www.bbc.com/news/articles/c0lp48ldgyeo-->
 
 ## 2024 US Elections: Policy
 
@@ -1086,9 +1200,11 @@ In other words: we need to learn how to go from [Data-to-Viz!](https://www.data-
 
 ![](images/lecture-01/what_do_you_want_to_show.png){fig-align="center" width="1400"}
 
-Step 1: Is understanding what your data is.
+Step 1: Is understanding what your data is
 
-Step 2: Is understanding what you can show with your data.
+Step 2: Is understanding what you can show with your data 
+
+Step 3: Understanding how best to highlight your data relationships / draw out data comparisons
 
 ## Common types of data relationships
 
@@ -1141,6 +1257,7 @@ Step 2: Is understanding what you can show with your data.
 -   You will learn what makes a good or bad visualisation, and to identify when a visualisaton is misleading.
 
 -   We will revisit some of these examples in later.
+
 :::
 ::::
 
