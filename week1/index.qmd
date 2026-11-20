@@ -1084,6 +1084,16 @@ A world of possibilities
 
 ![](images/lecture-01/world_of_possibilities.png){fig-align="center"}
 
+## 
+
+![](images/lecture-01/what_do_you_want_to_show.png){fig-align="center" width="1400"}
+
+<!-- Step 1: Is understanding what your data is -->
+
+<!-- Step 2: Is understanding what you can show with your data  -->
+
+<!-- Step 3: Understanding how best to highlight your data relationships / draw out data comparisons -->
+
 ## Matching the data the plot
 
 There are lots of different kinds of visualisations.
@@ -1093,15 +1103,13 @@ But before we can create these visualisations ...
 ::: callout-note
 ## Need to learn:
 
--   Which type of plot works best for what type of data?
+-   What are the different types of variables?
 
--   What are the different kinds of data variables?
-
--   What are different types of data?
+-   How does a computer read these in?
 
 -   What can those different kinds of data represent?
 
--   What can you show with that data?
+-   To show different data relationships, what plot type works best?
 :::
 
 In other words: we need to learn how to go from [Data-to-Viz!](https://www.data-to-viz.com/)
@@ -1196,16 +1204,6 @@ In other words: we need to learn how to go from [Data-to-Viz!](https://www.data-
 :::
 ::::
 
-## 
-
-![](images/lecture-01/what_do_you_want_to_show.png){fig-align="center" width="1400"}
-
-Step 1: Is understanding what your data is
-
-Step 2: Is understanding what you can show with your data 
-
-Step 3: Understanding how best to highlight your data relationships / draw out data comparisons
-
 ## Common types of data relationships
 
 :::: callout-note
@@ -1269,17 +1267,18 @@ Step 3: Understanding how best to highlight your data relationships / draw out d
 ::: incremental
 -   You've also learnt there are lots of different kinds of visualisations
 
--   We've learnt about different types of variables and what these variables can represent
+-   Reminder: Different types of variables and what these variables can represent
 
 -   This will be important for when we start building our own data visualisations
 
--   Take a closer look at the [Data-to-Viz website](https://www.data-to-viz.com/) to see what kind of data matches best with what plot.
+-   In your own time: Take a closer look at the [Data-to-Viz website](https://www.data-to-viz.com/) to see what kind of data matches best with what plot.
+
 :::
 ::::
 
-# Getting set up {background-color="#006DAE"}
+# Questions {background-color="#006DAE"}
 
-This content is all made available in the form of pre-recorded videos.
+# Quarto Live Demo {background-color="#006DAE"}
 
 ## First steps
 
@@ -1293,6 +1292,9 @@ This content is all made available in the form of pre-recorded videos.
 -   We'll now go through the steps to install R and RStudio
 
 -   Think about R as the paint (raw materials) and RStudio as the paintbrush and canvas (tools we need to bring the artwork together).
+
+- Quarto is a tool that lives within R Studio that allows us to combine code, text and visualisations into a single reproducible document. We'll use it to create our portfolio of work for this unit.
+
 :::
 
 <!-- ## Installing PowerBI -->
@@ -1372,7 +1374,7 @@ plot <- ggplot(data = gapminder) +
 plot 
 ```
 
-# A Quick Intro to R {background-color="#006DAE"}
+<!-- # A Quick Intro to R {background-color="#006DAE"}
 
 ## Topics covered
 
@@ -1401,7 +1403,7 @@ plot
 -   Know how to install packages and load the package libraries
 
 -   Can assign variables and run basic functions
-:::
+::: -->
 
 <!-- # Strategies for learning R {background-color="#006DAE"} -->
 
