@@ -1,169 +1,530 @@
 ---
-title: "Tutorial 1: Introduction to Data Visualisation"
-# author: "Dr. Kate Saunders"
+title: "Tutorial 1: Introduction to Quarto"
+author: "Dr. Kate Saunders"
 format: 
   html:
     toc: true
     css: ../../assets/tutorial.css
     embed-resources: true
-  pdf:
-    toc: true
 editor: visual
 ---
 
-```{r setup, include = FALSE}
+```{r options, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+show_solutions <- TRUE
 ```
 
 ### Learning Objectives
 
--   Get you started using R
--   Learn your way around RStudio.
--   Become familiar with R, RStudio, RStudio projects.
--   Become confident doing basic computation in R.
+- Get you started using Quarto, R and RStudio.
+- Understand the difference between text and code in a Quarto document.
+- Use code chunks and chunk options to control what appears in your report.
+- Become confident doing basic computation in R using real data.
+
+This tutorial is foundational learning for ULO2 and ULO3.
 
 ### Preparation
 
--   Install R and RStudio
+- Install R and RStudio. Quarto comes bundled with recent versions of RStudio, so you shouldn't need to install it separately.
 
--   Watch/Read the Introductory materials on R provided
+  - **R:** download it from [CRAN](https://cran.r-project.org/) (the Comprehensive R Archive Network). CRAN has many copies, called mirrors, around the world. We recommend choosing a local mirror, such as the [CSIRO mirror in Australia](https://cran.csiro.au/), because downloads are faster. You can see the full list of [mirrors](https://cran.r-project.org/mirrors.html) if you would like a different one.
+  - **RStudio:** download RStudio Desktop from the [Posit website](https://posit.co/download/rstudio-desktop/). Install R first, then RStudio.
 
-### Exercise 1: R Packages
+- Need more help? Follow the [installation instructions](https://startr.numbat.space/modules/starter/installation/) for step by step guidance.
 
-R has many standard functions, like `mean()`, `sum()` and `sqrt()`. Other functions are stored in R packages that can be loaded as needed for specific tasks.
+### Exercise 1: Your First Quarto Document
 
-One of the common packages is the `tidyverse` it contains lots of useful functions for data wrangling and visualisation. In fact the `tidyverse` is actually a [collection](https://tidyverse.org/packages/) of packages.
+In this unit you will write your tutorial answers and assignments in **Quarto**. A Quarto document (a `.qmd` file) lets you put your text, your R code and the output of your code (like plots) in the same place. When you press **Render**, Quarto runs all of your code and turns everything into a polished report. The document you are reading right now was made this way.
 
-The below code checks if the package is already downloaded. If the package is not there if then it uses the `install.package` function to download it.
+#### Your turn:
 
-```{r warning=FALSE, message = FALSE}
-if(!require(tidyverse)){
-    install.packages("tidyverse")
-}
+1.  In RStudio go to `File > New File > Quarto Document...`
+2.  Give it a title, leave the other options as they are and click **Create**.
+3.  Save it as `tutorial-01-practice.qmd` in a folder you will remember. Make a new folder for this unit if you don't have one already.
+4.  Click the **Render** button at the top of the editor (or use the shortcut `Ctrl/Cmd + Shift + K`).
+
+A preview of your document, as a web page (HTML), should appear either in a new window or in the **Viewer** pane in the bottom right of RStudio. Take a moment to compare it to the source `.qmd` document you have been typing in.
+
+::: {.callout-important collapse="true"}
+## What if a window doesn't pop up to show my render?
+
+Don't worry, this happens a lot and your document has almost certainly rendered fine. Try the following, in this order:
+
+1.  Look at the **Background Jobs** tab, next to the Console. If it shows an error in red, read the message. It will usually tell you which line of your document caused the problem.
+2.  Check the **Viewer** pane (bottom right panel, next to Files and Plots). RStudio sometimes shows your render there instead of in a new window.
+3.  Check whether your web browser has blocked a pop-up window. If it has, allow pop-ups from RStudio and render again.
+4.  Click the small gear icon next to the **Render** button. You can choose whether the preview opens in a **Window** or in the **Viewer Pane**. Switch to the other option and render again.
+5.  If none of that works, open the rendered file in your browser yourself. See the section below.
+:::
+
+::: {.callout-tip collapse="true"}
+## What to know about your rendered document
+
+- When you render, Quarto saves the web page next to your `.qmd` file. If your document is called `tutorial-01-practice.qmd`, the web page will be called `tutorial-01-practice.html`. You can open this file in your browser.
+
+- Changes you make in your `.qmd` file will only be reflected in the `.html` file when you render it again. So be sure tocheck that you have saved and rendered your latest edits.
+
+- In this unit, the teaching team will mark your **rendered** quarto document, not the `.qmd` file you edit. This is because the rendered document shows your text, your code and the output of your code all together, which is what we want to see.
+:::
+
+### Exercise 2 Quarto document set up
+
+#### Yaml headers
+
+The block at the very top of your document, between the two lines of `---`, is called the **YAML header**. It holds the main settings for the document, like the title, the author and the output format.
+
+``` yaml
+---
+title: "My first Quarto document"
+author: "Jane Doe"
+format: html
+---
 ```
 
-You can't use function in the `tidyverse` yet though. When you start a new session in RStudio, you will need to load the package into R using the `library` function.
+Each line is a setting, with the name of the setting on the left, then a colon, then the value you want.
 
-```{r warning=FALSE, message = FALSE}
+::: {.callout-important collapse="true"}
+## What if my document won't render after I edit the YAML?
+
+Be careful with the layout of the header. If you accidentally delete a colon, a quotation mark or one of the two lines of `---`, Quarto won't be able to read the header and your document won't render. Check that:
+
+1.  There is a line of `---` above and below your settings.
+2.  Each setting has a colon after its name, followed by a space, then the value.
+3.  Any text in quotation marks, like your title, has a quotation mark at both the start and the end.
+
+If you can't spot the problem, compare your header to the example above, one line at a time.
+:::
+
+::: {.callout-tip collapse="true"}
+## Extra tips: more YAML options, and rendering to Word or PDF
+
+There are many more settings you can add to the YAML header, like a table of contents, a date or a different theme. To see more options for customising your document, have a look at the [Quarto HTML options reference](https://quarto.org/docs/reference/formats/html.html).
+
+You can also render your document to Word or PDF by changing the `format` in the YAML header. For example, to make a Word document change `format: html` to `format: docx`, and to make a PDF change it to `format: pdf`.
+
+``` yaml
+---
+title: "My first Quarto document"
+author: "Jane Doe"
+format: docx
+---
+```
+
+See the Quarto guides for [Word documents](https://quarto.org/docs/output-formats/ms-word.html) and [PDF documents](https://quarto.org/docs/output-formats/pdf-basics.html) for more examples. Rendering to PDF needs a LaTeX installation, which you can get by typing `quarto install tinytex` into the **Terminal** tab (next to the Console). If you run into trouble, stick with HTML or Word for now.
+:::
+
+#### Source vs Visual
+
+RStudio can show your `.qmd` document in **Source** or **Visual** mode. You can switch between them using the **Source** and **Visual** buttons at the top left of the editor.
+
+- **Visual** mode looks a bit like Word or a rendered version of your file. You see your headings and **bold** text formatted as you type.
+- **Source** mode shows you exactly what is in the `.qmd`file, including the coded symbols like `#` for headings and the `**` symbols for bold text.
+
+::: {.callout-important collapse="true"}
+## Can't see the Source and Visual buttons?
+
+Your version of RStudio may be out of date. Update it now by going to `Help > Check for Updates`, or download the latest version from the Posit website. Things will keep going wrong in this unit if you are running an old version, so it is worth doing straight away.
+:::
+
+::: {.callout-tip collapse="true"}
+## Source or Visual mode which one is better?
+
+It depend on what you are doing. Visual mode is easier for writing text, and Source mode is better for editing code and detailed formatting. You can switch between them at any time, so use whichever one works best for you.
+:::
+
+#### Your turn:
+
+1.  Change the `title` in the YAML header to something of your own, and add an `author` line with your name. Render again to see what changed.
+
+2.  Delete everything below the YAML header. Type a new heading by starting a line with `#`, for example `# About me`.
+
+3.  On a new line, write one or two sentences about yourself. Make one word **bold** by putting two asterisks on either side, like `**this**`, and one word *italic* by using single asterisks, like `*this*`. Swap between Visual and Source mode to see how the formatting looks in each.
+
+4.  Render your document again. Did it look like you expected?
+
+### Exercise 3: Text vs Code
+
+A Quarto document is made up of two kinds of content:
+
+- **Text** is the writing for your reader: the headings, sentences and bullet points in your report. You type it like you would in Word, but you use a few simple symbols to control how it looks, like putting `**` on either side of a word to make it bold. These symbols are called **markdown**. They don't tell R to do anything, they only tell Quarto how to format your writing.
+- **Code** is the set of instructions you give to R, like a calculation or a plot. Code lives inside a **code chunk**, and R runs it when you render your document.
+
+Anything that is not inside a code chunk is treated as text. Anything in a code chunk is treated as code, and R will try to run it.
+
+#### Markdown Basics
+
+Here are some markdown basics to get you started:
+
+``` markdown
+# A big heading
+
+## A smaller heading
+
+Some text with **bold** and *italic* words.
+
+-   A bullet point
+-   Another bullet point
+
+1.  A numbered item
+2.  Another numbered item
+```
+
+#### Code chunk basics
+
+A code chunk starts with three backticks and `{r}`, and ends with three backticks. The backtick is the key at the top left of most keyboards, below Esc.
+
+```{r}
+#| echo: fenced
+2 + 2
+```
+
+::: {.callout-tip collapse="true"}
+## Tips for adding code chunks
+
+Easier than typing backticks by hand, you can also use the **Insert** button at the top of the editor and choose **Executable Cell \> R**, or use the shortcut `Ctrl/Cmd + Alt + I`.
+:::
+
+::: {.callout-tip collapse="true"}
+## Need to know on running your code chunks
+
+There are two different ways to run your code, and it is worth knowing the difference.
+
+- **While you are working:** click the green play button at the top right of the chunk to run the whole chunk, or put your cursor on a line and use `Ctrl/Cmd + Enter` to run just that line. The output appears right below the chunk, and in the Console.
+
+- **When you render:** Quarto starts a **fresh** R session, then runs your chunks from the top of the document to the bottom. This means the order of your chunks matters, and anything you only typed into the Console won't exist when you render.
+
+A useful way to think of it is that running a chunk is like testing a recipe as you go, and rendering is cooking the whole meal from scratch with nothing left over from before.
+:::
+
+You can find a cheatsheet that covers more Quarto basics [here](https://rstudio.github.io/cheatsheets/html/quarto.html).
+
+#### Your turn:
+
+1.  Add a new chunk to your document. Inside it, calculate the number of hours in a year using `365 * 24`.
+
+2.  Run the chunk using the play button. Where does the answer show up?
+
+3.  Under the chunk, write a sentence of text that explains what the calculation does. Remember that text goes outside of the chunk.
+
+4.  Render your document. Check that both your calculation and your sentence appear.
+
+5.  Now try something that goes wrong. Type a sentence of normal text *inside* your chunk, for example `This is a sentence`. Render your document and read the error message. R tells you which line it did not understand. Move the sentence outside of the chunk to fix it.
+
+### Exercise 4: Packages and Data
+
+R can be used as a calculator. It has many standard functions, like `mean()`, `sum()` and `sqrt()`. Other functions are stored in R packages that can be loaded as needed for specific tasks, like data visualisation.
+
+We will use two packages in this tutorial:
+
+- `tidyverse`, which is actually a [collection](https://tidyverse.org/packages/) of packages for data wrangling and visualisation.
+- `gapminder`, which contains data on life expectancy, population and GDP for countries around the world.
+
+#### Installing packages
+
+To install the two packages we need today, type the following into the **Console** (typically the panel at the bottom left of RStudio) and press Enter after each line. This can take a few minutes.
+
+```{r}
+install.packages("tidyverse")
+install.packages("gapminder")
+```
+
+#### Loading libraries
+
+Once the packages are installed, create a new code chunk and load them using the function `library()` function. Copy the below chunk and add it at the top of your document under the yaml.
+
+```{r}
+#| label: packages
+#| echo: fenced
+
 library(tidyverse)
+library(gapminder)
 ```
 
-A useful was to think of it is `install.packages()` is like screwing in a lightbulb, and running the `library()` function is light turning the light when you want to use it.
+The lines starting with `#|` are **chunk options**. They change how the chunk behaves. We'll see more shortly.
 
-To check the package has installed correctly try calling `?ggplot`. This will bring up the help menu for this function. If you scroll down the bottom you'll see some examples you can run.
+::: {.callout-tip collapse="true"}
+## Installing vs loading packages
+
+A useful way to think of it is that `install.packages()` is like screwing in a lightbulb, and running the `library()` function is turning the light on when you want to use it. You only need to screw in the lightbulb once, but you need to turn the light on every time you start a new session.
+
+This is why the two jobs live in different places:
+
+- `install.packages()` goes in the **Console**. You do it once, so it should never be inside your document. (If it was, Quarto would try to download the package every time you render!)
+
+- `library()` goes in a set up **code chunk** right at the top of your document, so that everything below it can use the packages.
+:::
+
+::: {.callout-important collapse="true"}
+## What if I get an error about a function or object not being found?
+
+If you forget to load your packages with `library()`, R doesn't know where to find the functions and data you are asking for. The most common error messages are:
+
+```         
+Error in ggplot(data = gapminder) : could not find function "ggplot"
+```
+
+```         
+Error in read_csv("gapminder.csv") : could not find function "read_csv"
+```
+
+```         
+Error: object 'gapminder' not found
+```
+
+These all mean that the package that contains the function or data has not been loaded. The fix is to check that your setup chunk includes:
+
+- `library(tidyverse)`, for `ggplot()` and `read_csv()`
+- `library(gapminder)`, for the `gapminder` data
+
+Make sure the setup chunk is at the **top** of your document, above any code that uses these packages. When you render, Quarto runs your chunks from top to bottom in a fresh R session, so a package you loaded earlier in the Console is not available.
+
+A different error means the package has not been installed yet:
+
+```         
+Error in library(gapminder) : there is no package called 'gapminder'
+```
+
+If you see this, go back to the Console and run `install.packages("gapminder")`. Remember that you only need to install a package once.
+:::
+
+#### Looking at data
+
+The `gapminder` data is in the gapminder package. Once we load the package it is ready to use. Let us have a look at it.
+
+```{r}
+gapminder
+```
+
+You will see a table (called a **data frame** or **tibble**) where each row is a country in a particular year, and each column is something we know about that country. To see just the first few rows, or to get a quick summary of what is in each column, try:
+
+```{r}
+head(gapminder)
+glimpse(gapminder)
+```
+
+You can also see how many rows and columns there are using `nrow()`, `ncol()` or `dim()`, and you can open the help page with `?gapminder` to read about where the data came from.
+
+The columns in `gapminder` are:
+
+| Column      | What it contains                                      |
+|-------------|-------------------------------------------------------|
+| `country`   | The name of the country                               |
+| `continent` | The continent the country belongs to                  |
+| `year`      | The year of the measurement (every 5 years from 1952) |
+| `lifeExp`   | Life expectancy at birth, in years                    |
+| `pop`       | Population                                            |
+| `gdpPercap` | GDP per capita (a measure of wealth), in US dollars   |
+
+#### Reading in data
+
+Most of the time your data won't come in an R package. It will be in a file, often a **CSV** (comma separated values) file. To practice, we will first save a copy of the `gapminder` data as a CSV file using the `write_csv()` function, and then read it back in using the `read_csv()` function. Both functions come from the `tidyverse`.
+
+```{r}
+write_csv(gapminder, "gapminder.csv")
+gapminder_csv <- read_csv("gapminder.csv")
+```
+
+The text in the brackets is the **file path**, which tells R where to find the file. Quarto looks for files starting from the folder your `.qmd` file is saved in, so `gapminder.csv` will appear in the same folder as your document.
+
+::: {.callout-important collapse="true"}
+## Common errors and how to fix them
+
+If you get an error saying `'gapminder.csv' does not exist in current working directory`, then R can't find the file.
+
+The most common reasons are that the data is not in the folder where you ask for it:
+
+- Check the file you are looking for exists in the right place `file.exists("gapminder.csv")`.
+
+- Then check that the directions you gave to look for the file. For Quarto directions are relative to your `.qmd` file. For the RConsole they will be relative to your current working directory, check using `getwd().`
+:::
+
+#### Your turn: Work through the above
+
+1.  Type the `install.packages()` code above into the **Console** to install `tidyverse` and `gapminder`. Wait for each one to finish before moving on.
+
+2.  Add a setup chunk to the top of your document that loads `tidyverse` and `gapminder`. Give it the chunk options `label: packages` and `include: false`. Run the chunk.
+
+3.  Add a new chunk below it that prints the `gapminder` data, then use `head()` and `glimpse()`. How many rows and columns does the data have?
+
+4.  Call the help menu with `?gapminder`. Where does the data come from?
+
+5.  Use `write_csv()` to save the `gapminder` data as `gapminder.csv`, then read it back in using `read_csv()`. Look in the **Files** pane to check the file has been saved next to your document. Does the data you read in look the same as the `gapminder` data from the package?
+
+6.  Render your document. Did the setup chunk stay hidden?
+
+### Exercise 5: R Basics Using Gapminder
+
+In R, we store a **variable** we would like to resuse by assigning it using `<-` (or `=`). (Here the word variable has a slightly different meaning to the usual statistical meaning.)
+
+```{r}
+n_rows <- nrow(gapminder)
+n_rows
+```
+
+Remember that R is case sensitive, so `n_rows` and `N_rows` are different things.
+
+We can pull out a single column of a data frame using the `$` symbol, with the name of the data frame on the left and the name of the column on the right. The result is a **vector**, a list of values of the same type.
+
+```{r}
+life_exp <- gapminder$lifeExp
+head(life_exp)
+str(life_exp)
+```
+
+We can access different elements of the vector using square brackets `[]`.
+
+```{r}
+life_exp[1]
+life_exp[1:5]
+```
+
+Some functions summarise something about the whole vector
+
+```{r}
+mean(life_exp)
+min(life_exp)
+max(life_exp)
+length(life_exp)
+```
+
+Other functions work on each element in the vector
+
+```{r}
+gapminder$pop / 1000000
+log10(gapminder$gdpPercap)
+```
+
+The first line converts the population of each country to millions. The second takes the base 10 logarithm of GDP per capita for every country.
+
+Why do we care about `log10()` in a unit about visualisation? Compare the range of `gdpPercap` with the range of `log10(gdpPercap)`.
+
+```{r}
+range(gapminder$gdpPercap)
+range(log10(gapminder$gdpPercap))
+```
+
+The raw values go from a few hundred dollars to over a hundred thousand dollars, so the wealthiest countries are very far from everyone else. Taking logs squashes this into a much smaller range. You will see why this matters when we make plots in the coming weeks.
+
+::: {.callout-note collapse="true"}
+## Coming up later in the unit
+
+What if we only want the life expectancy for Australia, or only for the year 2007? To pick out **rows** of a data frame we need to use filtering and logical conditions. You will learn about these in the data wrangling weeks, so you don't need to worry about them yet!
+:::
 
 #### Your turn:
 
-1.  Change the above code to install the `cowsay` package
-2.  Load `cowsay` package using the `library()` function
-3.  Try running `cowsay::say()`
-4.  Now try running `cowsay::say(what = "I'm learning R", by = "alligator")`
-5.  Call the help menu to read more about the `?say`function. Then change the function inputs to your name, your favourite animal and your favourite colour (based on the options available).
+1.  Create a variable called `pop` that contains the `pop` column of `gapminder`. Use `length()` to check that it is the same length as the number of rows.
 
-### Exercise 2: Assign a Variable
+2.  Find the mean, minimum and maximum of life expectancy, `lifeExp`. Write a sentence under your chunk that explains what these numbers tell us.
 
-R is more than just as a calculator, you can store things in a **variable**. Here the word variable has a slightly different meaning to the usual statistical meaning.
+3.  Create a vector of the population in millions, called `pop_millions`. What is the largest value?
 
-Let us start with a simple command, type in `a = 5`. Here we assign the value 5 to the variable a.
+4.  Find the `range()` of `gdpPercap`, and the `range()` of `log10(gdpPercap)`. What do you notice?
+
+5.  Try typing `GAPMINDER` or `gapminder$lifeexp` into a chunk and running it. What happens? What does the error (or the result) tell you?
+
+### Exercise 6: The Gapminder Plot and Chunk Options
+
+We are now going to finish with a plot. This is a famous data visualisation, made popular by Hans Rosling. Here is the code, and the result.
 
 ```{r}
-a = 5
+#| eval: true
+#| label: fig-gapminder-example
+#| fig-cap: "Life expectancy against GDP per capita for countries around the world."
+#| fig-alt: "A scatterplot of life expectancy against GDP per capita. Each point is a country and the size of the point shows its population."
+library(tidyverse)
+library(gapminder)
+plot <- ggplot(data = gapminder) + 
+  geom_point(aes(x = gdpPercap, y = lifeExp, size = pop, colour = country)) + 
+  theme(legend.position = "none")
+plot
 ```
 
-Note that you can use either `<-` or `=` to assign variables.
+You don't need to understand how this code works yet. For now, just treat this code as a recipe that you can copy, run and make small changes to.
 
-#### Your turn:
+::: {.callout-note collapse="true"}
+## Coming up later in the unit
 
-1.  Let try `b = 4`
+In the next few lectures we will learn how to build plots like this one from scratch. This includes how `ggplot()` works, what `aes()` is and what `geom_point()` means. We will also learn how customise a plot.
+:::
 
-2.  We can store more than just numbers in a variable. Try storing your name. e.g. `name = 'Jane Doe'`.
+```{=html}
+<!-- Before you run any code, let us practise **reading** the plot. This is the most important habit in data visualisation, and it doesn't need any code.
 
-3.  We can use `str(name)`, `str(a)` to check the structure of the variable, it will show you that variable `name` contains a character and the variable `a` contains numeric.
-
-4.  R is case sensitive. We created a variable `name` in previous step, but try typing `NAME`
-
-### Exercise 3: Basic Computation
-
-Let continue with: `x = 5`, `y = sqrt(16)`, `z = -3`, and `w = x + y + z`
-
-```{r}
-x = 5 
-y = sqrt(16)
-z = -3
-w = x + y + z
+- What is on the x-axis? What is on the y-axis?
+- What do the size and the colour of the points represent?
+- Why do you think the legend has been removed?
+- What is the plot telling us? What is hard to see? -->
 ```
 
-`sqrt(16)` is a function for square root of 16, therefore the value for `y` is 4. To find the value of `w`, type it in to your console. (The answer should be 6).
+Coming back to the chunk options. We saw `include: false` in Exercise 3. Here are the ones you will use most often. You type them at the top of the chunk, one per line, each starting with `#|`.
 
-```{r}
-w
+| Option | What it does |
+|---------------------|---------------------------------------------------|
+| `echo: false` | Hides the code but shows the output |
+| `eval: false` | Shows the code but doesn't run it |
+| `include: false` | Runs the code but hides both the code and the output |
+| `message: false` | Hides messages (like the ones printed when you load `tidyverse`) |
+| `warning: false` | Hides warnings |
+
+```{=html}
+<!-- | `fig-width`, `fig-height` | Sets the size of a figure, in inches |
+| `fig-cap` | Adds a caption below the figure |
+| `fig-alt` | Adds alternative text, which is read aloud to people using a screen reader |
+| `label` | Gives the chunk a name. Use `fig-` at the start for figures | -->
 ```
 
-R can be used as a calculator, to subtract use `-`, to multiply use `*`, to divide use `/` and to take powers use `^`.
+````{=html}
+<!-- For example, this chunk hides the code and gives the figure a size and a caption.
 
-To see all assigned variables so far use:
-
+```` markdown
 ```{r}
-ls()
+#| label: fig-gapminder
+#| echo: false
+#| fig-width: 8
+#| fig-height: 5
+#| fig-cap: "Life expectancy against GDP per capita."
+#| fig-alt: "A scatterplot of life expectancy against GDP per capita."
+
+plot
 ```
+````
 
-You can also look in the environment tab in the top right hand panel of Rstudio to see what variables have been stored.
+Writing a good caption and alternative text is part of communicating with data. The caption should tell your reader what they are looking at, and the alternative text should describe the plot for someone who can't see it. -->
+````
 
-#### Your turn:
-
-1.  Try `h = x^2` and `f = z/y`.
-
-### Exercise 4: Vectors
-
-A vector is a list of the same type of object and is a basic data structure in R that can hold values. Previously `w` had only one value, but we can store multiple values in `w` by using the command `c()`. Here c stands for “combine” or “concatenate”.
-
-For example try:
-
-```{r}
-litres_drank <- c(50, 40, 25, 0)
-litres_drank
-str(litres_drank)
-```
-
-To create a vector of `characters`:
-
-```{r}
-type_of_drink <- c('Coke', 'Pepsi', 'Coke', 'Homebrand')
-type_of_drink
-str(type_of_drink)
-```
-
-We can also access different elements of our vector using square brackets `[]`
-
-```{r}
-litres_drank[2]
-type_of_drink[2]
-```
-
-Sometimes when we apply a function to a vector it will work on each element in the vector
-
-```{r}
-litres_drank*2
-log(litres_drank)
-```
-
-Or the function might summarise something about our vector
-
-```{r}
-table(type_of_drink)
-max(litres_drank)
+```{=html}
+<!-- ::: callout-tip
+When you write a report, your reader usually wants the plot and your interpretation of it, not the code. That is why `echo: false` is useful. For this unit, we will say in each assignment whether to show or hide your code.
+:::  -->
 ```
 
 #### Your turn:
 
-1.  Create two variables: `x1` contains "1,2,3,4,5" and `y1` contains "-1,-2,-3,-4,-5"
+1.  Add a new chunk to your document and copy in the gapminder plot code from above. Run it and render your document.
 
-2.  Compute the mean for `x1` and `y1` by using `mean()`
+2.  Add the chunk option `echo: false` and render again. What changed?
 
-3.  We can find the variance of the vectors `x1` and `y1` using the `var` function.
+3.  Add the chunk option `echo: true` and `eval: false` and render again. What changed?
 
-4.  We can find the correlation between the two vectors `x1` and `y1` using the `cor` function.
+```{=html}
+<!-- 3.  Add a `fig-cap` and a `fig-alt` to your plot.
 
-5.  Now try changing the middle element of `x1` to -3 and the middle element of `y1` to 0, and redo the above exercises.
+4.  Change `fig-width` to `4` and `fig-height` to `8`. Render. Then try `fig-width: 10` and `fig-height: 4`. How does the shape of the plot change how it looks?
 
-##### © Copyright 2025 Monash University
+5.  Make **one** small change to the plot code. For example, delete `size = pop,` from inside `aes()`. Render again. What information did you lose?
+
+6.  Under your plot write two or three sentences of text interpreting what it shows. Remember, a report is text and code working together! -->
+```
+
+## Tutorial Summary
+
+By the end of this tutorial, we expect you to be able to: \* create and render your own Quarto document \* Write text and code in it \* Use chunk options to control what appears in your report \* Load packages, read in data and do basic calculations in R.
+
+Need more help? Check out the [Monash startR modules](https://startr.numbat.space/): Getting Started and Quarto Basics.
+
+## AI Use Statement
+
+This tutorial was prepared with the assistance of AI tools. AI was used to help plan based on specific learning instructions provided by the teaching team. The AI generated an initial draft of this tutorial using an example tutorial and style template. The draft was then reviewed and heavily edited by the author to ensure accuracy, clarity, and alignment with the intended learning objectives.
+
+##### © Copyright 2026 Monash University
