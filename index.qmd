@@ -27,7 +27,7 @@ This unit provides a comprehensive introduction to data visualisation, developin
 ## Teaching Team
 
 * **Kate Saunders** - Chief Examiner
-* **Fonti Kaur**
+* **Fonti Kar**
 
 ## Teaching schedule
 
