@@ -1,0 +1,209 @@
+---
+title: "My first Quarto document!!!"
+author: "Kate Saunders"
+format: html 
+---
+
+# Rendered Version 
+
+Below is my rendered version of my Quarto file and answers. Note, my default chunk options might be slightly different to yours. A recording of me creatig this file will be available on Echo shortly.
+
+## Task 1
+
+We created a Quarto document for the first time and rendered it.
+
+## Task 2
+
+We used headings, wrote normal text and learnt about how to make text bold and italics.
+
+### About Me
+
+Hey I'm Kate. I teach data visualisation.
+
+I think this unit is super **fun!**
+
+I also hope you find it *fun too*!
+
+## Task 3
+
+#### Below is some example text 
+
+Well this is text.
+
+* Example text 1
+
+* Example text 2
+
+But now we want to write some code.
+
+#### Now we will write some example code
+
+```{r}
+#| label: codechunk
+
+365*24
+
+```
+
+Here I am just calculating the number of hours in a year (I'm assuming that my year has 365 days).
+
+I also tested out what happens when I put text in a code chunk: Spoiler alert, things break! 
+
+## Task 4 
+
+This is all about learning about packages, how to install and how to load up the functions. Below is the code to install a function, but I used the chunk setting `#| eval: false` to stop it from evaluating. We don't want that. We only want to run that code once when we first install the packages.
+
+```{r}
+#| echo: true
+#| eval: false
+install.packages("tidyverse")
+install.packages("gapminder")
+```
+
+
+```{r}
+#| label: packages 
+#| include: false
+
+library("tidyverse")
+library("gapminder")
+```
+
+We installed the tidyverse package as we will use that a lot this semester. It contains lots of helpful functions for data analysis and data visualisation. 
+
+We installed the gapminder package as this package contains data, also called gapminder, that we are planning on using. 
+
+Let's take a quick look at that data. 
+
+```{r}
+#| echo: true
+gapminder
+```
+
+In R console I can look at my data with the `View()` function. 
+
+In my Quarto I might want to take a quick look at the first few rows instead of printing everything out. 
+
+```{r}
+#| echo: true
+head(gapminder, 2)
+```
+
+There are other options for looking at your data. 
+
+```{r}
+#| echo: true
+glimpse(gapminder)
+```
+
+Let's try saving this data out and then reading it back in again. 
+
+```{r}
+#| echo: true
+#| eval: true
+write_csv(gapminder, "gapminder.csv")
+gapminder_csv <- read_csv("gapminder.csv")
+glimpse(gapminder_csv)
+all(gapminder == gapminder_csv)
+```
+
+## Task 5 
+
+How else can we look at our data. Well we can find out how many rows and columns it has
+
+```{r}
+#| echo: true
+num_rows = nrow(gapminder)
+num_cols = ncol(gapminder)
+```
+
+Here I have `{r} num_rows` rows and `{r} num_cols` columns.
+
+And the function `dim()` gives you the dimensions of your data, so the rows and the columns.
+
+So let's check that we get the same values:
+
+```{r}
+#| echo: true
+#| eval: true
+dim(gapminder)
+```
+
+1. Create a variable `pop`
+
+```{r}
+pop <- gapminder$pop
+length(pop)
+nrow(gapminder)
+```
+2. Take a look at life expectancy 
+
+```{r}
+#| echo: false
+#| eval: true
+mean_lifeExp <- round(mean(gapminder$lifeExp))
+min_lifeExp <- round(min(gapminder$lifeExp))
+max_lifeExp <- round(max(gapminder$lifeExp))
+```
+
+The average life expectancy is `{r} mean_lifeExp` but the range is `{r} min_lifeExp` to `{r} max_lifeExp`.
+
+3. Calculate the population in millions
+
+```{r}
+pop_in_millions <- pop/1000000
+max(pop_in_millions)
+```
+
+The largest population recorded in this data set is `{r} 1318` million people and that is for the country of China in 2007.
+
+4. Taking a look at the range now
+
+```{r}
+range(gapminder$gdpPercap)
+range(log10(gapminder$gdpPercap))
+```
+We are going to see later why transforming our data can sometimes help communication our messages. A common way to transform our data is using the base 10 log or the exponential.
+
+5. Let's break some stuff
+
+This example shows that our variable names in R are case sensitive! If we get the name wrong our file won't render. 
+```{r}
+#| echo: true
+#| eval: false
+GAPMINDER
+```
+
+Same issue here! But in this example it just returns an empty column instead and gives a warning. Lucky! Good reason to check our warning messages.
+
+```{r}
+#| echo: true
+#| eval: true
+gapminder$LifeExp
+```
+
+## Task 6 
+
+Now let's produce a plot 
+
+```{r}
+#| echo: true
+#| eval: true
+
+plot <- ggplot(data = gapminder) + 
+  geom_point(aes(x = gdpPercap, y = lifeExp, size = pop, colour = country)) + 
+  theme(legend.position = "none")
+plot
+```
+
+# Quarto file
+
+Below is the .qmd file, so you can see the difference between the raw quarto and the rendered version.
+
+```{r}
+cat("````markdown\n")
+cat(readLines("my_first_quarto.qmd"), sep = "\n")
+cat("\n````\n")
+```
+
+
