@@ -460,7 +460,7 @@ In the next few lectures we will learn how to build plots like this one from scr
 Coming back to the chunk options. We saw `include: false` in Exercise 3. Here are the ones you will use most often. You type them at the top of the chunk, one per line, each starting with `#|`.
 
 | Option | What it does |
-|---------------------|---------------------------------------------------|
+|---------------------|--------------------------------------------------|
 | `echo: false` | Hides the code but shows the output |
 | `eval: false` | Shows the code but doesn't run it |
 | `include: false` | Runs the code but hides both the code and the output |
@@ -490,8 +490,7 @@ plot
 ```
 ````
 
-Writing a good caption and alternative text is part of communicating with data. The caption should tell your reader what they are looking at, and the alternative text should describe the plot for someone who can't see it. -->
-````
+Writing a good caption and alternative text is part of communicating with data. The caption should tell your reader what they are looking at, and the alternative text should describe the plot for someone who can't see it. --\> \`\`\`\`
 
 ```{=html}
 <!-- ::: callout-tip

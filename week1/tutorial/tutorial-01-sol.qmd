@@ -209,4 +209,4 @@ cat(readLines("tutorial-01-sol.qmd"), sep = "\n")
 cat("\n````\n")
 ```
 
-
+© Copyright 2026 Monash University
