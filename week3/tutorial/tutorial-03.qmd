@@ -23,15 +23,19 @@ This builds on the last tutorial where you critiqued visualisations based on the
 
 ### Learning Objectives
 
--   Develop skills creating data visualisations in Power BI
+- Develop skills creating data visualisations in Power BI
 
--   Further build your understanding of the principles of graphical excellence
+- Further build your understanding of the principles of graphical excellence
+
+This tutorial targets ULO1 and 2.
 
 ### Preparation
 
--   Ensure you have followed the instructions and have already installed Power BI.
+- Ensure you have followed the Moodle instructions and have already installed Power BI.
 
--   Make sure to have reviewed the Lecture 2 material
+- Make sure to have reviewed the Lecture 2 material
+
+- Watch the videos on Panopto showing examples of how to get started in Power BI.
 
 ## Tasks
 
@@ -61,4 +65,4 @@ Do the opposite role! If you were "bad" - create a beautiful plot, and if you we
 
 <!-- ##### Material developed by Dr. Kate Saunders -->
 
-##### © Copyright 2025 Monash University
+##### © Copyright 2026 Monash University

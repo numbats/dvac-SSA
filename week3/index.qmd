@@ -29,7 +29,7 @@ format:
 library(tidyverse)
 ```
 
-## <br>[`r rmarkdown::metadata$pagetitle`]{.monash-blue} {#etc5523-title background-image="images/bg-01.png"}
+## <br>[`r rmarkdown::metadata$pagetitle`]{.monash-blue} {#etx2250-etf5922-title background-image="images/bg-01.png"}
 
 ### `r rmarkdown::metadata$subtitle`
 
@@ -46,8 +46,10 @@ Lecturer: *`r rmarkdown::metadata$author`*
 
 <li><i class="fas fa-calendar-alt"></i> `r rmarkdown::metadata$date`</li>
 
-<li><i class="fa-solid fa-globe"></i>\<a href="`r rmarkdown::metadata[["unit-url"]]`"\>`r rmarkdown::metadata[["unit-url"]]`</a></li>
+<li><i class="fas fa-globe"></i> <a href="`r rmarkdown::metadata[["unit-url"]]`">`r rmarkdown::metadata[["unit-url"]]`</a></li>
 
+<!--<li><i class="fa-solid fa-globe"></i>\<a href="`r rmarkdown::metadata[["unit-url"]]`"\>`r rmarkdown::metadata[["unit-url"]]`</a></li>
+-->
 </ul>
 
 <br>
@@ -74,11 +76,7 @@ Lecturer: *`r rmarkdown::metadata$author`*
 ## What is Power BI?
 
 :::: callout-note
-## What is Power BI?
-
-It is a common tool used by business analysts.
-
-Does the standard stuff:
+## Power BI is a common tool in business analystics
 
 ::: incremental
 -   **Data Integration**: Importing data and connecting to multiple data sources (Excel, databases, cloud services).
@@ -88,18 +86,51 @@ Does the standard stuff:
 :::
 ::::
 
-## Why Use Power BI?
+. . . 
 
-:::: callout-note
+::: callout-note
 ## What are the key advantages?
 
+* Easy drag-and-drop interface 
+* Employers use it
+* Great for dashboarding and automated reporting.
+
+:::
+
+## Let's look at some examples
+
+:::: callout-note
+## Industry Applications of Power BI
+
+There are many, many examples!
+
 ::: incremental
--   **Ease of Use**: Drag-and-drop interface suitable for beginners.
--   **Employers Use It**: Very common tool for visualisation in business analytics.
--   **Reporting**: It's highly useful for automatic and repeated reporting.
--   **Real-Time Analytics**: Allows real-time data updates for timely insights.
+-   [Tourism Australia](https://www.tourism.australia.com/en/insights/tourism-statistics/aviation-statistics.html) *Which country has the most flights each week into Melbourne Airport?* [NZ]{style="color:white;"}
+
+-   [Vic Health](https://www.health.vic.gov.au/infectious-diseases/local-government-areas-surveillance-report) *What was the most common infection in the Local Government area of Monash?* [Influenza]{style="color:white;"}
+
+-   [Recycling Victoria](https://www.vic.gov.au/victorian-local-government-waste-data-dashboard) *How many tonnes of paper were collected from Monash City Council in 2022?* [52% 5860t]{style="color:white;"}
 :::
 ::::
+
+Notice these examples show mostly simple visualisations (e.g. map, line plot, bar charts) linked with tables. This is where Power BI excels.
+
+## Your turn
+
+::: callout-caution
+## Break-out Activity: Explore some dashboards
+
+<!-- -   Take some time to explore these dashboards -->
+
+-   Consider the ease of use and functionality
+
+-   Form an opinion on whether these are good or bad plots
+
+    -   *Think about graphical principles, visual hierarchy, gestalt principles etc*
+
+-   Try answering my questions from the previous slide
+:::
+
 
 ## Other choices
 
@@ -178,42 +209,6 @@ R is great for data scientists and analysts who need in-depth control over visua
 :::
 ::::
 
-## Let's look at some examples
-
-:::: callout-note
-## Industry Applications of Power BI
-
-There are many, many examples!
-
-<br>
-
-::: incremental
--   [Tourism Australia](https://www.tourism.australia.com/en/insights/tourism-statistics/aviation-statistics.html) *Which country has the most flights each week into Melbourne Airport?* [NZ]{style="color:white;"}
-
--   [Vic Health](https://www.health.vic.gov.au/infectious-diseases/local-government-areas-surveillance-report) *What was the most common infection in the Local Government area of Monash?* [Influenza]{style="color:white;"}
-
--   [Recycling Victoria](https://www.vic.gov.au/victorian-local-government-waste-data-dashboard) *How many tonnes of paper were collected from Monash City Council in 2022?* [52% 5860t]{style="color:white;"}
-:::
-::::
-
-Notice these examples show mostly simple visualisations (e.g. map, line plot, bar charts) linked with tables. This is where Power BI excels.
-
-## Your turn
-
-::: callout-note
-## Your turn
-
--   Take some time to explore these dashboards
-
--   Consider the ease of use and functionality
-
--   Form an opinion on whether these are good or bad plots
-
-    -   *Think about graphical principles, visual hierarchy, gestalt principles etc*
-
--   Try answering my questions from the previous slide
-:::
-
 # Getting Started {background-color="#006DAE"}
 
 ## Installation
@@ -282,10 +277,10 @@ When you are happy with the plot you've chosen for your data it is time to polis
 
 ## Your turn
 
-::: callout-note
-## Your turn
+::: callout-caution
+## Break-out Activity
 
--   Import the same data as me!
+-   Import the same data as me! It's on Moodle
 
 -   Try recreating the same plot in Power BI
 :::
@@ -415,8 +410,8 @@ When you are happy with the plot you've chosen for your data it is time to polis
 
 ## Your turn
 
-::: callout-note
-## Your turn
+::: callout-caution
+## Break-out Activity
 
 -   Try recreating some of these plot types
 
@@ -556,8 +551,8 @@ Shows the percentage by of residents from each census.
 
 ## Your turn
 
-::: callout-note
-## Your turn
+::: callout-caution
+## Break-out Activity
 
 -   Try these different types yourself
 :::
@@ -667,7 +662,7 @@ We'll show you how to create some of these in R
 :::
 ::::
 
-# Summary {background-color="#006DAE"}
+# Wrap Up {background-color="#006DAE"}
 
 ## Summary
 
@@ -688,3 +683,5 @@ We'll show you how to create some of these in R
 -   Discussed more about how to choose the right visualisation for the data and the relationships when want to compare
 :::
 ::::
+
+# Questions {background-color="#006DAE"}
