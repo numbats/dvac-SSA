@@ -73,7 +73,7 @@ df2 <- df %>%
 
 ```
 
-## <br>[`r rmarkdown::metadata$pagetitle`]{.monash-blue} {#etc5523-title background-image="images/bg-01.png"}
+## <br>[`r rmarkdown::metadata$pagetitle`]{.monash-blue} {#etx2250-etf5922-title background-image="images/bg-01.png"}
 
 ### `r rmarkdown::metadata$subtitle`
 
@@ -90,8 +90,10 @@ Lecturer: *`r rmarkdown::metadata$author`*
 
 <li><i class="fas fa-calendar-alt"></i> `r rmarkdown::metadata$date`</li>
 
-<li><i class="fa-solid fa-globe"></i>\<a href="`r rmarkdown::metadata[["unit-url"]]`"\>`r rmarkdown::metadata[["unit-url"]]`</a></li>
+<li><i class="fas fa-globe"></i> <a href="`r rmarkdown::metadata[["unit-url"]]`">`r rmarkdown::metadata[["unit-url"]]`</a></li>
 
+<!--<li><i class="fa-solid fa-globe"></i>\<a href="`r rmarkdown::metadata[["unit-url"]]`"\>`r rmarkdown::metadata[["unit-url"]]`</a></li>
+-->
 </ul>
 
 <br>
@@ -1171,7 +1173,7 @@ Not that dramatic anymore. This is an example of using a misleading x-axis.
 -   Answering yes to these questions means we should give more consideration to including zero on the y-axis.
 :::
 
-# Summary {background-color="#006DAE"}
+# Wrap Up {background-color="#006DAE"}
 
 ## Summary
 
@@ -1192,6 +1194,8 @@ Not that dramatic anymore. This is an example of using a misleading x-axis.
 -   Recognise how visuals can misrepresent data and are going to avoid this!
 :::
 ::::
+
+# Questions {background-color="#006DAE"}
 
 <!-- To dos:  -->
 
